@@ -32,14 +32,23 @@ public class ReturnObjectWrapper<I> {
 
 	/**
 	 * Assert the return object equal to a object.
-	 * <p/>
-	 * @param expected the expected object.
-	 * <p/>
+	 *
+	 * @param expected the expected object value.
 	 * @return the return object wrapper.
 	 */
 	public ReturnObjectWrapper<I> assertEqualTo(I expected) {
 		Assert.assertThat(returnObject, equalTo(expected));
 		return this;
+	}
+
+	/**
+	 * Assert the result of method execution object equal to a object.
+	 *
+	 * @param expected the expected object value.
+	 * @return the return object wrapper.
+	 */
+	public ReturnObjectWrapper<I> resultIsEqualTo(I expected) {
+		return assertEqualTo(expected);
 	}
 
 	/**

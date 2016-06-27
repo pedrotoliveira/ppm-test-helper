@@ -29,18 +29,12 @@ public class GivenData<D> implements Expectations {
 		this.description = description;
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#test(java.lang.Object)
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public MethodInvoker<D> test(final Object testInstance) {
 		return new MethodInvoker<>(testInstance, givenData);
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#when(org.mockito.stubbing.OngoingStubbing)
-	 */
 	@Override
 	public <T> GivenData<D> when(final OngoingStubbing<T> ongoingStubbing) throws Exception {
 		return this;
@@ -63,36 +57,24 @@ public class GivenData<D> implements Expectations {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#doExpectations(br.com.uol.egw.util.test.WeExpect)
-	 */
 	@Override
 	public GivenData<D> doExpectations(final WeExpect weExpect) throws Exception {
 		return expect(weExpect);
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#expect(br.com.uol.egw.util.test.StepChain)
-	 */
 	@Override
 	public GivenData<D> expect(final StepChain chain) {
 		chain.execute();
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#doExpectations(br.com.uol.egw.util.test.StepChain)
-	 */
 	@Override
 	public GivenData<D> doExpectations(final StepChain chain) {
 		return expect(chain);
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#testMethod(java.lang.Object)
-	 */
 	@Override
-	public <I> ReturnObjectWrapper<I> testMethod(I methodCall) {
+	public <I> ReturnObjectWrapper<I> wrapResult(I methodCall) {
 		return new ReturnObjectWrapper<>(methodCall);
 	}
 }

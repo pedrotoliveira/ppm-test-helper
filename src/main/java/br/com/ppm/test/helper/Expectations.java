@@ -2,7 +2,6 @@ package br.com.ppm.test.helper;
 
 import org.mockito.stubbing.OngoingStubbing;
 
-
 /**
  * The Interface Expectations.
  */
@@ -26,7 +25,7 @@ public interface Expectations {
 	 * @throws Exception the exception
 	 */
 	Expectations expect(final WeExpect weExpect) throws Exception;
-	
+
 	/**
 	 * Expect.
 	 *
@@ -72,11 +71,10 @@ public interface Expectations {
 	<I> I test(I testInstance);
 
 	/**
-	 * Test method.
+	 * Wrap a result of a method call.
 	 *
-	 * @param <I> the generic type
 	 * @param methodCall the method call
 	 * @return the return object wrapper
 	 */
-	<I> ReturnObjectWrapper<I> testMethod(I methodCall);
+	<I> ReturnObjectWrapper<I> wrapResult(I methodCall);
 }

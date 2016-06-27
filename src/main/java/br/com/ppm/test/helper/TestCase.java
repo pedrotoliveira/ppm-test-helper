@@ -110,10 +110,10 @@ public class TestCase implements Expectations {
 	}
 
 	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#testMethod(java.lang.Object)
+	 * @see br.com.uol.egw.util.test.Expectations#wrapResult(java.lang.Object)
 	 */
 	@Override
-	public <I> ReturnObjectWrapper<I> testMethod(I methodCall) {
+	public <I> ReturnObjectWrapper<I> wrapResult(I methodCall) {
 		return new ReturnObjectWrapper<>(methodCall);
 	}
 

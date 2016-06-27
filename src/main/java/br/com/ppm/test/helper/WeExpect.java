@@ -2,10 +2,11 @@ package br.com.ppm.test.helper;
 
 
 /**
- * What kind of Excution we Expect?.
+ * What kind of Excution We Expect?.
  *
  * @author pedrotoliveira
  */
+@FunctionalInterface
 public interface WeExpect {
 
 	/**

@@ -9,13 +9,9 @@ import org.mockito.Mockito;
  * <p>
  * @author pedrotoliveira
  */
-public abstract class FluentTestHelper implements FluentTest {
-
-	/** The logger. */
-	private final Logger logger = Logger.getLogger(this.getClass());
-	/**
-	 * The debug mode.
-	 */
+public abstract class FluentTestHelper extends FixtureTestHelper implements FluentTest {
+	
+	private final Logger logger = Logger.getLogger(this.getClass());	
 	private boolean debugMode = false;
 
 	@Override
