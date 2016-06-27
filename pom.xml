@@ -18,6 +18,43 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.target>1.8</maven.compiler.target>		
+		<dependency.version.junit>4.12</dependency.version.junit>
+		<dependency.version.fixture-factory>3.1.0</dependency.version.fixture-factory>
+		<dependency.version.hamcrest-core>1.3</dependency.version.hamcrest-core>
+		<dependency.version.log4j>2.6.1</dependency.version.log4j>
 	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${dependency.version.junit}</version>
+		</dependency>
+		<dependency>
+			<groupId>br.com.six2six</groupId>
+			<artifactId>fixture-factory</artifactId>
+			<version>${dependency.version.fixture-factory}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>            
+			<version>${dependency.version.hamcrest-core}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.10.19</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${dependency.version.log4j}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${dependency.version.log4j}</version>
+		</dependency>
+	</dependencies>
 </project>
