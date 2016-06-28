@@ -1,7 +1,11 @@
 # PPM Test Helper
+=================
+
 A general library to help you to build fast and fluent unit tests.
 
 Requires: JDK 8
+
+[![Build Status](https://travis-ci.org/pedrotoliveira/ppm-test-helper.svg?branch=master](https://travis-ci.org/pedrotoliveira/ppm-test-helper)
 
 Depends On:
 JUnit - 4.12
