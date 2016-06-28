@@ -47,7 +47,6 @@ public final class Step<T> implements WeExpect, StubbingWrapper<T> {
 		//Actually Do Nothing...
 	}
 
-	@Override
 	public void execution(Object... mocks) throws Exception {
 		execute();
 	}
@@ -96,6 +95,6 @@ public final class Step<T> implements WeExpect, StubbingWrapper<T> {
 
 	@Override
 	public <D> GivenDataAndStubbing<D, T> then() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 }

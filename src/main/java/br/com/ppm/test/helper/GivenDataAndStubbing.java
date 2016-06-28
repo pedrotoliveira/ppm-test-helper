@@ -23,7 +23,7 @@ public class GivenDataAndStubbing<D, T> {
 		return stub;
 	}
 	
-	public GivenData<D> returnValue(T value) {
+	public GivenData<D> expectReturn(T value) {
 		stub.thenReturn(value);
 		return getGivenData();
 	}

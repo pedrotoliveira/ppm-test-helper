@@ -27,16 +27,6 @@ public interface Expectations {
 	Expectations expect(final WeExpect weExpect) throws Exception;
 
 	/**
-	 * Expect.
-	 *
-	 * @param <T> the generic type
-	 * @param ongoingStubbing the ongoing stubbing
-	 * @return the expectations
-	 * @throws Exception the exception
-	 */
-	<T> Expectations expect(final OngoingStubbing<T> ongoingStubbing) throws Exception;
-
-	/**
 	 * Do expectations.
 	 *
 	 * @param weExpect the we expect
@@ -44,14 +34,6 @@ public interface Expectations {
 	 * @throws Exception the exception
 	 */
 	Expectations doExpectations(final WeExpect weExpect) throws Exception;
-
-	/**
-	 * Expect.
-	 *
-	 * @param chain the chain
-	 * @return the expectations
-	 */
-	Expectations expect(final StepChain chain);
 
 	/**
 	 * Do expectations.

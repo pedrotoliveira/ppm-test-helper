@@ -14,12 +14,32 @@ import static org.mockito.Mockito.times;
  *
  * @param <I> the generic type
  */
-public class ReturnObjectWrapper<I> {
+public class ReturnObjectWrapper<I> implements Asserts {
 
 	/**
 	 * The return object.
 	 */
 	private final I returnObject;
+
+	@Override
+	public <I> Asserts assertThat(I methodCall, Matcher<? super I> matcher) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public Asserts assertTrue(boolean methodCall) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public Asserts assertFalse(boolean methodCall) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public <I> Asserts assertEqualTo(I methodCall, Object expected) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 
 	/**
 	 * Instantiates a new return object wrapper.

@@ -6,8 +6,6 @@ import org.mockito.verification.VerificationMode;
 
 /**
  * Group a InOrder verification Behavior of Mocks
- * <p>
- * .
  *
  * @author pedrotoliveira
  */

@@ -31,9 +31,8 @@ public class GivenData<D> implements Expectations {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public MethodInvoker<D> test(final Object testInstance) {
-		return new MethodInvoker<>(testInstance, givenData);
+		return new MethodInvoker<D>(testInstance, givenData);
 	}
 
 	@Override
@@ -42,13 +41,7 @@ public class GivenData<D> implements Expectations {
 	}
 
 	@Override
-	public GivenData<D> expect(final WeExpect weExpect) throws Exception {
-		weExpect.execution();
-		return this;
-	}
-
-	@Override
-	public <T> GivenData<D> expect(final OngoingStubbing<T> ongoingStubbing) throws Exception {
+	public GivenData<D> expect(final WeExpect weExpect) throws Exception {		
 		return this;
 	}
 
@@ -58,18 +51,12 @@ public class GivenData<D> implements Expectations {
 	}
 
 	@Override
-	public GivenData<D> expect(final StepChain chain) {
-		chain.execute();
-		return this;
-	}
-
-	@Override
-	public GivenData<D> doExpectations(final StepChain chain) {
-		return expect(chain);
-	}
-
-	@Override
 	public <I> ReturnObjectWrapper<I> wrapResult(I methodCall) {
 		return new ReturnObjectWrapper<>(methodCall);
+	}
+
+	@Override
+	public Expectations doExpectations(StepChain chain) {
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 }
