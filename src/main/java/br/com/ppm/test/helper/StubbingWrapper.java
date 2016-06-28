@@ -9,7 +9,7 @@ import org.mockito.stubbing.OngoingStubbing;
  */
 public interface StubbingWrapper<T> extends OngoingStubbing<T> {
 	
-	<T> StubbingWrapper<T> when(final T methodCall) throws Exception;
+	//<T> StubbingWrapper<T> when(final T methodCall) throws Exception;
 	
     <D> GivenDataAndStubbing<D, T> then();
 }
