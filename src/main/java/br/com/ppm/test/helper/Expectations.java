@@ -15,7 +15,7 @@ public interface Expectations {
 	 * @return the expectations
 	 * @throws Exception the exception
 	 */
-	<T> Expectations when(final OngoingStubbing<T> ongoingStubbing) throws Exception;
+	<T> StubbingWrapper<T> when(final T methodCall) throws Exception;
 
 	/**
 	 * Expect.

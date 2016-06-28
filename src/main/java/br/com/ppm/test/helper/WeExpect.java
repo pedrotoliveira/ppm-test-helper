@@ -14,5 +14,5 @@ public interface WeExpect {
 	 *
 	 * @throws Exception the exception
 	 */
-	void execution() throws Exception;
+	void execution(Object... mocks) throws Exception;
 }

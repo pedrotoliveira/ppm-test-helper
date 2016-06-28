@@ -50,68 +50,44 @@ public class TestCase implements Expectations {
 	public GivenData<Object[]> given(Object... data) {
 		return new GivenData<>(data, description);
 	}
-
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#when(org.mockito.stubbing.OngoingStubbing)
-	 */
+	
 	@Override
-	public <T> TestCase when(final OngoingStubbing<T> ongoingStubbing) throws Exception {
-		return this;
+	public <T> StubbingWrapper<T> when(T methodCall) throws Exception {
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#expect(br.com.uol.egw.util.test.WeExpect)
-	 */
 	@Override
 	public TestCase expect(final WeExpect weExpect) throws Exception {
 		weExpect.execution();
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#expect(org.mockito.stubbing.OngoingStubbing)
-	 */
 	@Override
 	public <T> TestCase expect(final OngoingStubbing<T> ongoingStubbing) throws Exception {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#doExpectations(br.com.uol.egw.util.test.WeExpect)
-	 */
 	@Override
 	public TestCase doExpectations(final WeExpect weExpect) throws Exception {
 		return expect(weExpect);
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#expect(br.com.uol.egw.util.test.StepChain)
-	 */
 	@Override
 	public TestCase expect(final StepChain chain) {
 		chain.execute();
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#doExpectations(br.com.uol.egw.util.test.StepChain)
-	 */
 	@Override
 	public TestCase doExpectations(final StepChain chain) {
 		return expect(chain);
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#test(java.lang.Object)
-	 */
 	@Override
 	public <I> I test(I testInstance) {
 		return testInstance;
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#wrapResult(java.lang.Object)
-	 */
 	@Override
 	public <I> ReturnObjectWrapper<I> wrapResult(I methodCall) {
 		return new ReturnObjectWrapper<>(methodCall);

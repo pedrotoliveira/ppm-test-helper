@@ -24,21 +24,6 @@ public abstract class FluentTestHelper extends FixtureTestHelper implements Flue
 		return new TestCase(this, description, logger);
 	}
 
-	@Override
-	public <T> T and(T andData) {
-		return andData;
-	}
-
-	@Override
-	public <T> T with(T withData) {
-		return withData;
-	}
-
-	@Override
-	public <R> Class<R> withReturn(Class<R> returnType) {
-		return returnType;
-	}
-
 	public void setDebugMode(boolean debugTest) {
 		this.debugMode = debugTest;
 	}

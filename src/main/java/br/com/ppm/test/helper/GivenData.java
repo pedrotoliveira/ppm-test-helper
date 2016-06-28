@@ -1,8 +1,6 @@
 package br.com.ppm.test.helper;
 
-
 import org.mockito.stubbing.OngoingStubbing;
-
 
 /**
  * The Class GivenData.
@@ -11,10 +9,13 @@ import org.mockito.stubbing.OngoingStubbing;
  */
 public class GivenData<D> implements Expectations {
 
-	/** The description. */
+	/**
+	 * The description.
+	 */
 	private final String description;
-	
-	/** The given data. */
+	/**
+	 * The given data.
+	 */
 	private final D givenData;
 
 	/**
@@ -36,22 +37,16 @@ public class GivenData<D> implements Expectations {
 	}
 
 	@Override
-	public <T> GivenData<D> when(final OngoingStubbing<T> ongoingStubbing) throws Exception {
-		return this;
+	public <T> StubbingWrapper<T> when(final T methodCall) throws Exception {
+		return new GivenDataAndStubbing<D, T>(this, new Step<T>(methodCall)).getStub();
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#expect(br.com.uol.egw.util.test.WeExpect)
-	 */
 	@Override
 	public GivenData<D> expect(final WeExpect weExpect) throws Exception {
 		weExpect.execution();
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.uol.egw.util.test.Expectations#expect(org.mockito.stubbing.OngoingStubbing)
-	 */
 	@Override
 	public <T> GivenData<D> expect(final OngoingStubbing<T> ongoingStubbing) throws Exception {
 		return this;

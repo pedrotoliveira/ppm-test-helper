@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * The Method Invoker Class
- * <p>.
  *
  * @param <D> the type of Given Data to the Method Invoker
  * @author pedrotoliveira
@@ -16,7 +15,6 @@ public class MethodInvoker<D> {
 
 	/** The test instance. */
 	private final Object testInstance;
-	
 	/** The given data. */
 	private final D givenData;
 
