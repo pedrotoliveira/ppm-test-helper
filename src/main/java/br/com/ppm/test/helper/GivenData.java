@@ -24,7 +24,7 @@ public class GivenData<D> implements Expectations {
 	 * @param givenData the given data
 	 * @param description the description
 	 */
-	GivenData(final D givenData, final String description) {
+	public GivenData(final D givenData, final String description) {
 		super();
 		this.givenData = givenData;
 		this.description = description;
