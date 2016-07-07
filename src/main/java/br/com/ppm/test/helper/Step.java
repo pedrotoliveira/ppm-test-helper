@@ -95,6 +95,6 @@ public final class Step<T> implements WeExpect, StubbingWrapper<T> {
 
 	@Override
 	public <D> GivenDataAndStubbing<D, T> then() {
-		new 
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 }
