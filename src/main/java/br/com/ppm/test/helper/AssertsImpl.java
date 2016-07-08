@@ -1,6 +1,9 @@
 package br.com.ppm.test.helper;
 
 import org.hamcrest.Matcher;
+import org.junit.Assert;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 /**
  * Asserts Implementations
@@ -9,23 +12,36 @@ import org.hamcrest.Matcher;
  */
 public class AssertsImpl implements Asserts {
 
+    private final Assert junitAssert;
+
+    public AssertsImpl() {
+        this.junitAssert = new JUnitAssert();
+    }
+    
+    private final class JUnitAssert extends Assert {
+    }
+    
 	@Override
 	public <I> Asserts assertThat(I methodCall, Matcher<? super I> matcher) {
-		throw new UnsupportedOperationException("Not supported yet.");
+        junitAssert.assertThat(methodCall, matcher);
+		return this;
 	}
 
 	@Override
 	public Asserts assertTrue(boolean methodCall) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		junitAssert.assertTrue(methodCall);
+        return this;
 	}
 
 	@Override
 	public Asserts assertFalse(boolean methodCall) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		junitAssert.assertFalse(methodCall);
+        return this;
 	}
 
 	@Override
 	public <I> Asserts assertEqualTo(I methodCall, Object expected) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		junitAssert.assertThat(methodCall, equalTo(expected));
+        return this;
 	}	
 }

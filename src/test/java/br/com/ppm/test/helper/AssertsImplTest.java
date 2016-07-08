@@ -20,10 +20,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Unit tests for AssertsImpl
  * @author pedrotoliveira
  */
 public class AssertsImplTest {
@@ -35,54 +36,24 @@ public class AssertsImplTest {
         this.asserts = new AssertsImpl();
     }
     
-    @After
-    public void tearDown() {
-    }
-
     @Test
     public void testAssertThat() {
-        System.out.println("assertThat");
-        Object methodCall = null;
-        Matcher matcher = null;
-
-        Asserts expResult = null;
-        Asserts result = asserts.assertThat(methodCall, matcher);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        asserts.assertThat("Some method return", equalTo("Some method return"));
     }
 
     @Test
     public void testAssertTrue() {
-        System.out.println("assertTrue");
-        boolean methodCall = false;
-        AssertsImpl instance = new AssertsImpl();
-        Asserts expResult = null;
-        Asserts result = instance.assertTrue(methodCall);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        asserts.assertTrue(true);
     }
 
     @Test
     public void testAssertFalse() {
-        System.out.println("assertFalse");
-        boolean methodCall = false;
-        AssertsImpl instance = new AssertsImpl();
-        Asserts expResult = null;
-        Asserts result = instance.assertFalse(methodCall);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        asserts.assertFalse(false);
     }
 
     @Test
     public void testAssertEqualTo() {
-        System.out.println("assertEqualTo");
-        Object methodCall = null;
-        Object expected = null;
-        AssertsImpl instance = new AssertsImpl();
-        Asserts expResult = null;
-        Asserts result = instance.assertEqualTo(methodCall, expected);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        asserts.assertEqualTo("Some method return", "Some method return");
     }
     
 }
