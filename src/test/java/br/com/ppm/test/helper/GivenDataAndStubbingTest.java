@@ -29,17 +29,12 @@ import static org.junit.Assert.*;
  */
 public class GivenDataAndStubbingTest {
     
-    public GivenDataAndStubbingTest() {
-    }
     
     @Before
     public void setUp() {
     }
     
-    @After
-    public void tearDown() {
-    }
-
+    
     @Test
     public void testReturnValue() {
         System.out.println("returnValue");

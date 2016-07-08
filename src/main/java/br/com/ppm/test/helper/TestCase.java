@@ -61,7 +61,7 @@ public class TestCase implements Given, Expectations, Asserts {
 
     @Override
     public <I> ReturnObjectWrapper<I> wrapResult(I methodCall) {
-        return new ReturnObjectWrapper<>(methodCall);
+        return new ReturnObjectWrapper<>(methodCall, description);
     }
 
     /**

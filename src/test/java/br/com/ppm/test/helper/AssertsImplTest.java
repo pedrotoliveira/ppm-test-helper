@@ -33,7 +33,7 @@ public class AssertsImplTest {
 
     @Before
     public void setUp() {
-        this.asserts = new AssertsImpl();
+        this.asserts = new AssertsImpl("AssertsImplTest");
     }
     
     @Test

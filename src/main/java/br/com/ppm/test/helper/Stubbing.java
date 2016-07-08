@@ -24,7 +24,7 @@ import org.mockito.stubbing.OngoingStubbing;
  * @author pedrotoliveira
  */
 public class Stubbing<T> implements StubbingWrapper<T> {
-    
+        
 	private final OngoingStubbing<T> stub;
     private T[] values;
 
