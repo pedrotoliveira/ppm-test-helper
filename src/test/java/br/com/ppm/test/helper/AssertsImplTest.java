@@ -28,11 +28,11 @@ import static org.junit.Assert.*;
  */
 public class AssertsImplTest {
     
-    public AssertsImplTest() {
-    }
-    
+    private AssertsImpl asserts;
+
     @Before
     public void setUp() {
+        this.asserts = new AssertsImpl();
     }
     
     @After
@@ -44,9 +44,9 @@ public class AssertsImplTest {
         System.out.println("assertThat");
         Object methodCall = null;
         Matcher matcher = null;
-        AssertsImpl instance = new AssertsImpl();
+
         Asserts expResult = null;
-        Asserts result = instance.assertThat(methodCall, matcher);
+        Asserts result = asserts.assertThat(methodCall, matcher);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }

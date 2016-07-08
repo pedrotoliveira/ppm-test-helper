@@ -60,28 +60,6 @@ public class GivenDataTest {
     }
 
     @Test
-    public void testExpect() throws Exception {
-        System.out.println("expect");
-        WeExpect weExpect = null;
-        GivenData instance = null;
-        GivenData expResult = null;
-        GivenData result = instance.expect(weExpect);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testDoExpectations_WeExpect() throws Exception {
-        System.out.println("doExpectations");
-        WeExpect weExpect = null;
-        GivenData instance = null;
-        GivenData expResult = null;
-        GivenData result = instance.doExpectations(weExpect);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
     public void testWrapResult() {
         System.out.println("wrapResult");
         Object methodCall = null;
@@ -91,16 +69,4 @@ public class GivenDataTest {
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
-
-    @Test
-    public void testDoExpectations_StepChain() {
-        System.out.println("doExpectations");
-        StepChain chain = null;
-        GivenData instance = null;
-        Expectations expResult = null;
-        Expectations result = instance.doExpectations(chain);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-    
 }

@@ -17,23 +17,29 @@ package br.com.ppm.test.helper;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
- * @author pedrotoliveira
+ * @author p-poliveira
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({br.com.ppm.test.helper.StepChainTest.class, br.com.ppm.test.helper.VerifyMockInteractionsTest.class, br.com.ppm.test.helper.TestCaseTest.class, br.com.ppm.test.helper.ReturnObjectWrapperTest.class, br.com.ppm.test.helper.GivenDataAndStubbingTest.class, br.com.ppm.test.helper.StepTest.class, br.com.ppm.test.helper.GivenDataTest.class, br.com.ppm.test.helper.MethodInvokerTest.class, br.com.ppm.test.helper.AssertsImplTest.class})
-public class HelperSuite {
-
+public class NoDataGivenTest {
+    
+    public NoDataGivenTest() {
+    }
+    
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
     }
 
-    @After
-    public void tearDown() throws Exception {
+    @Test
+    public void testSomeMethod() {
+        fail("The test case is a prototype.");
     }
     
 }

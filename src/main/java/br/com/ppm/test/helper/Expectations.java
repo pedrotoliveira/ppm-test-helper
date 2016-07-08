@@ -18,32 +18,6 @@ public interface Expectations {
 	<T> StubbingWrapper<T> when(final T methodCall) throws Exception;
 
 	/**
-	 * Expect.
-	 *
-	 * @param weExpect the we expect
-	 * @return the expectations
-	 * @throws Exception the exception
-	 */
-	Expectations expect(final WeExpect weExpect) throws Exception;
-
-	/**
-	 * Do expectations.
-	 *
-	 * @param weExpect the we expect
-	 * @return the expectations
-	 * @throws Exception the exception
-	 */
-	Expectations doExpectations(final WeExpect weExpect) throws Exception;
-
-	/**
-	 * Do expectations.
-	 *
-	 * @param chain the chain
-	 * @return the expectations
-	 */
-	Expectations doExpectations(final StepChain chain);
-
-	/**
 	 * Test.
 	 *
 	 * @param <I> the generic type

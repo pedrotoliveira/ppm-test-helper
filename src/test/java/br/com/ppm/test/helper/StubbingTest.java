@@ -25,11 +25,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author pedrotoliveira
+ * @author p-poliveira
  */
-public class StepTest {
+public class StubbingTest {
     
-    public StepTest() {
+    public StubbingTest() {
     }
     
     @Before
@@ -41,27 +41,10 @@ public class StepTest {
     }
 
     @Test
-    public void testExecute() {
-        System.out.println("execute");
-        Step instance = null;
-        instance.execute();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testExecution() throws Exception {
-        System.out.println("execution");
-        Object[] mocks = null;
-        Step instance = null;
-        instance.execution(mocks);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
     public void testThenReturn_GenericType() {
         System.out.println("thenReturn");
         Object value = null;
-        Step instance = null;
+        Stubbing instance = null;
         OngoingStubbing expResult = null;
         OngoingStubbing result = instance.thenReturn(value);
         assertEquals(expResult, result);
@@ -73,7 +56,7 @@ public class StepTest {
         System.out.println("thenReturn");
         Object value = null;
         Object[] values = null;
-        Step instance = null;
+        Stubbing instance = null;
         OngoingStubbing expResult = null;
         OngoingStubbing result = instance.thenReturn(value, values);
         assertEquals(expResult, result);
@@ -84,7 +67,7 @@ public class StepTest {
     public void testThenThrow_ThrowableArr() {
         System.out.println("thenThrow");
         Throwable[] throwables = null;
-        Step instance = null;
+        Stubbing instance = null;
         OngoingStubbing expResult = null;
         OngoingStubbing result = instance.thenThrow(throwables);
         assertEquals(expResult, result);
@@ -95,7 +78,7 @@ public class StepTest {
     public void testThenThrow_ClassArr() {
         System.out.println("thenThrow");
         Class[] throwableClasses = null;
-        Step instance = null;
+        Stubbing instance = null;
         OngoingStubbing expResult = null;
         OngoingStubbing result = instance.thenThrow(throwableClasses);
         assertEquals(expResult, result);
@@ -105,7 +88,7 @@ public class StepTest {
     @Test
     public void testThenCallRealMethod() {
         System.out.println("thenCallRealMethod");
-        Step instance = null;
+        Stubbing instance = null;
         OngoingStubbing expResult = null;
         OngoingStubbing result = instance.thenCallRealMethod();
         assertEquals(expResult, result);
@@ -116,7 +99,7 @@ public class StepTest {
     public void testThenAnswer() {
         System.out.println("thenAnswer");
         Answer answer = null;
-        Step instance = null;
+        Stubbing instance = null;
         OngoingStubbing expResult = null;
         OngoingStubbing result = instance.thenAnswer(answer);
         assertEquals(expResult, result);
@@ -127,7 +110,7 @@ public class StepTest {
     public void testThen_Answer() {
         System.out.println("then");
         Answer answer = null;
-        Step instance = null;
+        Stubbing instance = null;
         OngoingStubbing expResult = null;
         OngoingStubbing result = instance.then(answer);
         assertEquals(expResult, result);
@@ -137,7 +120,7 @@ public class StepTest {
     @Test
     public void testGetMock() {
         System.out.println("getMock");
-        Step instance = null;
+        Stubbing instance = null;
         Object expResult = null;
         Object result = instance.getMock();
         assertEquals(expResult, result);
@@ -145,9 +128,20 @@ public class StepTest {
     }
 
     @Test
+    public void testWhen() {
+        System.out.println("when");
+        Object methodCall = null;
+        Stubbing instance = null;
+        StubbingWrapper expResult = null;
+        StubbingWrapper result = instance.when(methodCall);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    @Test
     public void testThen_0args() {
         System.out.println("then");
-        Step instance = null;
+        Stubbing instance = null;
         GivenDataAndStubbing expResult = null;
         GivenDataAndStubbing result = instance.then();
         assertEquals(expResult, result);

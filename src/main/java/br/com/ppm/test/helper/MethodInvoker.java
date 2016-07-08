@@ -3,6 +3,8 @@ package br.com.ppm.test.helper;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -36,13 +38,17 @@ public class MethodInvoker<D> {
 	 * @param methodName the method name
 	 * @param returnType the return type
 	 * @return the return object wrapper
-	 * @throws Exception the exception
 	 */
 	@SuppressWarnings(value = "unchecked")
-	public <R> ReturnObjectWrapper<R> method(final String methodName, Class<R> returnType) throws Exception {
-		return (givenData.getClass().isArray())
-				? new ReturnObjectWrapper<>((R) invokeMethodMultipleParameters(methodName, (Object[]) givenData))
-				: new ReturnObjectWrapper<>((R) invokeMethodSingleParameter(methodName, givenData));
+	public <R> ReturnObjectWrapper<R> method(final String methodName, Class<R> returnType) {
+        try {
+            return (givenData.getClass().isArray())
+                    ? new ReturnObjectWrapper<>((R) invokeMethodMultipleParameters(methodName, (Object[]) givenData))
+                    : new ReturnObjectWrapper<>((R) invokeMethodSingleParameter(methodName, givenData));
+        } catch (Exception ex) {
+            //FIXME: handle exception.
+            throw new RuntimeException(ex);
+        }
 	}
 
 	/**

@@ -1,43 +1,35 @@
+/*
+ * Copyright 2016 Pedro T. Oliveira <pedro.oliveira20@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package br.com.ppm.test.helper;
 
+import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 import org.mockito.stubbing.OngoingStubbing;
 
 /**
- * GivenData and Stubs.
  *
  * @author pedrotoliveira
  */
-public final class GivenDataAndStubbing<D, T> implements StubbingWrapper<T> {
-
-    private final GivenData<D> givenData;
-    private final StubbingWrapper<T> stub;
+public class Stubbing<T> implements StubbingWrapper<T> {
+    
+	private final OngoingStubbing<T> stub;
     private T[] values;
 
-    public GivenDataAndStubbing(GivenData<D> givenData, T methodCall) {
-        this(givenData, new Stubbing<>(methodCall));
-    }
-
-    public GivenDataAndStubbing(GivenData<D> givenData, StubbingWrapper<T> stub) {
-        this.givenData = givenData;
-        this.stub = stub;
-    }
-
-    protected GivenData<D> getGivenData() {
-        return givenData;
-    }
-
-    protected StubbingWrapper<T> getStub() {
-        return stub;
-    }
-
-    public GivenData<D> returnValue(T value) {
-        stub.thenReturn(value);
-        return getGivenData();
-    }
-    
-    public GivenData willReturn(T value) {
-        return returnValue(value);
+    public Stubbing(T methodCall) {
+        this.stub = Mockito.when(methodCall);
     }
 
     @Override
@@ -80,15 +72,15 @@ public final class GivenDataAndStubbing<D, T> implements StubbingWrapper<T> {
     @Override
     public <M> M getMock() {
         return stub.getMock();
-    }
-
-    @Override
-    public GivenDataAndStubbing<D, T> then() {
-        return this;
-    }
+    }    
 
     @Override
     public <T> StubbingWrapper<T> when(T methodCall) {
-        return new GivenDataAndStubbing<>(givenData, methodCall);
+        return new Stubbing<>(methodCall);
+    }
+
+    @Override
+    public <D> GivenDataAndStubbing<D, T> then() {
+        return new GivenDataAndStubbing<>(new NoDataGiven(), this);
     }
 }

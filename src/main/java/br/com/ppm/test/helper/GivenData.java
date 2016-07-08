@@ -36,27 +36,12 @@ public class GivenData<D> implements Expectations {
 	}
 
 	@Override
-	public <T> StubbingWrapper<T> when(final T methodCall) throws Exception {
-		return new GivenDataAndStubbing<D, T>(this, new Step<T>(methodCall)).getStub();
-	}
-
-	@Override
-	public GivenData<D> expect(final WeExpect weExpect) throws Exception {		
-		return this;
-	}
-
-	@Override
-	public GivenData<D> doExpectations(final WeExpect weExpect) throws Exception {
-		return expect(weExpect);
+	public <T> StubbingWrapper<T> when(final T methodCall) {
+		return new GivenDataAndStubbing<D, T>(this, methodCall);
 	}
 
 	@Override
 	public <I> ReturnObjectWrapper<I> wrapResult(I methodCall) {
 		return new ReturnObjectWrapper<>(methodCall);
-	}
-
-	@Override
-	public Expectations doExpectations(StepChain chain) {
-		throw new UnsupportedOperationException("Not supported yet.");
 	}
 }
