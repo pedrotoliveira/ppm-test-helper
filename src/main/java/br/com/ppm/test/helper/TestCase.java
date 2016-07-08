@@ -81,17 +81,52 @@ public class TestCase implements Given, Expectations, Asserts {
     }
 
     @Override
-    public <I> Asserts assertThat(I methodCall, Matcher<? super I> matcher) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public ReturnObjectWrapper assertEqualTo(Object expected) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReturnObjectWrapper resultIsEqualTo(Object expected) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReturnObjectWrapper assertReturn(Matcher matcher) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReturnObjectWrapper assertReturnField(String field, Matcher matcher) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Asserts assertThat(Object methodCall, Matcher matcher) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Asserts assertFalse(boolean methodCall) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public <I> Asserts assertEqualTo(I methodCall, Object expected) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Asserts assertEqualTo(Object methodCall, Object expected) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReturnObjectWrapper assertEqualToReturnField(String field, Object expected) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReturnObjectWrapper assertReturnFields(String field, Matcher matcher, Object... additionalKeyMatcherPairs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReturnObjectWrapper assertEqualToReturnFields(String field, Object expected, Object... additionalKeyMatcherPairs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

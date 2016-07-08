@@ -10,20 +10,23 @@ import static org.hamcrest.CoreMatchers.equalTo;
  *
  * @author pedrotoliveira
  */
-public class AssertsImpl implements Asserts {
+public class AssertsImpl<ReturnType> implements Asserts<ReturnType> {
 
     /**
      * The test description
      */
     private final String description;
+    private final ReturnObjectWrapper<ReturnType> returnObjectWrapper;
     private final Assert junitAssert;
 
-    public AssertsImpl(String description) {
-        this.description = description;
-        this.junitAssert = new JUnitAssert();
+    //I don't know if i need this... TODO: Check later.
+    private final class JUnitAssert extends Assert {
     }
 
-    private final class JUnitAssert extends Assert {
+    public AssertsImpl(ReturnObjectWrapper<ReturnType> returnObjectWrapper, String description) {
+        this.returnObjectWrapper = returnObjectWrapper;
+        this.description = description;
+        this.junitAssert = new JUnitAssert();
     }
 
     public String getDescription() {
@@ -31,25 +34,60 @@ public class AssertsImpl implements Asserts {
     }
 
     @Override
-    public <I> Asserts assertThat(I methodCall, Matcher<? super I> matcher) {
+    public ReturnObjectWrapper<ReturnType> assertEqualToReturnField(String field, Object expected) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReturnObjectWrapper<ReturnType> assertReturnFields(String field, Matcher<?> matcher, Object... additionalKeyMatcherPairs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReturnObjectWrapper<ReturnType> assertEqualToReturnFields(String field, Object expected, Object... additionalKeyMatcherPairs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReturnObjectWrapper<ReturnType> resultIsEqualTo(ReturnType expected) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReturnObjectWrapper<ReturnType> assertReturn(Matcher<? super ReturnType> matcher) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReturnObjectWrapper<ReturnType> assertReturnField(String field, Matcher<?> matcher) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ReturnObjectWrapper<ReturnType> assertEqualTo(ReturnType expected) {
+        return returnObjectWrapper.assertEqualTo(expected);
+    }
+
+    @Override
+    public Asserts<ReturnType> assertThat(ReturnType methodCall, Matcher<? super ReturnType> matcher) {
         junitAssert.assertThat(description, methodCall, matcher);
         return this;
     }
 
     @Override
-    public Asserts assertTrue(boolean methodCall) {
+    public Asserts<ReturnType> assertTrue(boolean methodCall) {
         junitAssert.assertTrue(description, methodCall);
         return this;
     }
 
     @Override
-    public Asserts assertFalse(boolean methodCall) {
+    public Asserts<ReturnType> assertFalse(boolean methodCall) {
         junitAssert.assertFalse(description, methodCall);
         return this;
     }
 
     @Override
-    public <I> Asserts assertEqualTo(I methodCall, Object expected) {
+    public Asserts<ReturnType> assertEqualTo(ReturnType methodCall, Object expected) {
         junitAssert.assertThat(description, methodCall, equalTo(expected));
         return this;
     }

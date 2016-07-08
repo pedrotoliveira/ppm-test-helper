@@ -29,18 +29,6 @@ public abstract class FluentTestHelper extends FixtureTestHelper implements Flue
     }
 
     /**
-     * Verify Mock Invocations inOrder.
-     * <p>
-     *
-     * @param verifications implementation for all mock invoke verifications.
-     * <p>
-     * @return the verify mock interactions
-     */
-    public VerifyMockInteractions inOrder(Verifications verifications) {
-        return new VerifyMockInteractions(verifications);
-    }
-
-    /**
      * Delegates to Mockito.inOrder.
      * <p>
      * @see Mockito.inOrder.

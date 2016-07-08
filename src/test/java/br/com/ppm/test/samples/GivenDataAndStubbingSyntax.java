@@ -19,6 +19,8 @@ import br.com.ppm.test.helper.FluentTestHelper;
 import br.com.ppm.test.samples.model.RegisterService;
 import br.com.ppm.test.samples.model.User;
 import br.com.ppm.test.samples.model.UserRepository;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,14 +45,24 @@ public class GivenDataAndStubbingSyntax extends FluentTestHelper {
     }
 
     @Test
-    public void testSyntax() {
+    public void testSyntaxWithGivenData() {
         User userToRegister = new User(null, "pedro", "pedro@test.com");
         User registeredUser = new User("1", "pedro", "pedro@test.com");
-        testCase().given(userToRegister)
+
+        testCase("Register - Success")
+                .given(userToRegister)
                 .when(repository.save(userToRegister)).then().returnValue(registeredUser)
                 .test(service).method("register", User.class)
                 .assertEqualTo(registeredUser)
                 .verify(repository).save(userToRegister);
     }
 
+    @Test
+    public void testSyntaxNoData() {
+        List<User> allUsers = new ArrayList<>();
+        testCase("Find All - Success")
+                .when(repository.findAll()).then().returnValue(allUsers)
+                .test(service).method("findAll", List.class)
+                .assertEqualTo(allUsers);
+    }
 }
