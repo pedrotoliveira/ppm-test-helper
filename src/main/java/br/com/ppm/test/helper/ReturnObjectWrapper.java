@@ -19,7 +19,7 @@ public class ReturnObjectWrapper<I> implements Asserts {
     /**
      * The return object.
      */
-    private final I returnObject;    
+    private final I returnObject;
     private final Asserts asserts;
 
     /**
@@ -238,7 +238,8 @@ public class ReturnObjectWrapper<I> implements Asserts {
      * <p>
      */
     public <M> M verify(M mock) {
-        return Mockito.verify(mock, times(1));
+        Mockito.verify(mock, times(1));
+        return mock;
     }
 
     /**

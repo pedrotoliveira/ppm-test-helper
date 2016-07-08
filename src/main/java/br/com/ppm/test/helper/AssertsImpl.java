@@ -53,5 +53,4 @@ public class AssertsImpl implements Asserts {
         junitAssert.assertThat(description, methodCall, equalTo(expected));
         return this;
     }
-
 }
