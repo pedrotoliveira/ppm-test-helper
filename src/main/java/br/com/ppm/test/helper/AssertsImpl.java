@@ -1,5 +1,6 @@
 package br.com.ppm.test.helper;
 
+import java.util.Objects;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
 
@@ -96,5 +97,30 @@ public class AssertsImpl<ReturnType> implements Asserts<ReturnType> {
     public Asserts<ReturnType> assertEqualTo(ReturnType methodCall, Object expected) {
         junitAssert.assertThat(description, methodCall, equalTo(expected));
         return this;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 47 * hash + Objects.hashCode(this.description);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AssertsImpl<?> other = (AssertsImpl<?>) obj;
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        return true;
     }
 }

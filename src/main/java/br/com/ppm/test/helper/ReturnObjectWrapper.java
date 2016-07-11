@@ -1,6 +1,7 @@
 package br.com.ppm.test.helper;
 
 import br.com.ppm.test.util.ReflectionUtil;
+import java.util.Objects;
 import org.hamcrest.Matcher;
 import org.mockito.Mockito;
 import org.mockito.verification.VerificationMode;
@@ -117,5 +118,34 @@ public class ReturnObjectWrapper<ReturnType> implements Asserts<ReturnType>, Ver
     @Override
     public void verifyNoMoreInteractions(Object... mocks) {
         Mockito.verifyNoMoreInteractions(mocks);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.returnObject);
+        hash = 31 * hash + Objects.hashCode(this.asserts);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ReturnObjectWrapper<?> other = (ReturnObjectWrapper<?>) obj;
+        if (!Objects.equals(this.returnObject, other.returnObject)) {
+            return false;
+        }
+        if (!Objects.equals(this.asserts, other.asserts)) {
+            return false;
+        }
+        return true;
     }
 }
