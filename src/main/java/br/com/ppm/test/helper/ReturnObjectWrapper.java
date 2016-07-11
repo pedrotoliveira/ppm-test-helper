@@ -48,7 +48,7 @@ public class ReturnObjectWrapper<ReturnType> implements Asserts<ReturnType>, Ver
     @Override
     @SuppressWarnings("unchecked")
     public ReturnObjectWrapper<ReturnType> assertReturnField(String field, Matcher<?> matcher) {
-        Object valueToAssert = ReflectionUtil.getByFieldName(field, returnObject);
+        final Object valueToAssert = ReflectionUtil.getByFieldName(field, returnObject);
         asserts.assertThat(valueToAssert, (Matcher<? super Object>) matcher);
         return this;
     }
@@ -81,7 +81,7 @@ public class ReturnObjectWrapper<ReturnType> implements Asserts<ReturnType>, Ver
 
     @Override
     public ReturnObjectWrapper<ReturnType> assertEqualToReturnFields(String field, Object expected, Object... additionalKeyMatcherPairs) {
-        return assertEqualToReturnFields(field, equalTo(expected), additionalKeyMatcherPairs);
+        return assertReturnFields(field, equalTo(expected), additionalKeyMatcherPairs);
     }
 
     @Override

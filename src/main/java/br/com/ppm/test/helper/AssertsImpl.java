@@ -35,36 +35,42 @@ public class AssertsImpl<ReturnType> implements Asserts<ReturnType> {
 
     @Override
     public ReturnObjectWrapper<ReturnType> assertEqualToReturnField(String field, Object expected) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return returnObjectWrapper.assertEqualToReturnField(field, expected);
     }
 
     @Override
     public ReturnObjectWrapper<ReturnType> assertReturnFields(String field, Matcher<?> matcher, Object... additionalKeyMatcherPairs) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //FIXME: Invert Responsibility???
+        return returnObjectWrapper.assertReturnFields(field, matcher, additionalKeyMatcherPairs);
     }
 
     @Override
     public ReturnObjectWrapper<ReturnType> assertEqualToReturnFields(String field, Object expected, Object... additionalKeyMatcherPairs) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //FIXME: Invert Responsibility???
+        return returnObjectWrapper.assertEqualToReturnFields(field, expected, additionalKeyMatcherPairs);
     }
 
     @Override
     public ReturnObjectWrapper<ReturnType> resultIsEqualTo(ReturnType expected) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //FIXME: Invert Responsibility???
+        return returnObjectWrapper.resultIsEqualTo(expected);
     }
 
     @Override
     public ReturnObjectWrapper<ReturnType> assertReturn(Matcher<? super ReturnType> matcher) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //FIXME: Invert Responsibility???
+        return returnObjectWrapper.assertReturn(matcher);
     }
 
     @Override
     public ReturnObjectWrapper<ReturnType> assertReturnField(String field, Matcher<?> matcher) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //FIXME: Invert Responsibility???
+        return returnObjectWrapper.assertReturnField(field, matcher);
     }
 
     @Override
     public ReturnObjectWrapper<ReturnType> assertEqualTo(ReturnType expected) {
+        //FIXME: Invert Responsibility???
         return returnObjectWrapper.assertEqualTo(expected);
     }
 

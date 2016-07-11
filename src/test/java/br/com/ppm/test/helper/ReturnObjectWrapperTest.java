@@ -170,17 +170,6 @@ public class ReturnObjectWrapperTest {
     }
 
     @Test
-    public void testInOrder() {
-        System.out.println("inOrder");
-        Verifications verifications = null;
-        ReturnObjectWrapper instance = null;
-        VerifyMockInteractions expResult = null;
-        VerifyMockInteractions result = instance.inOrder(verifications);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
     public void testVerify_GenericType_VerificationMode() {
         System.out.println("verify");
         Object mock = null;
