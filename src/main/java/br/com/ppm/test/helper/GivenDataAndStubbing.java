@@ -20,7 +20,7 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
         this(givenData, new Stubbing<>(methodCall));
     }
 
-    public GivenDataAndStubbing(GivenData<GivenDataType> givenData, StubbingWrapper<ReturnType> stub) {
+    GivenDataAndStubbing(GivenData<GivenDataType> givenData, StubbingWrapper<ReturnType> stub) {
         this.givenData = givenData;
         this.stub = stub;
     }
@@ -38,7 +38,7 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
         return getGivenData();
     }
 
-    public GivenData willReturn(ReturnType value) {
+    public GivenData<GivenDataType> willReturn(ReturnType value) {
         return returnValue(value);
     }
 
@@ -66,7 +66,9 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
 
     @Override
     public OngoingStubbing<ReturnType> thenCallRealMethod() {
-        return thenCallRealMethod();
+        //TODO: Study utility of this method.
+        stub.thenThrow(new UnsupportedOperationException("I have no reason for use this method."));        
+        throw new UnsupportedOperationException("I have no reason for use this method.");
     }
 
     @Override

@@ -18,7 +18,6 @@ package br.com.ppm.test.helper;
 import br.com.ppm.test.samples.model.RegisterService;
 import br.com.ppm.test.samples.model.User;
 import br.com.ppm.test.samples.model.UserRepository;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +25,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 /**
@@ -49,6 +48,7 @@ public class GivenDataTest {
     public void setUp() {
         this.description = "Test Given Data";
         this.user = new User("123", "test", "test@gmail.com");
+        when(userRepository.save(user)).thenReturn(user);
         this.registerService = new RegisterService(userRepository);
         this.givenData = new GivenData<>(user, description);
     }
@@ -60,15 +60,13 @@ public class GivenDataTest {
     }
 
     @Test
-    public void testWhen() throws Exception {
-        when(userRepository.save(user)).thenReturn(user);
+    public void testWhen() throws Exception {        
         StubbingWrapper<User> when = givenData.when(registerService.register(user));
         assertThat(givenData, equalTo(when.then().returnValue(user)));
     }
 
     @Test
-    public void testWrapResult() {
-        when(userRepository.save(user)).thenReturn(user);
+    public void testWrapResult() {        
         ReturnObjectWrapper<User> expected = new ReturnObjectWrapper<>(user, description);
         assertThat(givenData.wrapResult(registerService.register(user)), equalTo(expected));
     }

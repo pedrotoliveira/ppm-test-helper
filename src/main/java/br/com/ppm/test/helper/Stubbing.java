@@ -23,50 +23,45 @@ import org.mockito.stubbing.OngoingStubbing;
  *
  * @author pedrotoliveira
  */
-public class Stubbing<T> implements StubbingWrapper<T> {
+public class Stubbing<ReturnType> implements StubbingWrapper<ReturnType> {
         
-	private final OngoingStubbing<T> stub;
-    private T[] values;
+	private final OngoingStubbing<ReturnType> stub;
+    private ReturnType[] values;
 
-    public Stubbing(T methodCall) {
+    public Stubbing(ReturnType methodCall) {
         this.stub = Mockito.when(methodCall);
     }
 
     @Override
-    public OngoingStubbing<T> thenReturn(final T value) {
+    public OngoingStubbing<ReturnType> thenReturn(final ReturnType value) {
         return stub.thenReturn(value);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public OngoingStubbing<T> thenReturn(final T value, final T... values) {
+    public OngoingStubbing<ReturnType> thenReturn(final ReturnType value, final ReturnType... values) {
         return stub.thenReturn(value, this.values);
     }
 
     @Override
-    public OngoingStubbing<T> thenThrow(final Throwable... throwables) {
+    public OngoingStubbing<ReturnType> thenThrow(final Throwable... throwables) {
         return stub.thenThrow(throwables);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public OngoingStubbing<T> thenThrow(final Class<? extends Throwable>... throwableClasses) {
+    public OngoingStubbing<ReturnType> thenThrow(final Class<? extends Throwable>... throwableClasses) {
         return stub.thenThrow(throwableClasses);
     }
 
     @Override
-    public OngoingStubbing<T> thenCallRealMethod() {
-        return thenCallRealMethod();
-    }
-
-    @Override
-    public OngoingStubbing<T> thenAnswer(Answer<?> answer) {
+    public OngoingStubbing<ReturnType> thenAnswer(Answer<?> answer) {
         return stub.thenAnswer(answer);
     }
 
     @Override
-    public OngoingStubbing<T> then(Answer<?> answer) {
-        return (OngoingStubbing<T>) stub.then(answer);
+    public OngoingStubbing<ReturnType> then(Answer<?> answer) {
+        return (OngoingStubbing<ReturnType>) stub.then(answer);
     }
 
     @Override
@@ -80,7 +75,13 @@ public class Stubbing<T> implements StubbingWrapper<T> {
     }
 
     @Override
-    public <D> GivenDataAndStubbing<D, T> then() {
+    public <D> GivenDataAndStubbing<D, ReturnType> then() {
         return new GivenDataAndStubbing<>(new NoDataGiven(), this);
+    }
+
+    @Override
+    public OngoingStubbing<ReturnType> thenCallRealMethod() {        
+        //TODO: Study utility of this method.
+        throw new UnsupportedOperationException("I have no reason for use this method.");
     }
 }

@@ -15,154 +15,114 @@
  */
 package br.com.ppm.test.helper;
 
-import org.junit.After;
+import br.com.ppm.test.samples.model.RegisterService;
+import br.com.ppm.test.samples.model.User;
+import br.com.ppm.test.samples.model.UserRepository;
+import javax.management.RuntimeErrorException;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.internal.matchers.NotNull;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import org.mockito.stubbing.OngoingStubbing;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.isNotNull;
+import static org.mockito.Matchers.notNull;
+import static org.mockito.Mockito.when;
 
 /**
  *
  * @author pedrotoliveira
  */
+@RunWith(MockitoJUnitRunner.class)
 public class GivenDataAndStubbingTest {
-    
-    
+
+    @Mock
+    private UserRepository userRepository;
+
+    private RegisterService registerService;
+    private User user;
+    private GivenData<User> givenData;
+    private String description;
+
+    private GivenDataAndStubbing<User, User> givenDataAndStubbing;
+
     @Before
     public void setUp() {
+        this.description = "Test Given  And Stubbing";
+        this.user = new User("123", "test", "test@gmail.com");
+        this.givenData = new GivenData<>(user, description);
+        when(userRepository.save(user)).thenReturn(user);
+        this.registerService = new RegisterService(userRepository);
+        this.givenDataAndStubbing = new GivenDataAndStubbing(givenData, registerService.register(user));
     }
-    
-    
+
     @Test
     public void testReturnValue() {
-        System.out.println("returnValue");
-        Object value = null;
-        GivenDataAndStubbing instance = null;
-        GivenData expResult = null;
-        GivenData result = instance.returnValue(value);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertThat(givenDataAndStubbing.returnValue(user), equalTo(givenData));
     }
 
     @Test
     public void testWillReturn() {
-        System.out.println("willReturn");
-        Object value = null;
-        GivenDataAndStubbing instance = null;
-        GivenData expResult = null;
-        GivenData result = instance.willReturn(value);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertThat(givenDataAndStubbing.willReturn(user), equalTo(givenData));
     }
 
     @Test
-    public void testThenReturn_GenericType() {
-        System.out.println("thenReturn");
-        Object value = null;
-        GivenDataAndStubbing instance = null;
-        OngoingStubbing expResult = null;
-        OngoingStubbing result = instance.thenReturn(value);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+    public void testThenReturnGenericType() {
+        assertThat(givenDataAndStubbing.thenReturn(user), new IsInstanceOf(OngoingStubbing.class));
     }
 
     @Test
-    public void testThenReturn_GenericType_GenericType() {
-        System.out.println("thenReturn");
-        Object value = null;
-        Object[] values = null;
-        GivenDataAndStubbing instance = null;
-        OngoingStubbing expResult = null;
-        OngoingStubbing result = instance.thenReturn(value, values);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+    public void testThenReturnMultipleGenericTypes() {
+        assertThat(givenDataAndStubbing.thenReturn(user, user), new IsInstanceOf(OngoingStubbing.class));
     }
 
     @Test
-    public void testThenThrow_ThrowableArr() {
-        System.out.println("thenThrow");
-        Throwable[] throwables = null;
-        GivenDataAndStubbing instance = null;
-        OngoingStubbing expResult = null;
-        OngoingStubbing result = instance.thenThrow(throwables);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+    public void testThenThrow() {
+        assertThat(givenDataAndStubbing.thenThrow(new RuntimeException("ERROR")), new IsInstanceOf(OngoingStubbing.class));
     }
 
     @Test
-    public void testThenThrow_ClassArr() {
-        System.out.println("thenThrow");
-        Class[] throwableClasses = null;
-        GivenDataAndStubbing instance = null;
-        OngoingStubbing expResult = null;
-        OngoingStubbing result = instance.thenThrow(throwableClasses);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+    public void testThenThrowClasses() {
+        assertThat(givenDataAndStubbing.thenThrow(RuntimeException.class), new IsInstanceOf(OngoingStubbing.class));
     }
 
-    @Test
+    @Test(expected = UnsupportedOperationException.class)
     public void testThenCallRealMethod() {
-        System.out.println("thenCallRealMethod");
-        GivenDataAndStubbing instance = null;
-        OngoingStubbing expResult = null;
-        OngoingStubbing result = instance.thenCallRealMethod();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        givenDataAndStubbing.thenCallRealMethod();
     }
 
     @Test
     public void testThenAnswer() {
-        System.out.println("thenAnswer");
-        Answer answer = null;
-        GivenDataAndStubbing instance = null;
-        OngoingStubbing expResult = null;
-        OngoingStubbing result = instance.thenAnswer(answer);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testThen_Answer() {
-        System.out.println("then");
-        Answer answer = null;
-        GivenDataAndStubbing instance = null;
-        OngoingStubbing expResult = null;
-        OngoingStubbing result = instance.then(answer);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        OngoingStubbing<User> stubbing = givenDataAndStubbing.thenAnswer((answer) -> {
+            return this.user;
+        });
+        assertNotNull(stubbing);
     }
 
     @Test
     public void testGetMock() {
-        System.out.println("getMock");
-        GivenDataAndStubbing instance = null;
-        Object expResult = null;
-        Object result = instance.getMock();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertThat(givenDataAndStubbing.getMock(), new IsInstanceOf(user.getClass()));
     }
 
     @Test
     public void testThen_0args() {
         System.out.println("then");
-        GivenDataAndStubbing instance = null;
-        GivenDataAndStubbing expResult = null;
-        GivenDataAndStubbing result = instance.then();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     @Test
     public void testWhen() {
         System.out.println("when");
-        Object methodCall = null;
-        GivenDataAndStubbing instance = null;
-        StubbingWrapper expResult = null;
-        StubbingWrapper result = instance.when(methodCall);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
-    
+
 }
