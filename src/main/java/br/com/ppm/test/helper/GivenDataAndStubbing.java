@@ -1,5 +1,7 @@
 package br.com.ppm.test.helper;
 
+import java.util.Arrays;
+import java.util.Objects;
 import org.mockito.stubbing.Answer;
 import org.mockito.stubbing.OngoingStubbing;
 
@@ -8,73 +10,73 @@ import org.mockito.stubbing.OngoingStubbing;
  *
  * @author pedrotoliveira
  */
-public final class GivenDataAndStubbing<D, T> implements StubbingWrapper<T> {
+public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements StubbingWrapper<ReturnType> {
 
-    private final GivenData<D> givenData;
-    private final StubbingWrapper<T> stub;
-    private T[] values;
+    private final GivenData<GivenDataType> givenData;
+    private final StubbingWrapper<ReturnType> stub;
+    private ReturnType[] values;
 
-    public GivenDataAndStubbing(GivenData<D> givenData, T methodCall) {
+    public GivenDataAndStubbing(GivenData<GivenDataType> givenData, ReturnType methodCall) {
         this(givenData, new Stubbing<>(methodCall));
     }
 
-    public GivenDataAndStubbing(GivenData<D> givenData, StubbingWrapper<T> stub) {
+    public GivenDataAndStubbing(GivenData<GivenDataType> givenData, StubbingWrapper<ReturnType> stub) {
         this.givenData = givenData;
         this.stub = stub;
     }
 
-    protected GivenData<D> getGivenData() {
+    protected GivenData<GivenDataType> getGivenData() {
         return givenData;
     }
 
-    protected StubbingWrapper<T> getStub() {
+    protected StubbingWrapper<ReturnType> getStub() {
         return stub;
     }
 
-    public GivenData<D> returnValue(T value) {
+    public GivenData<GivenDataType> returnValue(ReturnType value) {
         stub.thenReturn(value);
         return getGivenData();
     }
-    
-    public GivenData willReturn(T value) {
+
+    public GivenData willReturn(ReturnType value) {
         return returnValue(value);
     }
 
     @Override
-    public OngoingStubbing<T> thenReturn(final T value) {
+    public OngoingStubbing<ReturnType> thenReturn(final ReturnType value) {
         return stub.thenReturn(value);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public OngoingStubbing<T> thenReturn(final T value, final T... values) {
+    public OngoingStubbing<ReturnType> thenReturn(final ReturnType value, final ReturnType... values) {
         return stub.thenReturn(value, this.values);
     }
 
     @Override
-    public OngoingStubbing<T> thenThrow(final Throwable... throwables) {
+    public OngoingStubbing<ReturnType> thenThrow(final Throwable... throwables) {
         return stub.thenThrow(throwables);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public OngoingStubbing<T> thenThrow(final Class<? extends Throwable>... throwableClasses) {
+    public OngoingStubbing<ReturnType> thenThrow(final Class<? extends Throwable>... throwableClasses) {
         return stub.thenThrow(throwableClasses);
     }
 
     @Override
-    public OngoingStubbing<T> thenCallRealMethod() {
+    public OngoingStubbing<ReturnType> thenCallRealMethod() {
         return thenCallRealMethod();
     }
 
     @Override
-    public OngoingStubbing<T> thenAnswer(Answer<?> answer) {
+    public OngoingStubbing<ReturnType> thenAnswer(Answer<?> answer) {
         return stub.thenAnswer(answer);
     }
 
     @Override
-    public OngoingStubbing<T> then(Answer<?> answer) {
-        return (OngoingStubbing<T>) stub.then(answer);
+    public OngoingStubbing<ReturnType> then(Answer<?> answer) {
+        return (OngoingStubbing<ReturnType>) stub.then(answer);
     }
 
     @Override
@@ -83,12 +85,53 @@ public final class GivenDataAndStubbing<D, T> implements StubbingWrapper<T> {
     }
 
     @Override
-    public GivenDataAndStubbing<D, T> then() {
+    public GivenDataAndStubbing<GivenDataType, ReturnType> then() {
         return this;
     }
 
     @Override
     public <T> StubbingWrapper<T> when(T methodCall) {
         return new GivenDataAndStubbing<>(givenData, methodCall);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.givenData);
+        hash = 79 * hash + Objects.hashCode(this.stub);
+        hash = 79 * hash + Arrays.deepHashCode(this.values);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final GivenDataAndStubbing<?, ?> other = (GivenDataAndStubbing<?, ?>) obj;
+        if (!Objects.equals(this.givenData, other.givenData)) {
+            return false;
+        }
+        if (!Objects.equals(this.stub, other.stub)) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.values, other.values)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "GivenDataAndStubbing ["
+                + "givenData=" + givenData
+                + ", stub=" + stub
+                + ", values=" + values + ']';
     }
 }

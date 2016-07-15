@@ -16,14 +16,12 @@
 package br.com.ppm.test.helper;
 
 import br.com.ppm.test.samples.model.User;
-import org.hamcrest.Matcher;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Unit tests for AssertsImpl
@@ -32,7 +30,13 @@ import static org.junit.Assert.*;
  */
 public class AssertsImplTest {
 
-    private AssertsImpl asserts;
+    private AssertsImpl asserts;    
+    private User user;
+    
+    @Before
+    public void setUp() {
+        this.user = new User("123", "test", "test@gmail.com");
+    }
 
     @Test
     public void testAssertThat() {
@@ -65,8 +69,7 @@ public class AssertsImplTest {
     }
 
     @Test
-    public void testAssertEqualToReturnField() {
-        User user = new User("123", "test", "test@gmail.com");
+    public void testAssertEqualToReturnField() {        
         String description = "testAssertEqualToReturnField";
         ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
         this.asserts = new AssertsImpl(returnObjectWrapper, description);
@@ -74,8 +77,7 @@ public class AssertsImplTest {
     }
 
     @Test
-    public void testAssertReturnFields() {
-        User user = new User("123", "test", "test@gmail.com");
+    public void testAssertReturnFields() {        
         String description = "testAssertReturnFields";
         ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
         this.asserts = new AssertsImpl(returnObjectWrapper, description);
@@ -84,8 +86,7 @@ public class AssertsImplTest {
 
     @Test
     @Ignore("FIXME: Bug on Method: assertEqualToReturnFields")
-    public void testAssertEqualToReturnFields() {
-        User user = new User("123", "test", "test@gmail.com");
+    public void testAssertEqualToReturnFields() {        
         String description = "testAssertEqualToReturnFields";
         ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
         this.asserts = new AssertsImpl(returnObjectWrapper, description);
@@ -93,8 +94,7 @@ public class AssertsImplTest {
     }
 
     @Test
-    public void testResultIsEqualTo() {
-        User user = new User("123", "test", "test@gmail.com");
+    public void testResultIsEqualTo() {        
         User expected = new User("123", "test", "test@gmail.com");
         String description = "testResultIsEqualTo";
         ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
@@ -103,8 +103,7 @@ public class AssertsImplTest {
     }
 
     @Test
-    public void testAssertReturn() {
-        User user = new User("123", "test", "test@gmail.com");
+    public void testAssertReturn() {        
         User expected = new User("123", "test", "test@gmail.com");
         String description = "testAssertReturn";
         ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
@@ -113,8 +112,7 @@ public class AssertsImplTest {
     }
 
     @Test
-    public void testAssertReturnField() {
-        User user = new User("123", "test", "test@gmail.com");
+    public void testAssertReturnField() {        
         String description = "testAssertReturnField";
         ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
         this.asserts = new AssertsImpl(returnObjectWrapper, description);
@@ -122,8 +120,7 @@ public class AssertsImplTest {
     }
 
     @Test
-    public void testAssertEqualTo_GenericType() {
-        User user = new User("123", "test", "test@gmail.com");
+    public void testAssertEqualTo_GenericType() {        
         User expected = new User("123", "test", "test@gmail.com");
         String description = "testAssertEqualTo_GenericType";
         ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);

@@ -3,37 +3,30 @@ package br.com.ppm.test.helper;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Objects;
 
 /**
  * The Method Invoker Class
  *
- * @param <D> the type of Given Data to the Method Invoker
+ * @param <GivenDataType> the type of Given Data to the Method Invoker
  * @author pedrotoliveira
  */
-public class MethodInvoker<D> {
+public class MethodInvoker<GivenDataType> {
 
     /**
      * The test description
      */
     private final String description;
-    /**
-     * The test instance.
-     */
     private final Object testInstance;
-    /**
-     * The given data.
-     */
-    private final D givenData;
+    private final GivenData<GivenDataType> givenData;
 
     /**
      * Instantiates a new method invoker.
      *
      * @param testInstance the test instance
-     * @param givenData the given data
+     * @param a givenData the given data
      */
-    MethodInvoker(final Object testInstance, final D givenData, final String description) {
+    MethodInvoker(final Object testInstance, final GivenData<GivenDataType> givenData, final String description) {
         this.testInstance = testInstance;
         this.givenData = givenData;
         this.description = description;
@@ -42,17 +35,18 @@ public class MethodInvoker<D> {
     /**
      * Method.
      *
-     * @param <R> the generic type
+     * @param <ReturnType> the generic type
      * @param methodName the method name
      * @param returnType the return type
      * @return the return object wrapper
      */
     @SuppressWarnings(value = "unchecked")
-    public <R> ReturnObjectWrapper<R> method(final String methodName, Class<R> returnType) {
+    public <ReturnType> ReturnObjectWrapper<ReturnType> method(final String methodName, Class<ReturnType> returnType) {
         try {
-            return (givenData.getClass().isArray())
-                    ? new ReturnObjectWrapper<>((R) invokeMethodMultipleParameters(methodName, (Object[]) givenData), description)
-                    : new ReturnObjectWrapper<>((R) invokeMethodSingleParameter(methodName, givenData), description);
+            GivenDataType data = givenData.getData();
+            return (data.getClass().isArray())
+                    ? new ReturnObjectWrapper<>((ReturnType) invokeMethodMultipleParameters(methodName, (Object[]) data), description)
+                    : new ReturnObjectWrapper<>((ReturnType) invokeMethodSingleParameter(methodName, data), description);
         } catch (Exception ex) {
             //FIXME: handle exception.
             throw new RuntimeException(ex);
@@ -67,7 +61,7 @@ public class MethodInvoker<D> {
      * @return the object
      * @throws Exception the exception
      */
-    private Object invokeMethodSingleParameter(String methodName, D givenData) throws Exception {
+    private Object invokeMethodSingleParameter(String methodName, GivenDataType givenData) throws Exception {
         Method method = getMethodByGivenDataClass(methodName, givenData.getClass());
         return method.invoke(testInstance, givenData);
     }
@@ -148,5 +142,46 @@ public class MethodInvoker<D> {
             parameterTypes.add(o.getClass());
         }
         return testInstance.getClass().getMethod(methodName, parameterTypes.toArray(new Class<?>[parameterTypes.size()]));
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.description);
+        hash = 71 * hash + Objects.hashCode(this.testInstance.getClass());
+        hash = 71 * hash + Objects.hashCode(this.givenData);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MethodInvoker<?> other = (MethodInvoker<?>) obj;
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.testInstance.getClass(), other.testInstance.getClass())) {
+            return false;
+        }
+        if (!Objects.equals(this.givenData, other.givenData)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "MethodInvoker["
+                + "description=" + description
+                + ", testInstance=" + testInstance
+                + ", givenData=" + givenData + ']';
     }
 }

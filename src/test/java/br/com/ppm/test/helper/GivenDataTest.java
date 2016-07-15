@@ -15,58 +15,61 @@
  */
 package br.com.ppm.test.helper;
 
+import br.com.ppm.test.samples.model.RegisterService;
+import br.com.ppm.test.samples.model.User;
+import br.com.ppm.test.samples.model.UserRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 /**
+ * GivenData Unit Tests
  *
  * @author pedrotoliveira
  */
+@RunWith(MockitoJUnitRunner.class)
 public class GivenDataTest {
-    
-    public GivenDataTest() {
-    }
-    
+
+    @Mock
+    private UserRepository userRepository;
+
+    private RegisterService registerService;
+    private User user;
+    private GivenData<User> givenData;
+    private String description;
+
     @Before
     public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+        this.description = "Test Given Data";
+        this.user = new User("123", "test", "test@gmail.com");
+        this.registerService = new RegisterService(userRepository);
+        this.givenData = new GivenData<>(user, description);
     }
 
     @Test
     public void testTest() {
-        System.out.println("test");
-        Object testInstance = null;
-        GivenData instance = null;
-        MethodInvoker expResult = null;
-        MethodInvoker result = instance.test(testInstance);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        MethodInvoker<User> expected = new MethodInvoker(registerService, givenData, description);
+        assertThat(givenData.test(registerService), equalTo(expected));
     }
 
     @Test
     public void testWhen() throws Exception {
-        System.out.println("when");
-        Object methodCall = null;
-        GivenData instance = null;
-        StubbingWrapper expResult = null;
-        StubbingWrapper result = instance.when(methodCall);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        when(userRepository.save(user)).thenReturn(user);
+        StubbingWrapper<User> when = givenData.when(registerService.register(user));
+        assertThat(givenData, equalTo(when.then().returnValue(user)));
     }
 
     @Test
     public void testWrapResult() {
-        System.out.println("wrapResult");
-        Object methodCall = null;
-        GivenData instance = null;
-        ReturnObjectWrapper expResult = null;
-        ReturnObjectWrapper result = instance.wrapResult(methodCall);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        when(userRepository.save(user)).thenReturn(user);
+        ReturnObjectWrapper<User> expected = new ReturnObjectWrapper<>(user, description);
+        assertThat(givenData.wrapResult(registerService.register(user)), equalTo(expected));
     }
 }

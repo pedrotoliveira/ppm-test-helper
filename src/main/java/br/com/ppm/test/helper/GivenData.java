@@ -15,12 +15,14 @@
  */
 package br.com.ppm.test.helper;
 
+import java.util.Objects;
+
 /**
  * The Class GivenData.
  *
- * @param <D> the generic type - Given Data
+ * @param <DataType> the generic type - Given Data
  */
-public class GivenData<D> implements Expectations {
+public class GivenData<DataType> implements Expectations {
 
     /**
      * The Test description.
@@ -29,32 +31,74 @@ public class GivenData<D> implements Expectations {
     /**
      * The given data.
      */
-    private final D givenData;
+    private final DataType data;
 
     /**
      * Instantiates a new given data.
      *
-     * @param givenData the given data
+     * @param data the given data
      * @param description the description
      */
-    public GivenData(final D givenData, final String description) {
+    public GivenData(final DataType data, final String description) {
         super();
-        this.givenData = givenData;
+        this.data = data;
         this.description = description;
     }
 
     @Override
-    public MethodInvoker<D> test(final Object testInstance) {
-        return new MethodInvoker<D>(testInstance, givenData, description);
+    public MethodInvoker<DataType> test(final Object testInstance) {
+        return new MethodInvoker<DataType>(testInstance, this, description);
     }
 
     @Override
-    public <T> StubbingWrapper<T> when(final T methodCall) {
-        return new GivenDataAndStubbing<D, T>(this, methodCall);
+    public <ReturnType> StubbingWrapper<ReturnType> when(final ReturnType methodCall) {
+        return new GivenDataAndStubbing<DataType, ReturnType>(this, methodCall);
     }
 
     @Override
-    public <I> ReturnObjectWrapper<I> wrapResult(I methodCall) {
+    public <ReturnType> ReturnObjectWrapper<ReturnType> wrapResult(final ReturnType methodCall) {
         return new ReturnObjectWrapper<>(methodCall, description);
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public DataType getData() {
+        return data;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 71 * hash + Objects.hashCode(this.description);
+        hash = 71 * hash + Objects.hashCode(this.data);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final GivenData<?> other = (GivenData<?>) obj;
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.data, other.data)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "GivenData [" + "description=" + description + ", data=" + data + ']';
     }
 }
