@@ -1,7 +1,9 @@
 package br.com.ppm.test.helper;
 
-import br.com.ppm.test.util.ReflectionUtil;
 import java.util.Objects;
+
+import br.com.ppm.test.util.ReflectionUtil;
+
 import org.hamcrest.Matcher;
 import org.mockito.Mockito;
 import org.mockito.verification.VerificationMode;
@@ -17,7 +19,7 @@ import static org.mockito.Mockito.times;
 public class ReturnObjectWrapper<ReturnType> implements Asserts<ReturnType>, Verifications {
 
     private final ReturnType returnObject;
-    private final Asserts asserts;
+    private final Asserts<ReturnType> asserts;
 
     /**
      * Instantiates a new return object wrapper.
@@ -26,7 +28,7 @@ public class ReturnObjectWrapper<ReturnType> implements Asserts<ReturnType>, Ver
      */
     protected ReturnObjectWrapper(ReturnType returnObject, String description) {
         this.returnObject = returnObject;
-        this.asserts = new AssertsImpl(this, description);
+        this.asserts = new AssertsImpl<>(this, description, new JUnitAssertWrapper());
     }
 
     @Override
@@ -50,12 +52,11 @@ public class ReturnObjectWrapper<ReturnType> implements Asserts<ReturnType>, Ver
     @SuppressWarnings("unchecked")
     public ReturnObjectWrapper<ReturnType> assertReturnField(String field, Matcher<?> matcher) {
         final Object valueToAssert = ReflectionUtil.getByFieldName(field, returnObject);
-        asserts.assertThat(valueToAssert, (Matcher<? super Object>) matcher);
+        asserts.assertThat((ReturnType) valueToAssert, (Matcher<? super Object>) matcher);
         return this;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public ReturnObjectWrapper<ReturnType> assertEqualToReturnField(String field, Object expected) {
         assertReturnField(field, equalTo(expected));
         return this;
