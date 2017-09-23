@@ -5,7 +5,8 @@ A general library to help you to build fast and fluent unit tests.
 
 Requires: JDK 8
 
-[![Build Status](https://travis-ci.org/pedrotoliveira/ppm-test-helper.svg?branch=master)](https://travis-ci.org/pedrotoliveira/ppm-test-helper) [![Apache 2](http://img.shields.io/badge/license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Build Status](https://travis-ci.org/pedrotoliveira/ppm-test-helper.svg?branch=master)](https://travis-ci.org/pedrotoliveira/ppm-test-helper) 
+[![Apache 2](http://img.shields.io/badge/license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 Depends On:
 - JUnit - 4.12
