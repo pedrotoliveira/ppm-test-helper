@@ -8,12 +8,16 @@ language: java
 jdk:
   - openjdk8
   - oraclejdk8
-install: true
+cache:
+  directories:
+    - $HOME/.mvn/wrapper/
+before_script:
+- chmod a+x mvnw
 script:  
   - java -version
-  - mvn clean
-  - mvn test
-  - mvn install
+  - ./mvnw clean
+  - ./mvnw test
+  - ./mvnw install
 branches:
   only:
     - master
