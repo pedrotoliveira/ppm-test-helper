@@ -7,7 +7,7 @@ Requires: JDK 8
 
 [![Build Status](https://travis-ci.org/pedrotoliveira/ppm-test-helper.svg?branch=master)](https://travis-ci.org/pedrotoliveira/ppm-test-helper) 
 [![Apache 2](http://img.shields.io/badge/license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/br.com.ppm/ppm-test-helper/badge.svg)](https://maven-badges.herokuapp.com/maven-central/br.com.ppm/ppm-test-helper)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/br.com.ppm/test-helper/badge.svg)](https://maven-badges.herokuapp.com/maven-central/br.com.ppm/test-helper)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4d7a18f44cc74b81b30bfe23d90dd13c)](https://www.codacy.com/app/pedro.oliveira20/ppm-test-helper?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pedrotoliveira/ppm-test-helper&amp;utm_campaign=Badge_Grade)
 
 Depends On:
