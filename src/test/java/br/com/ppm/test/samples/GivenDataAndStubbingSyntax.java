@@ -15,12 +15,14 @@
  */
 package br.com.ppm.test.samples;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.ppm.test.helper.FluentTestHelper;
 import br.com.ppm.test.samples.model.RegisterService;
 import br.com.ppm.test.samples.model.User;
 import br.com.ppm.test.samples.model.UserRepository;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +30,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
+ * Sample Syntax Example
  *
  * @author pedrotoliveira
  */

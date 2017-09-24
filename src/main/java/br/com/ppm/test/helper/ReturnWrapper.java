@@ -12,11 +12,11 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.mockito.Mockito.times;
 
 /**
- * The Class ReturnObjectWrapper.
+ * The Class ReturnWrapper.
  *
  * @param <ReturnType> the generic type of method return
  */
-public class ReturnObjectWrapper<ReturnType> implements Asserts<ReturnType>, Verifications {
+public class ReturnWrapper<ReturnType> implements Asserts<ReturnType>, Verifications {
 
     private final ReturnType returnObject;
     private final Asserts<ReturnType> asserts;
@@ -26,64 +26,54 @@ public class ReturnObjectWrapper<ReturnType> implements Asserts<ReturnType>, Ver
      *
      * @param returnObject the return object
      */
-    protected ReturnObjectWrapper(ReturnType returnObject, String description) {
+    protected ReturnWrapper(ReturnType returnObject, String description) {
         this.returnObject = returnObject;
-        this.asserts = new AssertsImpl<>(this, description, new JUnitAssertWrapper());
+        this.asserts = new AssertsImpl<>(this, description);
+    }
+
+    public Object getReturn() {
+        return returnObject;
     }
 
     @Override
-    public ReturnObjectWrapper<ReturnType> assertEqualTo(ReturnType expected) {
+    public ReturnWrapper<ReturnType> assertEqualTo(ReturnType expected) {
         asserts.assertThat(returnObject, equalTo(expected));
         return this;
     }
 
     @Override
-    public ReturnObjectWrapper<ReturnType> resultIsEqualTo(ReturnType expected) {
+    public ReturnWrapper<ReturnType> resultIsEqualTo(ReturnType expected) {
         return assertEqualTo(expected);
     }
 
     @Override
-    public ReturnObjectWrapper<ReturnType> assertReturn(Matcher<? super ReturnType> matcher) {
+    public ReturnWrapper<ReturnType> assertReturn(Matcher<? super ReturnType> matcher) {
         asserts.assertThat(returnObject, matcher);
         return this;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public ReturnObjectWrapper<ReturnType> assertReturnField(String field, Matcher<?> matcher) {
+    public ReturnWrapper<ReturnType> assertReturnField(String field, Matcher<?> matcher) {
         final Object valueToAssert = ReflectionUtil.getByFieldName(field, returnObject);
         asserts.assertThat((ReturnType) valueToAssert, (Matcher<? super Object>) matcher);
         return this;
     }
 
     @Override
-    public ReturnObjectWrapper<ReturnType> assertEqualToReturnField(String field, Object expected) {
+    public ReturnWrapper<ReturnType> assertEqualToReturnField(String field, Object expected) {
         assertReturnField(field, equalTo(expected));
         return this;
     }
 
     @Override
-    public ReturnObjectWrapper<ReturnType> assertReturnFields(String field, Matcher<?> matcher, Object... additionalKeyMatcherPairs) {
-        assertReturnField(field, matcher);
-        if (additionalKeyMatcherPairs.length >= 2) {
-            String f = (String) additionalKeyMatcherPairs[0];
-            @SuppressWarnings("unchecked")
-            Matcher<? super Object> m = (Matcher<? super Object>) additionalKeyMatcherPairs[1];
-
-            if (additionalKeyMatcherPairs.length > 2) {
-                Object[] matchersPairs = new Object[additionalKeyMatcherPairs.length - 2];
-                System.arraycopy(additionalKeyMatcherPairs, 2, matchersPairs, 0, additionalKeyMatcherPairs.length - 2);
-                return assertReturnFields(f, m, matchersPairs);
-            } else {
-                return assertReturnFields(f, m);
-            }
-        }
-        return this;
+    public ReturnWrapper<ReturnType> assertReturnFields(String field, Matcher<?> matcher, Object... additionalKeyMatcherPairs) {
+        return asserts.assertReturnFields(field, matcher, additionalKeyMatcherPairs);
     }
 
     @Override
-    public ReturnObjectWrapper<ReturnType> assertEqualToReturnFields(String field, Object expected, Object... additionalKeyMatcherPairs) {
-        return assertReturnFields(field, equalTo(expected), additionalKeyMatcherPairs);
+    public ReturnWrapper<ReturnType> assertEqualToReturnFields(String field, Object expected, Object... additionalKeyMatcherPairs) {
+        return asserts.assertEqualToReturnFields(field, expected, additionalKeyMatcherPairs);
     }
 
     @Override
@@ -140,7 +130,7 @@ public class ReturnObjectWrapper<ReturnType> implements Asserts<ReturnType>, Ver
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ReturnObjectWrapper<?> other = (ReturnObjectWrapper<?>) obj;
+        final ReturnWrapper<?> other = (ReturnWrapper<?>) obj;
         if (!Objects.equals(this.returnObject, other.returnObject)) {
             return false;
         }

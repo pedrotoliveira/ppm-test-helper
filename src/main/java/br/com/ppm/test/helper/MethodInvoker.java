@@ -41,12 +41,12 @@ public class MethodInvoker<GivenDataType> {
      * @return the return object wrapper
      */
     @SuppressWarnings(value = "unchecked")
-    public <ReturnType> ReturnObjectWrapper<ReturnType> method(final String methodName, Class<ReturnType> returnType) {
+    public <ReturnType> ReturnWrapper<ReturnType> method(final String methodName, Class<ReturnType> returnType) {
         try {
             GivenDataType data = givenData.getData();
             return (data.getClass().isArray())
-                    ? new ReturnObjectWrapper<>((ReturnType) invokeMethodMultipleParameters(methodName, (Object[]) data), description)
-                    : new ReturnObjectWrapper<>((ReturnType) invokeMethodSingleParameter(methodName, data), description);
+                    ? new ReturnWrapper<>((ReturnType) invokeMethodMultipleParameters(methodName, (Object[]) data), description)
+                    : new ReturnWrapper<>((ReturnType) invokeMethodSingleParameter(methodName, data), description);
         } catch (Exception ex) {
             //FIXME: handle exception.
             throw new RuntimeException(ex);

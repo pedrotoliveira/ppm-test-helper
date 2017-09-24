@@ -15,37 +15,51 @@
  */
 package br.com.ppm.test.helper;
 
-import org.junit.After;
+import br.com.ppm.test.samples.model.RegisterService;
+import br.com.ppm.test.samples.model.User;
+import br.com.ppm.test.samples.model.UserRepository;
+
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import static br.com.ppm.test.helper.CommonTemplateLabels.VALID;
+import static org.junit.Assert.fail;
 
 /**
  * MethodInvoker Unit Tests
- * 
+ *
  * @author pedrotoliveira
  */
-public class MethodInvokerTest {
-    
-    public MethodInvokerTest() {
+@RunWith(MockitoJUnitRunner.class)
+public class MethodInvokerTest extends FixtureTestHelper {
+
+    @Mock
+    private UserRepository repository;
+    private RegisterService service;
+
+    private MethodInvoker<User> invoker;
+
+    @BeforeClass
+    public static void beforeAll() {
+        setUpFixtures("br.com.ppm.test.fixtures");
     }
-    
+
     @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+    public void beforeTests() {
+        User user = fixtureFrom(User.class).gimme(VALID);
+        GivenData<User> data = new GivenData<>(user, "User Data");
+        this.service = new RegisterService(repository);
+        this.invoker = new MethodInvoker<>(service, data, "MethodInvokerTest");
     }
 
     @Test
     public void testMethod() throws Exception {
-        System.out.println("method");
-        MethodInvoker instance = null;
-        ReturnObjectWrapper expResult = null;
-        //ReturnObjectWrapper result = instance.method(null);
-        //assertEquals(expResult, result);
+
         fail("The test case is a prototype.");
     }
-    
+
 }

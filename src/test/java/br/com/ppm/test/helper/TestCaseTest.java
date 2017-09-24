@@ -88,8 +88,8 @@ public class TestCaseTest {
         System.out.println("wrapResult");
         Object methodCall = null;
         TestCase instance = null;
-        ReturnObjectWrapper expResult = null;
-        ReturnObjectWrapper result = instance.wrapResult(methodCall);
+        ReturnWrapper expResult = null;
+        ReturnWrapper result = instance.wrapResult(methodCall);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }

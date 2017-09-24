@@ -10,13 +10,20 @@ import java.util.Objects;
 public class Address {
 
     private String street;
-    private int number;
+    private String city;
+    private Integer number;
+    private String state;
+    private String zipcode;
+    private String country;
     private String complement;
 
-    public Address(String street, int number, String complement) {
+    public Address(String street, String city, Integer number, String state, String zipcode, String country) {
         this.street = street;
+        this.city = city;
         this.number = number;
-        this.complement = complement;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.country = country;
     }
 
     public String getStreet() {
@@ -25,6 +32,14 @@ public class Address {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public int getNumber() {
@@ -45,10 +60,14 @@ public class Address {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.street);
-        hash = 97 * hash + this.number;
-        hash = 97 * hash + Objects.hashCode(this.complement);
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.street);
+        hash = 17 * hash + Objects.hashCode(this.city);
+        hash = 17 * hash + Objects.hashCode(this.number);
+        hash = 17 * hash + Objects.hashCode(this.state);
+        hash = 17 * hash + Objects.hashCode(this.zipcode);
+        hash = 17 * hash + Objects.hashCode(this.country);
+        hash = 17 * hash + Objects.hashCode(this.complement);
         return hash;
     }
 
@@ -64,13 +83,25 @@ public class Address {
             return false;
         }
         final Address other = (Address) obj;
-        if (this.number != other.number) {
-            return false;
-        }
         if (!Objects.equals(this.street, other.street)) {
             return false;
         }
+        if (!Objects.equals(this.city, other.city)) {
+            return false;
+        }
+        if (!Objects.equals(this.state, other.state)) {
+            return false;
+        }
+        if (!Objects.equals(this.zipcode, other.zipcode)) {
+            return false;
+        }
+        if (!Objects.equals(this.country, other.country)) {
+            return false;
+        }
         if (!Objects.equals(this.complement, other.complement)) {
+            return false;
+        }
+        if (!Objects.equals(this.number, other.number)) {
             return false;
         }
         return true;
@@ -78,7 +109,7 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" + "street=" + street + ", number=" + number + ", complement=" + complement + '}';
+        return "Address{" + "street=" + street + ", city=" + city + ", number=" + number + ", state=" + state + ", zipcode=" + zipcode + ", country=" + country + ", complement=" + complement + '}';
     }
-   
+
 }

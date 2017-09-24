@@ -16,6 +16,4 @@ Depends On:
 - Log4j - 2.9.0
 - AssertJ - 3.8.0
 
-This library still in working in progress. I have many ideias to improve the DSL.
-
-DSL still in test stage.
+This library still is working in progress. DSL still in test stage.

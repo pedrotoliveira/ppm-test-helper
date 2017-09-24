@@ -32,5 +32,5 @@ public interface Expectations {
 	 * @param methodCall the method call
 	 * @return the return object wrapper
 	 */
-	<I> ReturnObjectWrapper<I> wrapResult(I methodCall);
+	<I> ReturnWrapper<I> wrapResult(I methodCall);
 }

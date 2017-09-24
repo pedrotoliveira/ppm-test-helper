@@ -16,6 +16,7 @@
 package br.com.ppm.test.helper;
 
 import br.com.ppm.test.samples.model.User;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -30,101 +31,82 @@ import static org.junit.Assert.assertThat;
  */
 public class AssertsImplTest {
 
-    private AssertsImpl asserts;    
+    private AssertsImpl<User> asserts;
     private User user;
-    
+    private ReturnWrapper<User> objectWrapper;
+    private final String description = "AssertsImplTest";
+
     @Before
     public void setUp() {
         this.user = new User("123", "test", "test@gmail.com");
+        this.objectWrapper = new ReturnWrapper<>(user, "An User");
+        this.asserts = new AssertsImpl<>(objectWrapper, description);
     }
+
 
     @Test
     public void testAssertThat() {
-        this.asserts = new AssertsImpl(null, "AssertsImplTest");
-        asserts.assertThat("Some method return", equalTo("Some method return"));
+        User expected = new User("123", "test", "test@gmail.com");
+        asserts.assertThat(user, equalTo(expected));
     }
 
     @Test
     public void testAssertTrue() {
-        this.asserts = new AssertsImpl(null, "AssertsImplTest");
         asserts.assertTrue(true);
     }
 
     @Test
     public void testAssertFalse() {
-        this.asserts = new AssertsImpl(null, "AssertsImplTest");
         asserts.assertFalse(false);
     }
 
     @Test
     public void testAssertEqualTo() {
-        this.asserts = new AssertsImpl(null, "AssertsImplTest");
-        asserts.assertEqualTo("Some method return", "Some method return");
+        User expected = new User("123", "test", "test@gmail.com");
+        asserts.assertEqualTo(user, expected);
     }
 
     @Test
     public void testGetDescription() {
-        this.asserts = new AssertsImpl(null, "AssertsImplTest");
         assertThat(asserts.getDescription(), equalTo("AssertsImplTest"));
     }
 
     @Test
-    public void testAssertEqualToReturnField() {        
-        String description = "testAssertEqualToReturnField";
-        ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
-        this.asserts = new AssertsImpl(returnObjectWrapper, description);
-        assertThat(asserts.assertEqualToReturnField("name", "test"), equalTo(returnObjectWrapper));
+    public void testAssertEqualToReturnField() {
+        assertThat(asserts.assertEqualToReturnField("name", "test"), equalTo(objectWrapper));
     }
 
     @Test
-    public void testAssertReturnFields() {        
-        String description = "testAssertReturnFields";
-        ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
-        this.asserts = new AssertsImpl(returnObjectWrapper, description);
-        assertThat(asserts.assertReturnFields("name", equalTo("test"), "id", equalTo("123")), equalTo(returnObjectWrapper));
+    public void testAssertReturnFields() {
+        assertThat(asserts.assertReturnFields("name", equalTo("test"), "id", equalTo("123")), equalTo(objectWrapper));
     }
 
     @Test
     @Ignore("FIXME: Bug on Method: assertEqualToReturnFields")
-    public void testAssertEqualToReturnFields() {        
-        String description = "testAssertEqualToReturnFields";
-        ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
-        this.asserts = new AssertsImpl(returnObjectWrapper, description);
-        assertThat(asserts.assertEqualToReturnFields("name", "test", "id", "123"), equalTo(returnObjectWrapper));
+    public void testAssertEqualToReturnFields() {
+        assertThat(asserts.assertEqualToReturnFields("name", "test", "id", "123"), equalTo(objectWrapper));
     }
 
     @Test
-    public void testResultIsEqualTo() {        
+    public void testResultIsEqualTo() {
         User expected = new User("123", "test", "test@gmail.com");
-        String description = "testResultIsEqualTo";
-        ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
-        this.asserts = new AssertsImpl(returnObjectWrapper, description);
-        assertThat(asserts.resultIsEqualTo(expected), equalTo(returnObjectWrapper));
+        assertThat(asserts.resultIsEqualTo(expected), equalTo(objectWrapper));
     }
 
     @Test
-    public void testAssertReturn() {        
+    public void testAssertReturn() {
         User expected = new User("123", "test", "test@gmail.com");
-        String description = "testAssertReturn";
-        ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
-        this.asserts = new AssertsImpl(returnObjectWrapper, description);
-        assertThat(asserts.assertReturn(equalTo(expected)), equalTo(returnObjectWrapper));
+        assertThat(asserts.assertReturn(equalTo(expected)), equalTo(objectWrapper));
     }
 
     @Test
-    public void testAssertReturnField() {        
-        String description = "testAssertReturnField";
-        ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
-        this.asserts = new AssertsImpl(returnObjectWrapper, description);
-        assertThat(asserts.assertReturnField("name", equalTo("test")), equalTo(returnObjectWrapper));
+    public void testAssertReturnField() {
+        assertThat(asserts.assertReturnField("name", equalTo("test")), equalTo(objectWrapper));
     }
 
     @Test
-    public void testAssertEqualTo_GenericType() {        
+    public void testAssertEqualTo_GenericType() {
         User expected = new User("123", "test", "test@gmail.com");
-        String description = "testAssertEqualTo_GenericType";
-        ReturnObjectWrapper returnObjectWrapper = new ReturnObjectWrapper(user, description);
-        this.asserts = new AssertsImpl(returnObjectWrapper, description);
-        assertThat(asserts.assertEqualTo(expected), equalTo(returnObjectWrapper));
+        assertThat(asserts.assertEqualTo(expected), equalTo(objectWrapper));
     }
 }

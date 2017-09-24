@@ -47,17 +47,17 @@ public class GivenData<DataType> implements Expectations {
 
     @Override
     public MethodInvoker<DataType> test(final Object testInstance) {
-        return new MethodInvoker<DataType>(testInstance, this, description);
+        return new MethodInvoker<>(testInstance, this, description);
     }
 
     @Override
     public <ReturnType> StubbingWrapper<ReturnType> when(final ReturnType methodCall) {
-        return new GivenDataAndStubbing<DataType, ReturnType>(this, methodCall);
+        return new GivenDataAndStubbing<>(this, methodCall);
     }
 
     @Override
-    public <ReturnType> ReturnObjectWrapper<ReturnType> wrapResult(final ReturnType methodCall) {
-        return new ReturnObjectWrapper<>(methodCall, description);
+    public <ReturnType> ReturnWrapper<ReturnType> wrapResult(final ReturnType methodCall) {
+        return new ReturnWrapper<>(methodCall, description);
     }
 
     public String getDescription() {

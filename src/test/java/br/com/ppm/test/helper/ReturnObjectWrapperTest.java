@@ -45,7 +45,7 @@ public class ReturnObjectWrapperTest {
         System.out.println("assertThat");
         Object methodCall = null;
         Matcher matcher = null;
-        ReturnObjectWrapper instance = null;
+        ReturnWrapper instance = null;
         Asserts expResult = null;
         Asserts result = instance.assertThat(methodCall, matcher);
         assertEquals(expResult, result);
@@ -56,7 +56,7 @@ public class ReturnObjectWrapperTest {
     public void testAssertTrue() {
         System.out.println("assertTrue");
         boolean methodCall = false;
-        ReturnObjectWrapper instance = null;
+        ReturnWrapper instance = null;
         Asserts expResult = null;
         Asserts result = instance.assertTrue(methodCall);
         assertEquals(expResult, result);
@@ -67,7 +67,7 @@ public class ReturnObjectWrapperTest {
     public void testAssertFalse() {
         System.out.println("assertFalse");
         boolean methodCall = false;
-        ReturnObjectWrapper instance = null;
+        ReturnWrapper instance = null;
         Asserts expResult = null;
         Asserts result = instance.assertFalse(methodCall);
         assertEquals(expResult, result);
@@ -79,7 +79,7 @@ public class ReturnObjectWrapperTest {
         System.out.println("assertEqualTo");
         Object methodCall = null;
         Object expected = null;
-        ReturnObjectWrapper instance = null;
+        ReturnWrapper instance = null;
         Asserts expResult = null;
         Asserts result = instance.assertEqualTo(methodCall, expected);
         assertEquals(expResult, result);
@@ -90,9 +90,9 @@ public class ReturnObjectWrapperTest {
     public void testAssertEqualTo_GenericType() {
         System.out.println("assertEqualTo");
         Object expected = null;
-        ReturnObjectWrapper instance = null;
-        ReturnObjectWrapper expResult = null;
-        ReturnObjectWrapper result = instance.assertEqualTo(expected);
+        ReturnWrapper instance = null;
+        ReturnWrapper expResult = null;
+        ReturnWrapper result = instance.assertEqualTo(expected);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
@@ -101,9 +101,9 @@ public class ReturnObjectWrapperTest {
     public void testResultIsEqualTo() {
         System.out.println("resultIsEqualTo");
         Object expected = null;
-        ReturnObjectWrapper instance = null;
-        ReturnObjectWrapper expResult = null;
-        ReturnObjectWrapper result = instance.resultIsEqualTo(expected);
+        ReturnWrapper instance = null;
+        ReturnWrapper expResult = null;
+        ReturnWrapper result = instance.resultIsEqualTo(expected);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
@@ -112,9 +112,9 @@ public class ReturnObjectWrapperTest {
     public void testAssertReturn() {
         System.out.println("assertReturn");
         Matcher matcher = null;
-        ReturnObjectWrapper instance = null;
-        ReturnObjectWrapper expResult = null;
-        ReturnObjectWrapper result = instance.assertReturn(matcher);
+        ReturnWrapper instance = null;
+        ReturnWrapper expResult = null;
+        ReturnWrapper result = instance.assertReturn(matcher);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
@@ -124,9 +124,9 @@ public class ReturnObjectWrapperTest {
         System.out.println("assertReturnField");
         String field = "";
         Matcher matcher = null;
-        ReturnObjectWrapper instance = null;
-        ReturnObjectWrapper expResult = null;
-        ReturnObjectWrapper result = instance.assertReturnField(field, matcher);
+        ReturnWrapper instance = null;
+        ReturnWrapper expResult = null;
+        ReturnWrapper result = instance.assertReturnField(field, matcher);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
@@ -136,9 +136,9 @@ public class ReturnObjectWrapperTest {
         System.out.println("assertEqualToReturnField");
         String field = "";
         Object expected = null;
-        ReturnObjectWrapper instance = null;
-        ReturnObjectWrapper expResult = null;
-        ReturnObjectWrapper result = instance.assertEqualToReturnField(field, expected);
+        ReturnWrapper instance = null;
+        ReturnWrapper expResult = null;
+        ReturnWrapper result = instance.assertEqualToReturnField(field, expected);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
@@ -149,9 +149,9 @@ public class ReturnObjectWrapperTest {
         String field = "";
         Matcher matcher = null;
         Object[] additionalKeyMatcherPairs = null;
-        ReturnObjectWrapper instance = null;
-        ReturnObjectWrapper expResult = null;
-        ReturnObjectWrapper result = instance.assertReturnFields(field, matcher, additionalKeyMatcherPairs);
+        ReturnWrapper instance = null;
+        ReturnWrapper expResult = null;
+        ReturnWrapper result = instance.assertReturnFields(field, matcher, additionalKeyMatcherPairs);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
@@ -162,9 +162,9 @@ public class ReturnObjectWrapperTest {
         String field = "";
         Object expected = null;
         Object[] additionalKeyMatcherPairs = null;
-        ReturnObjectWrapper instance = null;
-        ReturnObjectWrapper expResult = null;
-        ReturnObjectWrapper result = instance.assertEqualToReturnFields(field, expected, additionalKeyMatcherPairs);
+        ReturnWrapper instance = null;
+        ReturnWrapper expResult = null;
+        ReturnWrapper result = instance.assertEqualToReturnFields(field, expected, additionalKeyMatcherPairs);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
@@ -174,7 +174,7 @@ public class ReturnObjectWrapperTest {
         System.out.println("verify");
         Object mock = null;
         VerificationMode mode = null;
-        ReturnObjectWrapper instance = null;
+        ReturnWrapper instance = null;
         Object expResult = null;
         Object result = instance.verify(mock, mode);
         assertEquals(expResult, result);
@@ -185,7 +185,7 @@ public class ReturnObjectWrapperTest {
     public void testVerify_GenericType() {
         System.out.println("verify");
         Object mock = null;
-        ReturnObjectWrapper instance = null;
+        ReturnWrapper instance = null;
         Object expResult = null;
         Object result = instance.verify(mock);
         assertEquals(expResult, result);
@@ -196,7 +196,7 @@ public class ReturnObjectWrapperTest {
     public void testVerifyNoMoreInteractions() {
         System.out.println("verifyNoMoreInteractions");
         Object[] mocks = null;
-        ReturnObjectWrapper instance = null;
+        ReturnWrapper instance = null;
         instance.verifyNoMoreInteractions(mocks);
         fail("The test case is a prototype.");
     }

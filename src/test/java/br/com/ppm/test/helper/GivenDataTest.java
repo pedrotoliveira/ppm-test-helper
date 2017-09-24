@@ -67,7 +67,7 @@ public class GivenDataTest {
 
     @Test
     public void testWrapResult() {        
-        ReturnObjectWrapper<User> expected = new ReturnObjectWrapper<>(user, description);
+        ReturnWrapper<User> expected = new ReturnWrapper<>(user, description);
         assertThat(givenData.wrapResult(registerService.register(user)), equalTo(expected));
     }
 }
