@@ -31,7 +31,11 @@ public class ReturnWrapper<ReturnType> implements Asserts<ReturnType>, Verificat
         this.asserts = new AssertsImpl<>(this, description);
     }
 
-    public Object getReturn() {
+    public ReturnType getReturn() {
+        return returnObject;
+    }
+
+    public ReturnType getResult() {
         return returnObject;
     }
 

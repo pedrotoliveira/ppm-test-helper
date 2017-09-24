@@ -16,8 +16,14 @@
  */
 package br.com.ppm.test.helper;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
+
+import static org.assertj.core.util.Arrays.isNullOrEmpty;
 
 /**
  *
@@ -29,11 +35,34 @@ public interface FixtureTemplateLoader<T> extends CommonTemplateLabels {
         return new RuleBuilder();
     }
 
+    default ParameterizedType extractParameterizedType() {
+        Type[] genericInterfaces = getClass().getGenericInterfaces();
+        if (isNullOrEmpty(genericInterfaces)) {
+            throw new IllegalStateException("Can't find Generic Interfaces");
+        }
+        for (Type type : genericInterfaces) {
+            if (type instanceof ParameterizedTypeImpl) {
+                return (ParameterizedTypeImpl) type;
+            }
+        }
+        throw new IllegalStateException("Can't find a ParameterizedType");
+    }
+
+    default Class<?> extractTypeArgumentClass() {
+        ParameterizedType parameterizedType = extractParameterizedType();
+        if (isNullOrEmpty(parameterizedType.getActualTypeArguments())) {
+            throw new IllegalStateException("Can't find Type Arguments");
+        }
+        return (Class<?>) parameterizedType.getActualTypeArguments()[0];
+    }
+
     default void validTemplate(Rule rule) {
-        Fixture.of(this.getClass().getTypeParameters()[0].getClass()).addTemplate(VALID, rule);
+        Class<?> typeClass = extractTypeArgumentClass();
+        Fixture.of(typeClass).addTemplate(VALID, rule);
     }
 
     default void invalidTemplate(Rule rule) {
-        Fixture.of(this.getClass().getTypeParameters()[0].getClass()).addTemplate(INVALID, rule);
+        Class<?> typeClass = extractTypeArgumentClass();
+        Fixture.of(typeClass).addTemplate(INVALID, rule);
     }
 }

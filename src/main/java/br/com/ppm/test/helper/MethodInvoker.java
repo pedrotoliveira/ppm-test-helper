@@ -32,6 +32,10 @@ public class MethodInvoker<GivenDataType> {
         this.description = description;
     }
 
+    public GivenDataType getGivenData() {
+        return givenData.getData();
+    }
+
     /**
      * Method.
      *

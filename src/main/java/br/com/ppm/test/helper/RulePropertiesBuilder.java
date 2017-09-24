@@ -143,7 +143,11 @@ public final class RulePropertiesBuilder {
     }
 
     public RuleBuilder range(Number start, Number end) {
-        builder.add(propertyKey, builder.range(start, end));
+        if (start instanceof Integer) {
+            builder.add(propertyKey, builder.range(start, end));
+        } else {
+            builder.add(propertyKey, builder.longRange(start, end));
+        }
         return builder;
     }
 

@@ -18,6 +18,7 @@ package br.com.ppm.test.helper;
 import br.com.ppm.test.samples.model.RegisterService;
 import br.com.ppm.test.samples.model.User;
 import br.com.ppm.test.samples.model.UserRepository;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,11 +35,10 @@ import static org.mockito.Mockito.when;
  * @author pedrotoliveira
  */
 @RunWith(MockitoJUnitRunner.class)
-public class GivenDataTest {
+public class GivenDataTest extends FixtureTestHelper {
 
     @Mock
     private UserRepository userRepository;
-
     private RegisterService registerService;
     private User user;
     private GivenData<User> givenData;
@@ -60,13 +60,13 @@ public class GivenDataTest {
     }
 
     @Test
-    public void testWhen() throws Exception {        
+    public void testWhen() throws Exception {
         StubbingWrapper<User> when = givenData.when(registerService.register(user));
         assertThat(givenData, equalTo(when.then().returnValue(user)));
     }
 
     @Test
-    public void testWrapResult() {        
+    public void testWrapResult() {
         ReturnWrapper<User> expected = new ReturnWrapper<>(user, description);
         assertThat(givenData.wrapResult(registerService.register(user)), equalTo(expected));
     }

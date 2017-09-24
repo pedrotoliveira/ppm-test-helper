@@ -27,7 +27,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static br.com.ppm.test.helper.CommonTemplateLabels.VALID;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 /**
  * MethodInvoker Unit Tests
@@ -35,13 +36,14 @@ import static org.junit.Assert.fail;
  * @author pedrotoliveira
  */
 @RunWith(MockitoJUnitRunner.class)
-public class MethodInvokerTest extends FixtureTestHelper {
+public class MethodInvokerTest extends FluentTestHelper {
 
     @Mock
     private UserRepository repository;
-    private RegisterService service;
 
+    private RegisterService service;
     private MethodInvoker<User> invoker;
+    private GivenData<User> givenData;
 
     @BeforeClass
     public static void beforeAll() {
@@ -51,15 +53,26 @@ public class MethodInvokerTest extends FixtureTestHelper {
     @Before
     public void beforeTests() {
         User user = fixtureFrom(User.class).gimme(VALID);
-        GivenData<User> data = new GivenData<>(user, "User Data");
+        this.givenData = new GivenData<>(user, "User Data");
         this.service = new RegisterService(repository);
-        this.invoker = new MethodInvoker<>(service, data, "MethodInvokerTest");
+        this.invoker = new MethodInvoker<>(service, givenData, "MethodInvokerTest");
     }
 
     @Test
-    public void testMethod() throws Exception {
+    public void testInvokeRegisterOnUserService() throws Exception {
+        User expected = givenData.getData();
+        //We Expect a repository Call
+        when(repository.save(givenData.getData())).thenReturn(expected);
 
-        fail("The test case is a prototype.");
+        User current = invoker.method("register", User.class).getResult();
+        assertThat(current).isEqualTo(expected);
+
+        verify(repository).save(expected);
+    }
+
+    @Test
+    public void testGivenDataNotChange() throws Exception {
+        assertThat(invoker.getGivenData()).isSameAs(givenData.getData());
     }
 
 }

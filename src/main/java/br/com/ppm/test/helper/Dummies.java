@@ -39,7 +39,7 @@ public final class Dummies {
 
     public static String randomEmail() {
         String name = new NameFunction().generateValue();
-        return name.concat("@").concat(random(DOMAINS));
+        return name.trim().toLowerCase().replaceAll(" ", ".").concat("@").concat(random(DOMAINS));
     }
 
     public static String randomEmailBy(String username) {

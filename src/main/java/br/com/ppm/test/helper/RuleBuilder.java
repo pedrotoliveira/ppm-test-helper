@@ -141,8 +141,14 @@ public final class RuleBuilder implements FixtureRule {
         return rule.regex(regex);
     }
 
-    Range range(Number start, Number end) {
-        return rule.range(start, end);
+    Function range(Number start, Number end) {
+        Range range = rule.range(start, end);
+        return random(Integer.class, range);
+    }
+
+    Function longRange(Number start, Number end) {
+        Range range = rule.range(start, end);
+        return random(Long.class, range);
     }
 
     Function sequence(Sequence<?> sequence) {
