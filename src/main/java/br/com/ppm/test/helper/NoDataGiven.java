@@ -17,10 +17,10 @@ package br.com.ppm.test.helper;
 
 /**
  * A NULL Object that represents a Test Without Data.
- * 
+ *
  * @author pedrotoliveira
  */
-public class NoDataGiven<D> extends GivenData<D> {
+public final class NoDataGiven<D> extends GivenData<D> {
 
     public NoDataGiven() {
         super(null, "No Data Given");

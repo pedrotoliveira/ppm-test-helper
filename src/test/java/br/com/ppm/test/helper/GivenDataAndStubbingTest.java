@@ -18,30 +18,24 @@ package br.com.ppm.test.helper;
 import br.com.ppm.test.samples.model.RegisterService;
 import br.com.ppm.test.samples.model.User;
 import br.com.ppm.test.samples.model.UserRepository;
-import javax.management.RuntimeErrorException;
+
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.internal.matchers.NotNull;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.stubbing.Answer;
 import org.mockito.stubbing.OngoingStubbing;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.mockito.Matchers.isNotNull;
-import static org.mockito.Matchers.notNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 /**
  *
  * @author pedrotoliveira
  */
+@SuppressWarnings("PMD.TooManyStaticImports")
 @RunWith(MockitoJUnitRunner.class)
 public class GivenDataAndStubbingTest {
 

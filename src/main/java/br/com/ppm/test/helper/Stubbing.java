@@ -24,7 +24,7 @@ import org.mockito.stubbing.OngoingStubbing;
  * @author pedrotoliveira
  */
 public class Stubbing<ReturnType> implements StubbingWrapper<ReturnType> {
-        
+
 	private final OngoingStubbing<ReturnType> stub;
     private ReturnType[] values;
 
@@ -67,7 +67,7 @@ public class Stubbing<ReturnType> implements StubbingWrapper<ReturnType> {
     @Override
     public <M> M getMock() {
         return stub.getMock();
-    }    
+    }
 
     @Override
     public <T> StubbingWrapper<T> when(T methodCall) {
@@ -80,8 +80,7 @@ public class Stubbing<ReturnType> implements StubbingWrapper<ReturnType> {
     }
 
     @Override
-    public OngoingStubbing<ReturnType> thenCallRealMethod() {        
-        //TODO: Study utility of this method.
-        throw new UnsupportedOperationException("I have no reason for use this method.");
+    public OngoingStubbing<ReturnType> thenCallRealMethod() {
+        throw new UnsupportedOperationException("There is no reason to use this method.");
     }
 }

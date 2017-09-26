@@ -1,5 +1,6 @@
 package br.com.ppm.test.helper;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,16 +46,13 @@ public class MethodInvoker<GivenDataType> {
      * @return the return object wrapper
      */
     @SuppressWarnings(value = "unchecked")
-    public <ReturnType> ReturnWrapper<ReturnType> method(final String methodName, Class<ReturnType> returnType) {
-        try {
-            GivenDataType data = givenData.getData();
-            return (data.getClass().isArray())
-                    ? new ReturnWrapper<>((ReturnType) invokeMethodMultipleParameters(methodName, (Object[]) data), description)
-                    : new ReturnWrapper<>((ReturnType) invokeMethodSingleParameter(methodName, data), description);
-        } catch (Exception ex) {
-            //FIXME: handle exception.
-            throw new RuntimeException(ex);
-        }
+    public <ReturnType> ReturnWrapper<ReturnType> method(final String methodName, Class<ReturnType> returnType)
+            throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
+
+        GivenDataType data = givenData.getData();
+        return (data.getClass().isArray())
+                ? new ReturnWrapper<>((ReturnType) invokeMethodMultipleParameters(methodName, (Object[]) data), description)
+                : new ReturnWrapper<>((ReturnType) invokeMethodSingleParameter(methodName, data), description);
     }
 
     /**
@@ -65,7 +63,8 @@ public class MethodInvoker<GivenDataType> {
      * @return the object
      * @throws Exception the exception
      */
-    private Object invokeMethodSingleParameter(String methodName, GivenDataType givenData) throws Exception {
+    private Object invokeMethodSingleParameter(String methodName, GivenDataType givenData)
+            throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Method method = getMethodByGivenDataClass(methodName, givenData.getClass());
         return method.invoke(testInstance, givenData);
     }
@@ -78,7 +77,7 @@ public class MethodInvoker<GivenDataType> {
      * @return the method by given data class
      * @throws Exception the exception
      */
-    private Method getMethodByGivenDataClass(final String methodName, final Class<?> type) throws Exception {
+    private Method getMethodByGivenDataClass(final String methodName, final Class<?> type) {
         try {
             return (type == null)
                     ? testInstance.getClass().getMethod(methodName)
@@ -96,7 +95,9 @@ public class MethodInvoker<GivenDataType> {
      * @return the object
      * @throws Exception the exception
      */
-    private Object invokeMethodMultipleParameters(String methodName, Object[] parametersData) throws Exception {
+    private Object invokeMethodMultipleParameters(String methodName, Object[] parametersData)
+            throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
+
         Method method = getMethodMultipleParameters(methodName, parametersData);
         int numbeOfParameters = method.getParameterTypes().length;
         switch (numbeOfParameters) {
@@ -107,26 +108,11 @@ public class MethodInvoker<GivenDataType> {
             case 3:
                 return method.invoke(testInstance, parametersData[0], parametersData[1], parametersData[2]);
             case 4:
-                return method.invoke(testInstance, parametersData[0], parametersData[1], parametersData[2], parametersData[3]);
+                return method.invoke(testInstance, parametersData[0], parametersData[1], parametersData[2],
+                        parametersData[3]);
             case 5:
-                return method.invoke(testInstance, parametersData[0], parametersData[1], parametersData[2], parametersData[3],
-                        parametersData[4]);
-            case 6:
-                return method.invoke(testInstance, parametersData[0], parametersData[1], parametersData[2], parametersData[3],
-                        parametersData[4], parametersData[5]);
-            case 7:
-                return method.invoke(testInstance, parametersData[0], parametersData[1], parametersData[2], parametersData[3],
-                        parametersData[4], parametersData[5], parametersData[6]);
-            case 8:
-                return method.invoke(testInstance, parametersData[0], parametersData[1], parametersData[2], parametersData[3],
-                        parametersData[4], parametersData[5], parametersData[6], parametersData[7]);
-            case 9:
-                return method.invoke(testInstance, parametersData[0], parametersData[1], parametersData[2], parametersData[3],
-                        parametersData[4], parametersData[5], parametersData[6], parametersData[7], parametersData[8]);
-            case 10:
-                return method.invoke(testInstance, parametersData[0], parametersData[1], parametersData[2], parametersData[3],
-                        parametersData[4], parametersData[5], parametersData[6], parametersData[7], parametersData[8],
-                        parametersData[9]);
+                return method.invoke(testInstance, parametersData[0], parametersData[1], parametersData[2],
+                        parametersData[3], parametersData[4]);
             default:
                 throw new IllegalStateException("Test method have too many parameters. Plese verify your design!");
         }
@@ -140,12 +126,17 @@ public class MethodInvoker<GivenDataType> {
      * @return the method multiple parameters
      * @throws Exception the exception
      */
-    private Method getMethodMultipleParameters(String methodName, Object[] parametersData) throws Exception {
-        List<Class<?>> parameterTypes = new ArrayList<>();
-        for (Object o : parametersData) {
-            parameterTypes.add(o.getClass());
+    private Method getMethodMultipleParameters(String methodName, Object[] parametersData)
+            throws NoSuchMethodException {
+        try {
+            List<Class<?>> parameterTypes = new ArrayList<>();
+            for (Object o : parametersData) {
+                parameterTypes.add(o.getClass());
+            }
+            return testInstance.getClass().getMethod(methodName, parameterTypes.toArray(new Class<?>[parameterTypes.size()]));
+        } catch (NoSuchMethodException | SecurityException ex) {
+            throw ex;
         }
-        return testInstance.getClass().getMethod(methodName, parameterTypes.toArray(new Class<?>[parameterTypes.size()]));
     }
 
     @Override

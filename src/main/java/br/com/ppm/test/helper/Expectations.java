@@ -1,7 +1,5 @@
 package br.com.ppm.test.helper;
 
-import org.mockito.stubbing.OngoingStubbing;
-
 /**
  * The Interface Expectations.
  */

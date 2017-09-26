@@ -13,13 +13,20 @@ import static org.hamcrest.CoreMatchers.equalTo;
  *
  * @author pedrotoliveira
  */
-public class AssertsImpl<ReturnType> implements Asserts<ReturnType> {
+public class AssertsProvider<ReturnType> implements Asserts<ReturnType> {
 
     private final AssertWrapper assertWrapper;
     private final ReturnWrapper<ReturnType> objectWrapper;
     private final String description;
 
-    public AssertsImpl(ReturnWrapper<ReturnType> returnObjectWrapper, String description) {
+    @SuppressWarnings("unchecked")
+    public AssertsProvider(String description) {
+        this.assertWrapper = new AssertWrapper();
+        this.objectWrapper = (ReturnWrapper<ReturnType>) new NullObjectWrapper(description);
+        this.description = description;
+    }
+
+    public AssertsProvider(ReturnWrapper<ReturnType> returnObjectWrapper, String description) {
         this.assertWrapper = new AssertWrapper();
         this.objectWrapper = returnObjectWrapper;
         this.description = description;
@@ -61,13 +68,11 @@ public class AssertsImpl<ReturnType> implements Asserts<ReturnType> {
 
     @Override
     public ReturnWrapper<ReturnType> resultIsEqualTo(ReturnType expected) {
-        //FIXME: Invert Responsibility???
         return objectWrapper.resultIsEqualTo(expected);
     }
 
     @Override
     public ReturnWrapper<ReturnType> assertReturn(Matcher<? super ReturnType> matcher) {
-        //FIXME: Invert Responsibility???
         return objectWrapper.assertReturn(matcher);
     }
 
@@ -81,7 +86,6 @@ public class AssertsImpl<ReturnType> implements Asserts<ReturnType> {
 
     @Override
     public ReturnWrapper<ReturnType> assertEqualTo(ReturnType expected) {
-        //FIXME: Invert Responsibility???
         return objectWrapper.assertEqualTo(expected);
     }
 
@@ -127,7 +131,7 @@ public class AssertsImpl<ReturnType> implements Asserts<ReturnType> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final AssertsImpl<?> other = (AssertsImpl<?>) obj;
+        final AssertsProvider<?> other = (AssertsProvider<?>) obj;
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }

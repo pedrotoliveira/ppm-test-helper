@@ -26,9 +26,9 @@ public class ReturnWrapper<ReturnType> implements Asserts<ReturnType>, Verificat
      *
      * @param returnObject the return object
      */
-    protected ReturnWrapper(ReturnType returnObject, String description) {
+    protected ReturnWrapper(final ReturnType returnObject, final String description) {
         this.returnObject = returnObject;
-        this.asserts = new AssertsImpl<>(this, description);
+        this.asserts = new AssertsProvider<>(this, description);
     }
 
     public ReturnType getReturn() {

@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
@@ -18,8 +19,8 @@ public final class ReflectionUtil {
 	private static final String FIELDS_SEPARATOR = "\\.";
 
 	/**
-	 * Instantiates a new reflection util.
-	 */
+	 * No instances for this class.
+   	 */
 	private ReflectionUtil() {
 	}
 
@@ -179,7 +180,7 @@ public final class ReflectionUtil {
 	 * @return the by field get method
 	 */
 	public static Object getFieldByGetMethod(final String field, final Object target) {
-//		hasLength(field, "Field must not be empty");
+        Objects.requireNonNull(field, "Field is Empty");
 //		notNullParameter(target, "Target must not be null");
 
 		String methodName = String.format("get%s", StringUtils.capitalize(field));
@@ -188,7 +189,7 @@ public final class ReflectionUtil {
 			Method method = target.getClass().getMethod(methodName);
 			return method.invoke(target);
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			//TODO: Do Something...
+
 		}
 		throw new IllegalArgumentException("Exception accessing field");
 	}

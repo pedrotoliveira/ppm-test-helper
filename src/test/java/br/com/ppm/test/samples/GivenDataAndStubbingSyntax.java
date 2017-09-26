@@ -48,7 +48,7 @@ public class GivenDataAndStubbingSyntax extends FluentTestHelper {
     }
 
     @Test
-    public void testSyntaxWithGivenData() {
+    public void testSyntaxWithGivenData() throws Exception {
         User userToRegister = new User(null, "pedro", "pedro@test.com");
         User registeredUser = new User("1", "pedro", "pedro@test.com");
 
@@ -61,7 +61,7 @@ public class GivenDataAndStubbingSyntax extends FluentTestHelper {
     }
 
     @Test
-    public void testSyntaxNoData() {
+    public void testSyntaxNoData() throws Exception {
         List<User> allUsers = new ArrayList<>();
         testCase("Find All - Success")
                 .when(repository.findAll()).then().returnValue(allUsers)

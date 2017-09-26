@@ -2,6 +2,7 @@ package br.com.ppm.test.helper;
 
 import java.util.Arrays;
 import java.util.Objects;
+
 import org.mockito.stubbing.Answer;
 import org.mockito.stubbing.OngoingStubbing;
 
@@ -66,8 +67,6 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
 
     @Override
     public OngoingStubbing<ReturnType> thenCallRealMethod() {
-        //TODO: Study utility of this method.
-        stub.thenThrow(new UnsupportedOperationException("I have no reason for use this method."));        
         throw new UnsupportedOperationException("I have no reason for use this method.");
     }
 
