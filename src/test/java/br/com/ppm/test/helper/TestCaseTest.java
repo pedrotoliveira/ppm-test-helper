@@ -15,140 +15,68 @@
  */
 package br.com.ppm.test.helper;
 
-import org.hamcrest.Matcher;
-import org.junit.After;
-import org.junit.Before;
+import br.com.ppm.test.samples.model.User;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static br.com.ppm.test.helper.CommonTemplateLabels.VALID;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * Unit Test for TestCase
  *
  * @author pedrotoliveira
  */
-public class TestCaseTest {
-    
-    public TestCaseTest() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+public class TestCaseTest extends FixtureTestHelper {
+
+    @BeforeClass
+    public static void beforeAll() {
+        FixtureTestHelper.setUpFixtures("br.com.ppm.test.fixtures");
     }
 
     @Test
-    public void testGiven_GenericType() {
-        System.out.println("given");
-        Object data = null;
-        TestCase instance = null;
-        GivenData expResult = null;
-        GivenData result = instance.given(data);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+    public void testGivenData() {
+        User user = fixtureFrom(User.class).gimme(VALID);
+        TestCase test = new TestCase("test given data");
+        GivenData<User> givenData = test.given(user);
+        assertThat(givenData.getData()).isSameAs(user);
     }
 
     @Test
-    public void testGiven_ObjectArr() {
-        System.out.println("given");
-        Object[] data = null;
-        TestCase instance = null;
-        GivenData expResult = null;
-        GivenData result = instance.given(data);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+    public void testGivenDataArray() {
     }
 
     @Test
     public void testWhen() throws Exception {
-        System.out.println("when");
-        Object methodCall = null;
-        TestCase instance = null;
-        StubbingWrapper expResult = null;
-        StubbingWrapper result = instance.when(methodCall);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
     public void testTest() {
-        System.out.println("test");
-        Object testInstance = null;
-        TestCase instance = null;
-        Object expResult = null;
-        Object result = instance.test(testInstance);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
     public void testWrapResult() {
-        System.out.println("wrapResult");
-        Object methodCall = null;
-        TestCase instance = null;
-        ReturnWrapper expResult = null;
-        ReturnWrapper result = instance.wrapResult(methodCall);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
     public void testExecute() {
-        System.out.println("execute");
-        Object testInstance = null;
-        TestCase instance = null;
-        Object expResult = null;
-        Object result = instance.execute(testInstance);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
     public void testAssertTrue() {
-        System.out.println("assertTrue");
-        boolean methodCall = false;
-        TestCase instance = null;
-        Asserts expResult = null;
-        Asserts result = instance.assertTrue(methodCall);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
     public void testAssertThat() {
-        System.out.println("assertThat");
-        Object methodCall = null;
-        Matcher matcher = null;
-        TestCase instance = null;
-        Asserts expResult = null;
-        Asserts result = instance.assertThat(methodCall, matcher);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
     public void testAssertFalse() {
-        System.out.println("assertFalse");
-        boolean methodCall = false;
-        TestCase instance = null;
-        Asserts expResult = null;
-        Asserts result = instance.assertFalse(methodCall);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
     public void testAssertEqualTo() {
-        System.out.println("assertEqualTo");
-        Object methodCall = null;
-        Object expected = null;
-        TestCase instance = null;
-        Asserts expResult = null;
-        Asserts result = instance.assertEqualTo(methodCall, expected);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
-    
+
 }

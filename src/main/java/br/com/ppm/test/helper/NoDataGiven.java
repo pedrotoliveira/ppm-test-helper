@@ -20,7 +20,8 @@ package br.com.ppm.test.helper;
  *
  * @author pedrotoliveira
  */
-public final class NoDataGiven<D> extends GivenData<D> {
+@SuppressWarnings("unchecked")
+public class NoDataGiven<D> extends GivenData<D> {
 
     public NoDataGiven() {
         super(null, "No Data Given");
