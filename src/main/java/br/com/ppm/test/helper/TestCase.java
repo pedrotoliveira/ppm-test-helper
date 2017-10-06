@@ -7,7 +7,7 @@ import org.hamcrest.Matcher;
  *
  * @author pedrotoliveira
  */
-public final class TestCase implements Given, Expectations, Asserts<Object> {
+public final class TestCase implements Given<Object>, Expectations, Asserts<Object> {
 
     private final String description;
     private final Asserts<Object> asserts;
@@ -51,13 +51,13 @@ public final class TestCase implements Given, Expectations, Asserts<Object> {
     }
 
     @Override
-    public <I> I test(I testInstance) {
-        return testInstance;
+    public <I> ReturnWrapper<I> wrapResult(I methodCall) {
+        return new ReturnWrapper<>(methodCall, description);
     }
 
     @Override
-    public <I> ReturnWrapper<I> wrapResult(I methodCall) {
-        return new ReturnWrapper<>(methodCall, description);
+    public MethodInvoker<Object> test(Object testInstance) {
+        return new MethodInvoker<>(testInstance, new NoDataGiven(), description);
     }
 
     /**
@@ -68,7 +68,7 @@ public final class TestCase implements Given, Expectations, Asserts<Object> {
      * @return the instance
      */
     public <I> I execute(I testInstance) {
-        return test(testInstance);
+        return testInstance;
     }
 
     @Override
@@ -125,5 +125,4 @@ public final class TestCase implements Given, Expectations, Asserts<Object> {
     public Asserts<Object> assertEqualTo(Object methodCall, Object expected) {
         return asserts.assertEqualTo(methodCall, expected);
     }
-
 }

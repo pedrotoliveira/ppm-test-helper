@@ -17,11 +17,16 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
     private final StubbingWrapper<ReturnType> stub;
     private ReturnType[] values;
 
+    public GivenDataAndStubbing(StubbingWrapper<ReturnType> stub) {
+        this.givenData = null;
+        this.stub = stub;
+    }
+
     public GivenDataAndStubbing(GivenData<GivenDataType> givenData, ReturnType methodCall) {
         this(givenData, new Stubbing<>(methodCall));
     }
 
-    GivenDataAndStubbing(GivenData<GivenDataType> givenData, StubbingWrapper<ReturnType> stub) {
+    public GivenDataAndStubbing(GivenData<GivenDataType> givenData, StubbingWrapper<ReturnType> stub) {
         this.givenData = givenData;
         this.stub = stub;
     }

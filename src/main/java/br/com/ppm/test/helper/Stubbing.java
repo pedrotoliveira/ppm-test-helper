@@ -76,7 +76,7 @@ public class Stubbing<ReturnType> implements StubbingWrapper<ReturnType> {
 
     @Override
     public <D> GivenDataAndStubbing<D, ReturnType> then() {
-        return new GivenDataAndStubbing<>(new NoDataGiven(), this);
+        return new GivenDataAndStubbing<>(this);
     }
 
     @Override

@@ -15,6 +15,8 @@
  */
 package br.com.ppm.test.helper;
 
+import java.util.List;
+
 import br.com.ppm.test.samples.model.User;
 
 import org.junit.BeforeClass;
@@ -45,6 +47,10 @@ public class TestCaseTest extends FixtureTestHelper {
 
     @Test
     public void testGivenDataArray() {
+        List<User> users = fixtureFrom(User.class).gimme(10, VALID);
+        TestCase test = new TestCase("test given array data");
+        GivenData<Object[]> givenData = test.given(users.toArray());
+        //assertThat(givenData.getData()).isSameAs(user);
     }
 
     @Test

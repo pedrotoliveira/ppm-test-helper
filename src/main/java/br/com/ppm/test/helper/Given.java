@@ -16,9 +16,12 @@
 package br.com.ppm.test.helper;
 
 /**
+ * Interface Given Data
  *
  * @author pedrotoliveira
  */
-interface Given {
-    
+interface Given<DataType> {
+
+    MethodInvoker<DataType> test(final Object testInstance);
+
 }

@@ -22,7 +22,7 @@ import java.util.Objects;
  *
  * @param <DataType> the generic type - Given Data
  */
-public class GivenData<DataType> implements Expectations {
+public class GivenData<DataType> implements Given<DataType>, Expectations {
 
     /**
      * The Test description.
@@ -40,7 +40,6 @@ public class GivenData<DataType> implements Expectations {
      * @param description the description
      */
     public GivenData(final DataType data, final String description) {
-        super();
         this.data = data;
         this.description = description;
     }

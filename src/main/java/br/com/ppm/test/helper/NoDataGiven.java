@@ -15,15 +15,16 @@
  */
 package br.com.ppm.test.helper;
 
+import java.util.Optional;
+
 /**
  * A NULL Object that represents a Test Without Data.
  *
  * @author pedrotoliveira
  */
-@SuppressWarnings("unchecked")
-public class NoDataGiven<D> extends GivenData<D> {
+public class NoDataGiven extends GivenData<Object> {
 
     public NoDataGiven() {
-        super(null, "No Data Given");
+        super(Optional.empty(), "No Data Given");
     }
 }
