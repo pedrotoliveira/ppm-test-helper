@@ -3,11 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.ppm</groupId>
     <artifactId>test-helper</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 	
     <name>PPM Test Helper</name>
     <description>A general library to help you to build fast and fluent unit tests.</description>
+    <url>https://github.com/pedrotoliveira/ppm-test-helper</url>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
