@@ -1,11 +1,24 @@
-language: java
+dist: trusty
 sudo: required
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+language: java
 jdk:
+  - openjdk8
   - oraclejdk8
-  #- openjdk8
-install: true
-script:
-  - sudo apt-get update && sudo apt-get install oracle-java8-installer
+cache:
+  directories:
+    - $HOME/.mvn/wrapper/
+before_script:
+- chmod a+x mvnw
+script:  
   - java -version
-  - mvn test
-  - mvn install
+  - ./mvnw clean
+  - ./mvnw test
+  - ./mvnw install
+branches:
+  only:
+    - master
+    - develop

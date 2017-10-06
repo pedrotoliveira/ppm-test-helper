@@ -1,75 +1,103 @@
+/*
+ * Copyright 2016 Pedro T. Oliveira <pedro.oliveira20@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package br.com.ppm.test.helper;
 
-import org.mockito.stubbing.OngoingStubbing;
+import java.util.Objects;
 
 /**
  * The Class GivenData.
  *
- * @param <D> the generic type
+ * @param <DataType> the generic type - Given Data
  */
-public class GivenData<D> implements Expectations {
+public class GivenData<DataType> implements Given<DataType>, Expectations {
 
-	/**
-	 * The description.
-	 */
-	private final String description;
-	/**
-	 * The given data.
-	 */
-	private final D givenData;
+    /**
+     * The Test description.
+     */
+    private final String description;
+    /**
+     * The given data.
+     */
+    private final DataType data;
 
-	/**
-	 * Instantiates a new given data.
-	 *
-	 * @param givenData the given data
-	 * @param description the description
-	 */
-	GivenData(final D givenData, final String description) {
-		super();
-		this.givenData = givenData;
-		this.description = description;
-	}
+    /**
+     * Instantiates a new given data.
+     *
+     * @param data the given data
+     * @param description the description
+     */
+    public GivenData(final DataType data, final String description) {
+        this.data = data;
+        this.description = description;
+    }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public MethodInvoker<D> test(final Object testInstance) {
-		return new MethodInvoker<>(testInstance, givenData);
-	}
+    @Override
+    public MethodInvoker<DataType> test(final Object testInstance) {
+        return new MethodInvoker<>(testInstance, this, description);
+    }
 
-	@Override
-	public <T> StubbingWrapper<T> when(final T methodCall) throws Exception {
-		return new GivenDataAndStubbing<D, T>(this, new Step<T>(methodCall)).getStub();
-	}
+    @Override
+    public <ReturnType> StubbingWrapper<ReturnType> when(final ReturnType methodCall) {
+        return new GivenDataAndStubbing<>(this, methodCall);
+    }
 
-	@Override
-	public GivenData<D> expect(final WeExpect weExpect) throws Exception {
-		weExpect.execution();
-		return this;
-	}
+    @Override
+    public <ReturnType> ReturnWrapper<ReturnType> wrapResult(final ReturnType methodCall) {
+        return new ReturnWrapper<>(methodCall, description);
+    }
 
-	@Override
-	public <T> GivenData<D> expect(final OngoingStubbing<T> ongoingStubbing) throws Exception {
-		return this;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	@Override
-	public GivenData<D> doExpectations(final WeExpect weExpect) throws Exception {
-		return expect(weExpect);
-	}
+    public DataType getData() {
+        return data;
+    }
 
-	@Override
-	public GivenData<D> expect(final StepChain chain) {
-		chain.execute();
-		return this;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 71 * hash + Objects.hashCode(this.description);
+        hash = 71 * hash + Objects.hashCode(this.data);
+        return hash;
+    }
 
-	@Override
-	public GivenData<D> doExpectations(final StepChain chain) {
-		return expect(chain);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final GivenData<?> other = (GivenData<?>) obj;
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.data, other.data)) {
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public <I> ReturnObjectWrapper<I> wrapResult(I methodCall) {
-		return new ReturnObjectWrapper<>(methodCall);
-	}
+    @Override
+    public String toString() {
+        return "GivenData [" + "description=" + description + ", data=" + data + ']';
+    }
 }
