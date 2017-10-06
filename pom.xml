@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.ppm</groupId>
     <artifactId>test-helper</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.1.1</version>
     <packaging>jar</packaging>
 	
     <name>PPM Test Helper</name>
@@ -31,7 +31,8 @@
         <url>https://github.com/pedrotoliveira/ppm-test-helper</url>
         <connection>scm:git:https://github.com/pedrotoliveira/ppm-test-helper</connection>
         <developerConnection>scm:git:https://github.com/pedrotoliveira/ppm-test-helper</developerConnection>		
-    </scm>
+      <tag>test-helper-0.1.1</tag>
+  </scm>
 	
     <developers>
         <developer>
