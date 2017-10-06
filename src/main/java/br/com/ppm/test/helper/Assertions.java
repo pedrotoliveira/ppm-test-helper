@@ -37,8 +37,8 @@ public interface Assertions<Return> {
 
     /**
      * Assert a field of return object to a matcher.<br/>
-
- Assertions a field of the object, example: <code>assertReturnField("field1", equalTo("one"));</code>
+     *
+     * Assertions a field of the object, example: <code>assertReturnField("field1", equalTo("one"));</code>
      *
      * @param field the field name
      * @param matcher a Matcher <code>org.hamcrest.Matcher</code>
@@ -50,8 +50,8 @@ public interface Assertions<Return> {
 
     /**
      * Assert a field of the return object equal to the expected object.<br/>
-
- Assertions the fields of the object, example: <code>assertEqualToReturnField("field1", "one");</code>
+     *
+     * Assertions the fields of the object, example: <code>assertEqualToReturnField("field1", "one");</code>
      *
      * @param field the field
      * @param expected the expected object to assert
@@ -61,9 +61,9 @@ public interface Assertions<Return> {
 
     /**
      * Assert returnObject fields.<br/>
-
- Assertions the fields of the object,
- <code>example: assertReturnFields("field1", equalTo("one"), "field2", equalTo("two"));</code>
+     *
+     * Assertions the fields of the object,
+     * <code>example: assertReturnFields("field1", equalTo("one"), "field2", equalTo("two"));</code>
      *
      * @param field the field
      * @param matcher a Matcher <code>org.hamcrest.Matcher</code>
@@ -76,9 +76,9 @@ public interface Assertions<Return> {
 
     /**
      * Assert equalTo returnObject fields.<br/>
-
- Assertions the fields of the object,
- <code> example: assertEqualToReturnFields("field1", "one", "field2", "two");</code>
+     *
+     * Assertions the fields of the object,
+     * <code> example: assertEqualToReturnFields("field1", "one", "field2", "two");</code>
      *
      * @param field the field
      * @param expected the object to match
@@ -116,6 +116,7 @@ public interface Assertions<Return> {
      * Assert True.
      *
      * @param methodCall the method call
+     * @return Assertions
      */
     Assertions<Return> assertTrue(boolean methodCall);
 
@@ -123,16 +124,16 @@ public interface Assertions<Return> {
      * Assert False.
      *
      * @param methodCall
-     * @return
+     * @return Assertions
      */
     Assertions<Return> assertFalse(boolean methodCall);
 
     /**
      * Assert equal to.
      *
-     * @param <I> the generic type
      * @param methodCall the method call
      * @param expected the expected
+     * @return Assertions
      */
     Assertions<Return> assertEqualTo(Return methodCall, Object expected);
 }

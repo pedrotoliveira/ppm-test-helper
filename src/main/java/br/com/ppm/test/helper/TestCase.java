@@ -15,9 +15,7 @@ public final class TestCase implements Given<Object>, Expectations, Assertions<O
     /**
      * Instantiates a new test case.
      *
-     * @param test the testCase
      * @param description the description
-     * @param logger the logger
      */
     public TestCase(String description) {
         this.asserts = new AssertionsProvider<>(description);

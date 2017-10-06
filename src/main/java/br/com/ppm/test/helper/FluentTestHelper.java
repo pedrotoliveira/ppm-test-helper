@@ -22,11 +22,9 @@ public abstract class FluentTestHelper extends FixtureTestHelper implements Flue
 
     /**
      * Delegates to Mockito.inOrder.
-     * <p>
-     * @see Mockito.inOrder.
+     *
      * @param mocks
-     * <p>
-     * @return
+     * @return InOrder
      */
     public InOrder inOrder(Object... mocks) {
         return Mockito.inOrder(mocks);
