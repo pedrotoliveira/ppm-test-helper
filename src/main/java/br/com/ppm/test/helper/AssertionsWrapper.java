@@ -25,9 +25,9 @@ import org.junit.Assert;
  *
  * @author pedrotoliveira
  */
-public class AssertWrapper {
+public class AssertionsWrapper {
 
-    public AssertWrapper() {
+    public AssertionsWrapper() {
     }
 
     /**

@@ -9,25 +9,25 @@ import org.hamcrest.Matcher;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 /**
- * Asserts Implementations
+ * Assertions Implementations
  *
  * @author pedrotoliveira
  */
-public class AssertsProvider<ReturnType> implements Asserts<ReturnType> {
+public class AssertionsProvider<ReturnType> implements Assertions<ReturnType> {
 
-    private final AssertWrapper assertWrapper;
+    private final AssertionsWrapper assertWrapper;
     private final ReturnWrapper<ReturnType> objectWrapper;
     private final String description;
 
     @SuppressWarnings("unchecked")
-    public AssertsProvider(String description) {
-        this.assertWrapper = new AssertWrapper();
+    public AssertionsProvider(String description) {
+        this.assertWrapper = new AssertionsWrapper();
         this.objectWrapper = (ReturnWrapper<ReturnType>) new NullObjectWrapper(description);
         this.description = description;
     }
 
-    public AssertsProvider(ReturnWrapper<ReturnType> returnObjectWrapper, String description) {
-        this.assertWrapper = new AssertWrapper();
+    public AssertionsProvider(ReturnWrapper<ReturnType> returnObjectWrapper, String description) {
+        this.assertWrapper = new AssertionsWrapper();
         this.objectWrapper = returnObjectWrapper;
         this.description = description;
     }
@@ -42,11 +42,11 @@ public class AssertsProvider<ReturnType> implements Asserts<ReturnType> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public ReturnWrapper<ReturnType> assertReturnFields(String field, Matcher<?> matcher, Object... additionalKeyMatcherPairs) {
         assertReturnField(field, matcher);
         if (additionalKeyMatcherPairs.length >= 2) {
             String f = (String) additionalKeyMatcherPairs[0];
-            @SuppressWarnings("unchecked")
             Matcher<? super Object> m = (Matcher<? super Object>) additionalKeyMatcherPairs[1];
 
             if (additionalKeyMatcherPairs.length > 2) {
@@ -90,25 +90,25 @@ public class AssertsProvider<ReturnType> implements Asserts<ReturnType> {
     }
 
     @Override
-    public Asserts<ReturnType> assertThat(ReturnType methodCall, Matcher<? super ReturnType> matcher) {
+    public Assertions<ReturnType> assertThat(ReturnType methodCall, Matcher<? super ReturnType> matcher) {
         assertWrapper.assertThat(description, methodCall, matcher);
         return this;
     }
 
     @Override
-    public Asserts<ReturnType> assertTrue(boolean methodCall) {
+    public Assertions<ReturnType> assertTrue(boolean methodCall) {
         assertWrapper.assertTrue(description, methodCall);
         return this;
     }
 
     @Override
-    public Asserts<ReturnType> assertFalse(boolean methodCall) {
+    public Assertions<ReturnType> assertFalse(boolean methodCall) {
         assertWrapper.assertFalse(description, methodCall);
         return this;
     }
 
     @Override
-    public Asserts<ReturnType> assertEqualTo(ReturnType methodCall, Object expected) {
+    public Assertions<ReturnType> assertEqualTo(ReturnType methodCall, Object expected) {
         assertWrapper.assertThat(description, methodCall, equalTo(expected));
         return this;
     }
@@ -131,7 +131,7 @@ public class AssertsProvider<ReturnType> implements Asserts<ReturnType> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final AssertsProvider<?> other = (AssertsProvider<?>) obj;
+        final AssertionsProvider<?> other = (AssertionsProvider<?>) obj;
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }

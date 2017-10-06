@@ -16,10 +16,10 @@ import static org.mockito.Mockito.times;
  *
  * @param <ReturnType> the generic type of method return
  */
-public class ReturnWrapper<ReturnType> implements Asserts<ReturnType>, Verifications {
+public class ReturnWrapper<ReturnType> implements Assertions<ReturnType>, Verifications {
 
     private final ReturnType returnObject;
-    private final Asserts<ReturnType> asserts;
+    private final Assertions<ReturnType> asserts;
 
     /**
      * Instantiates a new return object wrapper.
@@ -28,7 +28,7 @@ public class ReturnWrapper<ReturnType> implements Asserts<ReturnType>, Verificat
      */
     protected ReturnWrapper(final ReturnType returnObject, final String description) {
         this.returnObject = returnObject;
-        this.asserts = new AssertsProvider<>(this, description);
+        this.asserts = new AssertionsProvider<>(this, description);
     }
 
     public ReturnType getReturn() {
@@ -81,22 +81,22 @@ public class ReturnWrapper<ReturnType> implements Asserts<ReturnType>, Verificat
     }
 
     @Override
-    public Asserts<ReturnType> assertThat(ReturnType methodCall, Matcher<? super ReturnType> matcher) {
+    public Assertions<ReturnType> assertThat(ReturnType methodCall, Matcher<? super ReturnType> matcher) {
         return asserts.assertThat(methodCall, matcher);
     }
 
     @Override
-    public Asserts<ReturnType> assertTrue(boolean methodCall) {
+    public Assertions<ReturnType> assertTrue(boolean methodCall) {
         return asserts.assertTrue(methodCall);
     }
 
     @Override
-    public Asserts<ReturnType> assertFalse(boolean methodCall) {
+    public Assertions<ReturnType> assertFalse(boolean methodCall) {
         return asserts.assertFalse(methodCall);
     }
 
     @Override
-    public Asserts<ReturnType> assertEqualTo(ReturnType methodCall, Object expected) {
+    public Assertions<ReturnType> assertEqualTo(ReturnType methodCall, Object expected) {
         return asserts.assertEqualTo(methodCall, expected);
     }
 

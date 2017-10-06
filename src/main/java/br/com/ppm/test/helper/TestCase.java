@@ -7,10 +7,10 @@ import org.hamcrest.Matcher;
  *
  * @author pedrotoliveira
  */
-public final class TestCase implements Given<Object>, Expectations, Asserts<Object> {
+public final class TestCase implements Given<Object>, Expectations, Assertions<Object> {
 
     private final String description;
-    private final Asserts<Object> asserts;
+    private final Assertions<Object> asserts;
 
     /**
      * Instantiates a new test case.
@@ -20,7 +20,7 @@ public final class TestCase implements Given<Object>, Expectations, Asserts<Obje
      * @param logger the logger
      */
     public TestCase(String description) {
-        this.asserts = new AssertsProvider<>(description);
+        this.asserts = new AssertionsProvider<>(description);
         this.description = description;
     }
 
@@ -72,7 +72,7 @@ public final class TestCase implements Given<Object>, Expectations, Asserts<Obje
     }
 
     @Override
-    public Asserts<Object> assertTrue(boolean methodCall) {
+    public Assertions<Object> assertTrue(boolean methodCall) {
         return asserts.assertTrue(methodCall);
     }
 
@@ -112,17 +112,17 @@ public final class TestCase implements Given<Object>, Expectations, Asserts<Obje
     }
 
     @Override
-    public Asserts<Object> assertThat(Object methodCall, Matcher<? super Object> matcher) {
+    public Assertions<Object> assertThat(Object methodCall, Matcher<? super Object> matcher) {
         return asserts.assertThat(methodCall, matcher);
     }
 
     @Override
-    public Asserts<Object> assertFalse(boolean methodCall) {
+    public Assertions<Object> assertFalse(boolean methodCall) {
         return asserts.assertFalse(methodCall);
     }
 
     @Override
-    public Asserts<Object> assertEqualTo(Object methodCall, Object expected) {
+    public Assertions<Object> assertEqualTo(Object methodCall, Object expected) {
         return asserts.assertEqualTo(methodCall, expected);
     }
 }

@@ -25,13 +25,13 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 /**
- * Unit tests for AssertsProvider
+ * Unit tests for AssertionsProvider
  *
  * @author pedrotoliveira
  */
 public class AssertsImplTest {
 
-    private AssertsProvider<User> asserts;
+    private AssertionsProvider<User> asserts;
     private User user;
     private ReturnWrapper<User> objectWrapper;
     private final String description = "AssertsImplTest";
@@ -40,7 +40,7 @@ public class AssertsImplTest {
     public void setUp() {
         this.user = new User("123", "test", "test@gmail.com");
         this.objectWrapper = new ReturnWrapper<>(user, "An User");
-        this.asserts = new AssertsProvider<>(objectWrapper, description);
+        this.asserts = new AssertionsProvider<>(objectWrapper, description);
     }
 
 

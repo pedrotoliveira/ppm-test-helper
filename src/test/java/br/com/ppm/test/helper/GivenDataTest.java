@@ -55,7 +55,7 @@ public class GivenDataTest extends FixtureTestHelper {
 
     @Test
     public void testTest() {
-        MethodInvoker<User> expected = new MethodInvoker(registerService, givenData, description);
+        MethodInvoker<User> expected = new MethodInvoker<>(registerService, givenData, description);
         assertThat(givenData.test(registerService), equalTo(expected));
     }
 

@@ -41,16 +41,18 @@ public class TestCaseTest extends FixtureTestHelper {
     public void testGivenData() {
         User user = fixtureFrom(User.class).gimme(VALID);
         TestCase test = new TestCase("test given data");
-        GivenData<User> givenData = test.given(user);
-        assertThat(givenData.getData()).isSameAs(user);
+        GivenData<User> data = test.given(user);
+        assertThat(data.getData()).as("When call given we have to return the same User").isSameAs(user);
     }
 
     @Test
     public void testGivenDataArray() {
         List<User> users = fixtureFrom(User.class).gimme(10, VALID);
         TestCase test = new TestCase("test given array data");
-        GivenData<Object[]> givenData = test.given(users.toArray());
-        //assertThat(givenData.getData()).isSameAs(user);
+        GivenData<Object[]> arrayData = test.given(users.toArray());
+        for (Object returned : arrayData.getData()) {
+            assertThat(returned).as("Check if returned is in given Users").isIn(users);
+        }
     }
 
     @Test

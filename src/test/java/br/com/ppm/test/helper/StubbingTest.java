@@ -17,6 +17,7 @@ package br.com.ppm.test.helper;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.stubbing.Answer;
 import org.mockito.stubbing.OngoingStubbing;
@@ -28,30 +29,30 @@ import static org.junit.Assert.*;
  * @author p-poliveira
  */
 public class StubbingTest {
-    
+
     public StubbingTest() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testThenReturn_GenericType() {
         System.out.println("thenReturn");
         Object value = null;
         Stubbing instance = null;
         OngoingStubbing expResult = null;
         OngoingStubbing result = instance.thenReturn(value);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
+    @Ignore("To Implement")
     public void testThenReturn_GenericType_GenericType() {
         System.out.println("thenReturn");
         Object value = null;
@@ -64,6 +65,7 @@ public class StubbingTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testThenThrow_ThrowableArr() {
         System.out.println("thenThrow");
         Throwable[] throwables = null;
@@ -75,6 +77,7 @@ public class StubbingTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testThenThrow_ClassArr() {
         System.out.println("thenThrow");
         Class[] throwableClasses = null;
@@ -86,6 +89,7 @@ public class StubbingTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testThenCallRealMethod() {
         System.out.println("thenCallRealMethod");
         Stubbing instance = null;
@@ -96,6 +100,7 @@ public class StubbingTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testThenAnswer() {
         System.out.println("thenAnswer");
         Answer answer = null;
@@ -107,6 +112,7 @@ public class StubbingTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testThen_Answer() {
         System.out.println("then");
         Answer answer = null;
@@ -118,6 +124,7 @@ public class StubbingTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testGetMock() {
         System.out.println("getMock");
         Stubbing instance = null;
@@ -128,6 +135,7 @@ public class StubbingTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testWhen() {
         System.out.println("when");
         Object methodCall = null;
@@ -139,6 +147,7 @@ public class StubbingTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testThen_0args() {
         System.out.println("then");
         Stubbing instance = null;
@@ -147,5 +156,5 @@ public class StubbingTest {
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
-    
+
 }

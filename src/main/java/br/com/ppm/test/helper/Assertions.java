@@ -3,11 +3,11 @@ package br.com.ppm.test.helper;
 import org.hamcrest.Matcher;
 
 /**
- * Asserts Operations
+ * Assertions Operations
  *
  * @author pedrotoliveira
  */
-public interface Asserts<Return> {
+public interface Assertions<Return> {
 
     /**
      * Assert the return object equal to a object.
@@ -37,8 +37,8 @@ public interface Asserts<Return> {
 
     /**
      * Assert a field of return object to a matcher.<br/>
-     *
-     * Asserts a field of the object, example: <code>assertReturnField("field1", equalTo("one"));</code>
+
+ Assertions a field of the object, example: <code>assertReturnField("field1", equalTo("one"));</code>
      *
      * @param field the field name
      * @param matcher a Matcher <code>org.hamcrest.Matcher</code>
@@ -50,8 +50,8 @@ public interface Asserts<Return> {
 
     /**
      * Assert a field of the return object equal to the expected object.<br/>
-     *
-     * Asserts the fields of the object, example: <code>assertEqualToReturnField("field1", "one");</code>
+
+ Assertions the fields of the object, example: <code>assertEqualToReturnField("field1", "one");</code>
      *
      * @param field the field
      * @param expected the expected object to assert
@@ -61,9 +61,9 @@ public interface Asserts<Return> {
 
     /**
      * Assert returnObject fields.<br/>
-     *
-     * Asserts the fields of the object,
-     * <code>example: assertReturnFields("field1", equalTo("one"), "field2", equalTo("two"));</code>
+
+ Assertions the fields of the object,
+ <code>example: assertReturnFields("field1", equalTo("one"), "field2", equalTo("two"));</code>
      *
      * @param field the field
      * @param matcher a Matcher <code>org.hamcrest.Matcher</code>
@@ -76,9 +76,9 @@ public interface Asserts<Return> {
 
     /**
      * Assert equalTo returnObject fields.<br/>
-     *
-     * Asserts the fields of the object,
-     * <code> example: assertEqualToReturnFields("field1", "one", "field2", "two");</code>
+
+ Assertions the fields of the object,
+ <code> example: assertEqualToReturnFields("field1", "one", "field2", "two");</code>
      *
      * @param field the field
      * @param expected the object to match
@@ -88,7 +88,7 @@ public interface Asserts<Return> {
     ReturnWrapper<Return> assertEqualToReturnFields(String field, Object expected, Object... additionalKeyMatcherPairs);
 
     /**
-     * Asserts that <code>actual</code> satisfies the condition specified by <code>matcher</code>. If not, an
+     * Assertions that <code>actual</code> satisfies the condition specified by <code>matcher</code>. If not, an
      * {@link AssertionError} is thrown with the reason and information about the matcher and failing value. Example:
      *
      * <pre>
@@ -106,18 +106,18 @@ public interface Asserts<Return> {
      *
      * @param methodCall a method call that return a type of Return, defined in interface Type.
      * @param matcher a Matcher <code>org.hamcrest.Matcher</code>
-     * @return a Asserts<Return> Implementation
+     * @return a Assertions<Return> Implementation
      * @see org.hamcrest.CoreMatchers
      * @see org.hamcrest.MatcherAssert
      */
-    Asserts<Return> assertThat(Return methodCall, Matcher<? super Return> matcher);
+    Assertions<Return> assertThat(Return methodCall, Matcher<? super Return> matcher);
 
     /**
      * Assert True.
      *
      * @param methodCall the method call
      */
-    Asserts<Return> assertTrue(boolean methodCall);
+    Assertions<Return> assertTrue(boolean methodCall);
 
     /**
      * Assert False.
@@ -125,7 +125,7 @@ public interface Asserts<Return> {
      * @param methodCall
      * @return
      */
-    Asserts<Return> assertFalse(boolean methodCall);
+    Assertions<Return> assertFalse(boolean methodCall);
 
     /**
      * Assert equal to.
@@ -134,5 +134,5 @@ public interface Asserts<Return> {
      * @param methodCall the method call
      * @param expected the expected
      */
-    Asserts<Return> assertEqualTo(Return methodCall, Object expected);
+    Assertions<Return> assertEqualTo(Return methodCall, Object expected);
 }

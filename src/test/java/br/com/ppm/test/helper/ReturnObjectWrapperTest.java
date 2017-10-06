@@ -18,6 +18,7 @@ package br.com.ppm.test.helper;
 import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.verification.VerificationMode;
 
@@ -28,65 +29,70 @@ import static org.junit.Assert.*;
  * @author pedrotoliveira
  */
 public class ReturnObjectWrapperTest {
-    
+
     public ReturnObjectWrapperTest() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testAssertThat() {
         System.out.println("assertThat");
         Object methodCall = null;
         Matcher matcher = null;
         ReturnWrapper instance = null;
-        Asserts expResult = null;
-        Asserts result = instance.assertThat(methodCall, matcher);
+        Assertions expResult = null;
+        Assertions result = instance.assertThat(methodCall, matcher);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
 
     @Test
+    @Ignore("To Implement")
     public void testAssertTrue() {
         System.out.println("assertTrue");
         boolean methodCall = false;
         ReturnWrapper instance = null;
-        Asserts expResult = null;
-        Asserts result = instance.assertTrue(methodCall);
+        Assertions expResult = null;
+        Assertions result = instance.assertTrue(methodCall);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
 
     @Test
+    @Ignore("To Implement")
     public void testAssertFalse() {
         System.out.println("assertFalse");
         boolean methodCall = false;
         ReturnWrapper instance = null;
-        Asserts expResult = null;
-        Asserts result = instance.assertFalse(methodCall);
+        Assertions expResult = null;
+        Assertions result = instance.assertFalse(methodCall);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
 
     @Test
+    @Ignore("To Implement")
     public void testAssertEqualTo_GenericType_Object() {
         System.out.println("assertEqualTo");
         Object methodCall = null;
         Object expected = null;
         ReturnWrapper instance = null;
-        Asserts expResult = null;
-        Asserts result = instance.assertEqualTo(methodCall, expected);
+        Assertions expResult = null;
+        Assertions result = instance.assertEqualTo(methodCall, expected);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
 
     @Test
+    @Ignore("To Implement")
     public void testAssertEqualTo_GenericType() {
         System.out.println("assertEqualTo");
         Object expected = null;
@@ -98,6 +104,7 @@ public class ReturnObjectWrapperTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testResultIsEqualTo() {
         System.out.println("resultIsEqualTo");
         Object expected = null;
@@ -109,6 +116,7 @@ public class ReturnObjectWrapperTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testAssertReturn() {
         System.out.println("assertReturn");
         Matcher matcher = null;
@@ -120,6 +128,7 @@ public class ReturnObjectWrapperTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testAssertReturnField() {
         System.out.println("assertReturnField");
         String field = "";
@@ -132,6 +141,7 @@ public class ReturnObjectWrapperTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testAssertEqualToReturnField() {
         System.out.println("assertEqualToReturnField");
         String field = "";
@@ -144,6 +154,7 @@ public class ReturnObjectWrapperTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testAssertReturnFields() {
         System.out.println("assertReturnFields");
         String field = "";
@@ -157,6 +168,7 @@ public class ReturnObjectWrapperTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testAssertEqualToReturnFields() {
         System.out.println("assertEqualToReturnFields");
         String field = "";
@@ -170,6 +182,7 @@ public class ReturnObjectWrapperTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testVerify_GenericType_VerificationMode() {
         System.out.println("verify");
         Object mock = null;
@@ -182,6 +195,7 @@ public class ReturnObjectWrapperTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testVerify_GenericType() {
         System.out.println("verify");
         Object mock = null;
@@ -193,6 +207,7 @@ public class ReturnObjectWrapperTest {
     }
 
     @Test
+    @Ignore("To Implement")
     public void testVerifyNoMoreInteractions() {
         System.out.println("verifyNoMoreInteractions");
         Object[] mocks = null;
@@ -200,5 +215,5 @@ public class ReturnObjectWrapperTest {
         instance.verifyNoMoreInteractions(mocks);
         fail("The test case is a prototype.");
     }
-    
+
 }
