@@ -23,7 +23,7 @@ public final class TestCase implements Given<Object>, Expectations, Assertions<O
     }
 
     /**
-     * Given Data.
+     * Given Data Parameter
      *
      * @param <D> the generic type
      * @param data the data
@@ -59,13 +59,13 @@ public final class TestCase implements Given<Object>, Expectations, Assertions<O
     }
 
     /**
-     * Execute.
+     * Call Test Instance
      *
      * @param <I> the generic type
      * @param testInstance the test instance
      * @return the instance
      */
-    public <I> I execute(I testInstance) {
+    public <I> I call(I testInstance) {
         return testInstance;
     }
 
