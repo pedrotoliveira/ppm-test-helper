@@ -14,28 +14,12 @@
  * LTDA.
  *
  */
-package br.com.ppm.test.fixtures;
-
-import br.com.ppm.test.helper.FixtureTemplateLoader;
-import br.com.ppm.test.model.Address;
+package br.com.ppm.test.helper;
 
 /**
- * Address Template Loader
  *
  * @author pedrotoliveira
  */
-public class AddressTemplateLoader implements FixtureTemplateLoader<Address> {
-
-    @Override
-    public void load() {
-        validTemplate(ruleBuilder()
-                .add("street").random("Paulista Avenue", "Ibirapuera Avenue")
-                .add("city").value("Sao Paulo")
-                .add("number").range(1, 2000)
-                .add("state").value("SP")
-                .add("zipcode").random("06608000", "17720000")
-                .add("country").value("Brazil")
-                .build());
-    }
+public interface ExceptionMatcher<E extends Throwable> {
 
 }

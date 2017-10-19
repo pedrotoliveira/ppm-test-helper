@@ -1,4 +1,4 @@
-package br.com.ppm.test.samples.model;
+package br.com.ppm.test.model;
 
 import java.util.List;
 

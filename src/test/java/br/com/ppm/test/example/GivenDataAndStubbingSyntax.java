@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package br.com.ppm.test.samples;
+package br.com.ppm.test.example;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ppm.test.helper.FluentTestHelper;
-import br.com.ppm.test.samples.model.RegisterService;
-import br.com.ppm.test.samples.model.User;
-import br.com.ppm.test.samples.model.UserRepository;
+import br.com.ppm.test.model.RegisterService;
+import br.com.ppm.test.model.User;
+import br.com.ppm.test.model.UserRepository;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -15,9 +15,9 @@
  */
 package br.com.ppm.test.helper;
 
-import br.com.ppm.test.samples.model.RegisterService;
-import br.com.ppm.test.samples.model.User;
-import br.com.ppm.test.samples.model.UserRepository;
+import br.com.ppm.test.model.RegisterService;
+import br.com.ppm.test.model.User;
+import br.com.ppm.test.model.UserRepository;
 
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
@@ -28,7 +28,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.OngoingStubbing;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -57,32 +57,35 @@ public class GivenDataAndStubbingTest {
         this.givenData = new GivenData<>(user, description);
         when(userRepository.save(user)).thenReturn(user);
         this.registerService = new RegisterService(userRepository);
-        this.givenDataAndStubbing = new GivenDataAndStubbing(givenData, registerService.register(user));
+        this.givenDataAndStubbing = new GivenDataAndStubbing<>(givenData, registerService.register(user));
     }
 
     @Test
     public void testReturnValue() {
-        assertThat(givenDataAndStubbing.returnValue(user), equalTo(givenData));
+        assertThat("Should be equal to given data", givenDataAndStubbing.returnValue(user), equalTo(givenData));
     }
 
     @Test
     public void testWillReturn() {
-        assertThat(givenDataAndStubbing.willReturn(user), equalTo(givenData));
+        assertThat("Should be equal to given data", givenDataAndStubbing.willReturn(user), equalTo(givenData));
     }
 
     @Test
-    public void testThenReturnGenericType() {
-        assertThat(givenDataAndStubbing.thenReturn(user), new IsInstanceOf(OngoingStubbing.class));
+    public void testThenReturn() {
+        assertThat("thenReturn should return a Instance of OngoingStubbing",
+                givenDataAndStubbing.thenReturn(user), instanceOf(OngoingStubbing.class));
     }
 
     @Test
-    public void testThenReturnMultipleGenericTypes() {
-        assertThat(givenDataAndStubbing.thenReturn(user, user), new IsInstanceOf(OngoingStubbing.class));
+    public void testThenReturnMultipleTypes() {
+        assertThat("thenReturn should return a Instance of OngoingStubbing",
+                givenDataAndStubbing.thenReturn(user, user), instanceOf(OngoingStubbing.class));
     }
 
     @Test
     public void testThenThrow() {
-        assertThat(givenDataAndStubbing.thenThrow(new RuntimeException("ERROR")), new IsInstanceOf(OngoingStubbing.class));
+        assertThat("thenThrow should return a Instance of OngoingStubbing",
+                givenDataAndStubbing.thenThrow(new RuntimeException("ERROR")), instanceOf(OngoingStubbing.class));
     }
 
     @Test
@@ -113,16 +116,8 @@ public class GivenDataAndStubbingTest {
 
     @Test
     @Ignore("To Fix")
-    public void testThen_0args() {
-        System.out.println("then");
-        //fail("The test case is a prototype.");
-    }
-
-    @Test
-    @Ignore("To Fix")
     public void testWhen() {
         System.out.println("when");
-        //fail("The test case is a prototype.");
     }
 
 }

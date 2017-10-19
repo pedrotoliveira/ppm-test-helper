@@ -15,9 +15,9 @@
  */
 package br.com.ppm.test.helper;
 
-import br.com.ppm.test.samples.model.RegisterService;
-import br.com.ppm.test.samples.model.User;
-import br.com.ppm.test.samples.model.UserRepository;
+import br.com.ppm.test.model.RegisterService;
+import br.com.ppm.test.model.User;
+import br.com.ppm.test.model.UserRepository;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

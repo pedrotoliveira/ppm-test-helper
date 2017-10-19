@@ -15,9 +15,9 @@
  */
 package br.com.ppm.test.helper;
 
-import br.com.ppm.test.samples.model.RegisterService;
-import br.com.ppm.test.samples.model.User;
-import br.com.ppm.test.samples.model.UserRepository;
+import br.com.ppm.test.model.RegisterService;
+import br.com.ppm.test.model.User;
+import br.com.ppm.test.model.UserRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -56,18 +56,18 @@ public class GivenDataTest extends FixtureTestHelper {
     @Test
     public void testTest() {
         MethodInvoker<User> expected = new MethodInvoker<>(registerService, givenData, description);
-        assertThat(givenData.test(registerService), equalTo(expected));
+        assertThat("Verify if is the same Ivoker", givenData.test(registerService), equalTo(expected));
     }
 
     @Test
     public void testWhen() throws Exception {
         StubbingWrapper<User> when = givenData.when(registerService.register(user));
-        assertThat(givenData, equalTo(when.then().returnValue(user)));
+        assertThat("GivenData should be equal to return value", givenData, equalTo(when.then().returnValue(user)));
     }
 
     @Test
     public void testWrapResult() {
         ReturnWrapper<User> expected = new ReturnWrapper<>(user, description);
-        assertThat(givenData.wrapResult(registerService.register(user)), equalTo(expected));
+        assertThat("GivenData.wrapResult should be equal to expected", givenData.wrapResult(registerService.register(user)), equalTo(expected));
     }
 }

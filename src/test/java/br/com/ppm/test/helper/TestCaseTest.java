@@ -17,7 +17,7 @@ package br.com.ppm.test.helper;
 
 import java.util.List;
 
-import br.com.ppm.test.samples.model.User;
+import br.com.ppm.test.model.User;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class TestCaseTest extends FixtureTestHelper {
 
     @BeforeClass
     public static void beforeAll() {
-        FixtureTestHelper.setUpFixtures("br.com.ppm.test.fixtures");
+        setUpFixtures("br.com.ppm.test.fixtures");
     }
 
     @Test

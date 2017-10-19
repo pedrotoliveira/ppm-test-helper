@@ -7,19 +7,20 @@ package br.com.ppm.test.helper;
  */
 public interface FluentTest {
 
-	/**
-	 * testCase.
-	 *
-	 * @return the testCase
-	 */
-	TestCase testCase();
+    /**
+     * Start a new TestCase with given description
+     *
+     * @param description the description
+     *
+     * @return the testCase
+     */
+    TestCase testCase(final String description);
 
-	/**
-	 * testCase.
-	 *
-	 * @param description the description
-	 *
-	 * @return the testCase
-	 */
-	TestCase testCase(final String description);
+    /**
+     * Start a new TestCase with given description
+     *
+     * @param description
+     * @return
+     */
+    TestCase describe(final String description);
 }

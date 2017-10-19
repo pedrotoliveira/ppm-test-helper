@@ -7,7 +7,7 @@ import org.hamcrest.Matcher;
  *
  * @author pedrotoliveira
  */
-public interface Assertions<Return> {
+public interface Assertions<Return> extends TestCaseAssertions<Return> {
 
     /**
      * Assert the return object equal to a object.
@@ -40,24 +40,24 @@ public interface Assertions<Return> {
      *
      * Assertions a field of the object, example: <code>assertReturnField("field1", equalTo("one"));</code>
      *
-     * @param field the field name
+     * @param fieldName the field name
      * @param matcher a Matcher <code>org.hamcrest.Matcher</code>
      * @return the return object wrapper
      * @see org.hamcrest.CoreMatchers
      * @see org.hamcrest.MatcherAssert
      */
-    ReturnWrapper<Return> assertReturnField(String field, Matcher<?> matcher);
+    ReturnWrapper<Return> assertReturnField(String fieldName, Matcher<?> matcher);
 
     /**
      * Assert a field of the return object equal to the expected object.<br/>
      *
      * Assertions the fields of the object, example: <code>assertEqualToReturnField("field1", "one");</code>
      *
-     * @param field the field
+     * @param fieldName the field name
      * @param expected the expected object to assert
      * @return the return object wrapper
      */
-    ReturnWrapper<Return> assertEqualToReturnField(String field, Object expected);
+    ReturnWrapper<Return> assertEqualToReturnField(String fieldName, Object expected);
 
     /**
      * Assert returnObject fields.<br/>
@@ -80,12 +80,10 @@ public interface Assertions<Return> {
      * Assertions the fields of the object,
      * <code> example: assertEqualToReturnFields("field1", "one", "field2", "two");</code>
      *
-     * @param field the field
-     * @param expected the object to match
-     * @param additionalKeyMatcherPairs the additional key matcher pairs
+     * @param keyPairs fields and values to match
      * @return the return object wrapper
      */
-    ReturnWrapper<Return> assertEqualToReturnFields(String field, Object expected, Object... additionalKeyMatcherPairs);
+    ReturnWrapper<Return> assertEqualToReturnFields(Object... keyPairs);
 
     /**
      * Assertions that <code>actual</code> satisfies the condition specified by <code>matcher</code>. If not, an
@@ -110,6 +108,7 @@ public interface Assertions<Return> {
      * @see org.hamcrest.CoreMatchers
      * @see org.hamcrest.MatcherAssert
      */
+    @Override
     Assertions<Return> assertThat(Return methodCall, Matcher<? super Return> matcher);
 
     /**
@@ -118,6 +117,7 @@ public interface Assertions<Return> {
      * @param methodCall the method call
      * @return Assertions
      */
+    @Override
     Assertions<Return> assertTrue(boolean methodCall);
 
     /**
@@ -126,6 +126,7 @@ public interface Assertions<Return> {
      * @param methodCall
      * @return Assertions
      */
+    @Override
     Assertions<Return> assertFalse(boolean methodCall);
 
     /**
@@ -135,5 +136,6 @@ public interface Assertions<Return> {
      * @param expected the expected
      * @return Assertions
      */
+    @Override
     Assertions<Return> assertEqualTo(Return methodCall, Object expected);
 }

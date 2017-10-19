@@ -13,7 +13,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>		
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <dependency.version.ppm-commons>2.0.0</dependency.version.ppm-commons>
         <dependency.version.junit>4.12</dependency.version.junit>
         <dependency.version.fixture-factory>3.1.0</dependency.version.fixture-factory>
         <dependency.version.hamcrest-core>1.3</dependency.version.hamcrest-core>
@@ -62,6 +63,11 @@
     </distributionManagement>
     
     <dependencies>
+        <dependency>
+            <groupId>br.com.ppm</groupId>
+            <artifactId>ppm-commons</artifactId>
+            <version>${dependency.version.ppm-commons}</version>            
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -219,6 +225,13 @@
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
                         <version>${dependency.version.jacoco}</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/*Test*.</exclude>
+                                <exclude>**/*br/com/ppm/test/fixtures/*</exclude>
+                                <exclude>**/*br/com/ppm/test/example/*</exclude>
+                            </excludes>
+                        </configuration>
                         <executions>
                             <!-- Prepares a variable, jacoco.agent.ut.arg, that contains the info to be passed to the JVM hosting the code being tested. -->
                             <execution>

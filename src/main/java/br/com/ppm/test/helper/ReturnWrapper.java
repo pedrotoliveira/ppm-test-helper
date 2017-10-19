@@ -2,7 +2,8 @@ package br.com.ppm.test.helper;
 
 import java.util.Objects;
 
-import br.com.ppm.test.util.ReflectionUtil;
+import br.com.ppm.commons.Reflections;
+import br.com.ppm.commons.ToStringBuilder;
 
 import org.hamcrest.Matcher;
 import org.mockito.Mockito;
@@ -58,8 +59,8 @@ public class ReturnWrapper<ReturnType> implements Assertions<ReturnType>, Verifi
 
     @Override
     @SuppressWarnings("unchecked")
-    public ReturnWrapper<ReturnType> assertReturnField(String field, Matcher<?> matcher) {
-        final Object valueToAssert = ReflectionUtil.getByFieldName(field, returnObject);
+    public ReturnWrapper<ReturnType> assertReturnField(String fieldName, Matcher<?> matcher) {
+        Object valueToAssert = Reflections.getValueByNamespace(fieldName, returnObject).get();
         asserts.assertThat((ReturnType) valueToAssert, (Matcher<? super Object>) matcher);
         return this;
     }
@@ -76,8 +77,8 @@ public class ReturnWrapper<ReturnType> implements Assertions<ReturnType>, Verifi
     }
 
     @Override
-    public ReturnWrapper<ReturnType> assertEqualToReturnFields(String field, Object expected, Object... additionalKeyMatcherPairs) {
-        return asserts.assertEqualToReturnFields(field, expected, additionalKeyMatcherPairs);
+    public ReturnWrapper<ReturnType> assertEqualToReturnFields(Object... keyPairs) {
+        return asserts.assertEqualToReturnFields(keyPairs);
     }
 
     @Override
@@ -116,10 +117,40 @@ public class ReturnWrapper<ReturnType> implements Assertions<ReturnType>, Verifi
     }
 
     @Override
+    public TestCaseMatcher<ReturnType> assertThat(ReturnType methodCall) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public TestCaseMatcher<ReturnType> it(ReturnType methodCall) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public TestCaseMatcher<ReturnType> it(String assertDescription, ReturnType methodCall) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public <E extends Throwable> TestCaseMatcher<ReturnType> shouldThrow(E exception, ReturnType methodCall) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public <E extends Throwable> ExceptionMatcher<E> a(Class<E> exception) throws E {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public <E extends Throwable> ExceptionMatcher<E> itThrow(Class<E> exception) throws E {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.returnObject);
-        hash = 31 * hash + Objects.hashCode(this.asserts);
+        int hash = 5;
+        hash = 43 * hash + Objects.hashCode(this.returnObject);
+        hash = 43 * hash + Objects.hashCode(this.asserts);
         return hash;
     }
 
@@ -142,5 +173,10 @@ public class ReturnWrapper<ReturnType> implements Assertions<ReturnType>, Verifi
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }
