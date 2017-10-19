@@ -50,7 +50,7 @@ public class GivenData<DataType> implements Given<DataType>, Expectations {
     }
 
     @Override
-    public <ReturnType> StubbingWrapper<ReturnType> when(final ReturnType methodCall) {
+    public <ReturnType> Stubbing<ReturnType> when(final ReturnType methodCall) {
         return new GivenDataAndStubbing<>(this, methodCall);
     }
 

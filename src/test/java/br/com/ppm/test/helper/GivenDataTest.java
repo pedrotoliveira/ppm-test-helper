@@ -61,7 +61,7 @@ public class GivenDataTest extends FixtureTestHelper {
 
     @Test
     public void testWhen() throws Exception {
-        StubbingWrapper<User> when = givenData.when(registerService.register(user));
+        Stubbing<User> when = givenData.when(registerService.register(user));
         assertThat("GivenData should be equal to return value", givenData, equalTo(when.then().returnValue(user)));
     }
 

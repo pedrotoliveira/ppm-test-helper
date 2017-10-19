@@ -12,7 +12,7 @@ public interface Expectations {
      * @return the expectations
      * @throws Exception the exception
      */
-    <T> StubbingWrapper<T> when(final T methodCall) throws Exception;
+    <T> Stubbing<T> when(final T methodCall) throws Exception;
 
     /**
      * Wrap a result of a method call.

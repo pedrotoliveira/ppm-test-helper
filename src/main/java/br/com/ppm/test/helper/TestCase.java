@@ -44,8 +44,8 @@ public final class TestCase implements Given<Object>, Expectations, TestCaseAsse
     }
 
     @Override
-    public <T> StubbingWrapper<T> when(T methodCall) {
-        return new Stubbing<>(methodCall);
+    public <T> Stubbing<T> when(T methodCall) {
+        return new StubbingProvider<>(methodCall);
     }
 
     @Override

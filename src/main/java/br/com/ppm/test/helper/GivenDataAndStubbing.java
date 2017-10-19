@@ -4,38 +4,36 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import org.mockito.stubbing.Answer;
-import org.mockito.stubbing.OngoingStubbing;
 
 /**
  * GivenData and Stubs.
  *
  * @author pedrotoliveira
  */
-public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements StubbingWrapper<ReturnType> {
+public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements Stubbing<ReturnType> {
 
     private final GivenData<GivenDataType> givenData;
-    private final StubbingWrapper<ReturnType> stub;
+    private final Stubbing<ReturnType> stub;
     private ReturnType[] values;
 
-    public GivenDataAndStubbing(StubbingWrapper<ReturnType> stub) {
-        this.givenData = null;
+    public GivenDataAndStubbing(GivenData<GivenDataType> givenData, Stubbing<ReturnType> stub) {
+        this.givenData = givenData;
         this.stub = stub;
+    }
+
+    public GivenDataAndStubbing(Stubbing<ReturnType> stub) {
+        this(null, stub);
     }
 
     public GivenDataAndStubbing(GivenData<GivenDataType> givenData, ReturnType methodCall) {
-        this(givenData, new Stubbing<>(methodCall));
-    }
-
-    public GivenDataAndStubbing(GivenData<GivenDataType> givenData, StubbingWrapper<ReturnType> stub) {
-        this.givenData = givenData;
-        this.stub = stub;
+        this(givenData, new StubbingProvider<>(methodCall));
     }
 
     protected GivenData<GivenDataType> getGivenData() {
         return givenData;
     }
 
-    protected StubbingWrapper<ReturnType> getStub() {
+    protected Stubbing<ReturnType> getStub() {
         return stub;
     }
 
@@ -49,40 +47,35 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
     }
 
     @Override
-    public OngoingStubbing<ReturnType> thenReturn(final ReturnType value) {
+    public Stubbing<ReturnType> thenReturn(final ReturnType value) {
         return stub.thenReturn(value);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public OngoingStubbing<ReturnType> thenReturn(final ReturnType value, final ReturnType... values) {
+    public Stubbing<ReturnType> thenReturn(final ReturnType value, final ReturnType... values) {
         return stub.thenReturn(value, this.values);
     }
 
     @Override
-    public OngoingStubbing<ReturnType> thenThrow(final Throwable... throwables) {
+    public Stubbing<ReturnType> thenThrow(final Throwable... throwables) {
         return stub.thenThrow(throwables);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public OngoingStubbing<ReturnType> thenThrow(final Class<? extends Throwable>... throwableClasses) {
+    public Stubbing<ReturnType> thenThrow(final Class<? extends Throwable>... throwableClasses) {
         return stub.thenThrow(throwableClasses);
     }
 
     @Override
-    public OngoingStubbing<ReturnType> thenCallRealMethod() {
-        throw new UnsupportedOperationException("I have no reason for use this method.");
-    }
-
-    @Override
-    public OngoingStubbing<ReturnType> thenAnswer(Answer<?> answer) {
+    public Stubbing<ReturnType> thenAnswer(final Answer<?> answer) {
         return stub.thenAnswer(answer);
     }
 
     @Override
-    public OngoingStubbing<ReturnType> then(Answer<?> answer) {
-        return (OngoingStubbing<ReturnType>) stub.then(answer);
+    public Stubbing<ReturnType> then(Answer<?> answer) {
+        return thenAnswer(answer);
     }
 
     @Override
@@ -91,12 +84,13 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public GivenDataAndStubbing<GivenDataType, ReturnType> then() {
         return this;
     }
 
     @Override
-    public <T> StubbingWrapper<T> when(T methodCall) {
+    public <T> Stubbing<T> when(T methodCall) {
         return new GivenDataAndStubbing<>(givenData, methodCall);
     }
 
@@ -135,7 +129,7 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
 
     @Override
     public String toString() {
-        return "GivenDataAndStubbing ["
+        return "GivenDataAndStubbing["
                 + "givenData=" + givenData
                 + ", stub=" + stub
                 + ", values=" + values + ']';
