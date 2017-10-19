@@ -22,10 +22,11 @@
         <dependency.version.mockito>1.10.19</dependency.version.mockito>
         <dependency.version.assertj>3.8.0</dependency.version.assertj>
         <dependency.version.jacoco>0.7.9</dependency.version.jacoco>
-        <sonar-jacoco-listeners.version>1.4</sonar-jacoco-listeners.version>
-        <jacoco.outputDir>${project.build.directory}</jacoco.outputDir>
-        <jacoco.out.ut.file>jacoco-ut.exec</jacoco.out.ut.file>
-        <sonar.jacoco.reportPath>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPath>
+        <sonar-jacoco-listeners.version>3.2</sonar-jacoco-listeners.version>
+        <jacoco.output.directory>${project.build.directory}/jacoco</jacoco.output.directory>
+        <jacoco.report.directory>${project.build.directory}/jacoco-reports</jacoco.report.directory>
+        <jacoco.out.file>jacoco.exec</jacoco.out.file>        
+        <sonar.jacoco.reportPath>${jacoco.output.directory}/${jacoco.out.file}</sonar.jacoco.reportPath>
     </properties>
     
     <scm>
@@ -183,7 +184,7 @@
             </build>
         </profile>
         
-        <profile>            
+        <profile>
             <id>coverage</id>
             <build>
                 <plugins>
@@ -200,7 +201,6 @@
                                     <value>org.sonar.java.jacoco.JUnitListener</value>
                                 </property>
                             </properties>
-                            <!-- test failure ignore -->
                             <testFailureIgnore>true</testFailureIgnore>
                         </configuration>
                     </plugin>
@@ -216,8 +216,7 @@
                                     <name>listener</name>
                                     <value>org.sonar.java.jacoco.JUnitListener</value>
                                 </property>
-                            </properties>
-                            <!-- Let's put failsafe reports with surefire to have access to tests failures/success reports in sonar -->
+                            </properties>                            
                             <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                         </configuration>
                     </plugin>
@@ -244,6 +243,26 @@
                                     <destFile>${sonar.jacoco.reportPath}</destFile>
                                     <propertyName>jacoco.agent.ut.arg</propertyName>
                                     <append>true</append>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>post-unit-test</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- Sets the path to the file which contains the execution data. -->
+                                    <dataFile>${jacoco.output.directory}/${jacoco.out.file}</dataFile>
+                                    <!-- Sets the output directory for the code coverage report. -->
+                                    <outputDirectory>${jacoco.report.directory}</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>
