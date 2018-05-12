@@ -8,17 +8,17 @@ public interface Expectations {
     /**
      * When some mock method call
      *
-     * @param methodCall a methodCall
+     * @param value a value
      * @return the expectations
      * @throws Exception the exception
      */
-    <T> Stubbing<T> when(final T methodCall) throws Exception;
+    <T> Stubbing<T> when(final T value) throws Exception;
 
     /**
      * Wrap a result of a method call.
      *
-     * @param methodCall the method call
+     * @param value the method call
      * @return the return object wrapper
      */
-    <I> ReturnWrapper<I> wrapResult(I methodCall);
+    <I> ReturnWrapper<I> wrapResult(I value);
 }

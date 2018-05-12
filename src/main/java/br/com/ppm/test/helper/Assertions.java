@@ -102,40 +102,40 @@ public interface Assertions<Return> extends TestCaseAssertions<Return> {
      * This method assumes that a matcher typed as <code>Matcher&lt;T&gt;</code> can be meaningfully applied only to
      * values that could be assigned to a variable of type <code>T</code>.
      *
-     * @param methodCall a method call that return a type of Return, defined in interface Type.
+     * @param value a method call that return a type of Return, defined in interface Type.
      * @param matcher a Matcher <code>org.hamcrest.Matcher</code>
      * @return a Assertions<Return> Implementation
      * @see org.hamcrest.CoreMatchers
      * @see org.hamcrest.MatcherAssert
      */
     @Override
-    Assertions<Return> assertThat(Return methodCall, Matcher<? super Return> matcher);
+    Assertions<Return> assertThat(Return value, Matcher<? super Return> matcher);
 
     /**
      * Assert True.
      *
-     * @param methodCall the method call
+     * @param value the method call
      * @return Assertions
      */
     @Override
-    Assertions<Return> assertTrue(boolean methodCall);
+    Assertions<Return> assertTrue(boolean value);
 
     /**
      * Assert False.
      *
-     * @param methodCall
+     * @param value
      * @return Assertions
      */
     @Override
-    Assertions<Return> assertFalse(boolean methodCall);
+    Assertions<Return> assertFalse(boolean value);
 
     /**
      * Assert equal to.
      *
-     * @param methodCall the method call
+     * @param value the method call
      * @param expected the expected
      * @return Assertions
      */
     @Override
-    Assertions<Return> assertEqualTo(Return methodCall, Object expected);
+    Assertions<Return> assertEqualTo(Return value, Object expected);
 }

@@ -9,7 +9,7 @@ import org.mockito.stubbing.Answer;
  */
 public interface Stubbing<ReturnType> {
 
-    <ReturnType> Stubbing<ReturnType> when(ReturnType methodCall);
+    <ReturnType> Stubbing<ReturnType> when(ReturnType value);
 
     <D> GivenDataAndStubbing<D, ReturnType> then();
 

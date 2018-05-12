@@ -29,11 +29,20 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author pedrotoliveira
  */
+@SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
 public class TestCaseMatcherProviderTest extends FixtureTestHelper {
+
+    private User user;
+    private TestCaseAssertions<Object> asserts;
 
     @BeforeClass
     public static void beforeAll() {
         setUpFixtures("br.com.ppm.test.fixtures");
+    }
+
+    public void beforeEach() {
+        this.user = fixtureFrom(User.class).gimme(VALID);
+        this.asserts = new AssertionsProvider<>("");
     }
 
     /**
@@ -41,7 +50,6 @@ public class TestCaseMatcherProviderTest extends FixtureTestHelper {
      */
     @Test
     public void testAs() {
-        User user = fixtureFrom(User.class).gimme(VALID);
         TestCaseMatcherProvider matcher = new TestCaseMatcherProvider(user, "test", null);
         matcher.as("As something");
         assertThat(matcher.getDescription()).isEqualTo("test|As something");
@@ -52,7 +60,6 @@ public class TestCaseMatcherProviderTest extends FixtureTestHelper {
      */
     @Test
     public void testShould() {
-        User user = fixtureFrom(User.class).gimme(VALID);
         TestCaseMatcherProvider matcher = new TestCaseMatcherProvider(user, "test", null);
         matcher.as("Should be something");
         assertThat(matcher.getDescription()).isEqualTo("test|Should be something");
@@ -63,6 +70,8 @@ public class TestCaseMatcherProviderTest extends FixtureTestHelper {
      */
     @Test
     public void testIsEqual() {
+        TestCaseMatcherProvider matcher = new TestCaseMatcherProvider(user, "test", asserts);
+        assertThat(matcher.isEqual(new User(user))).isSameAs(matcher);
     }
 
     /**
@@ -70,6 +79,8 @@ public class TestCaseMatcherProviderTest extends FixtureTestHelper {
      */
     @Test
     public void testIsEqualTo() {
+        TestCaseMatcherProvider matcher = new TestCaseMatcherProvider(user, "test", asserts);
+        assertThat(matcher.isEqual(new User(user))).isSameAs(matcher);
     }
 
     /**

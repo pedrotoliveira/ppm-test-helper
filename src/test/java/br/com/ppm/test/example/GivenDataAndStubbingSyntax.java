@@ -55,7 +55,7 @@ public class GivenDataAndStubbingSyntax extends FluentTestHelper {
         testCase("Register - Success")
                 .given(userToRegister)
                 .when(repository.save(userToRegister)).then().returnValue(registeredUser)
-                .test(service).method("register", User.class)
+                .call(service).method("register", User.class)
                 .assertEqualTo(registeredUser)
                 .verify(repository).save(userToRegister);
     }
@@ -65,7 +65,7 @@ public class GivenDataAndStubbingSyntax extends FluentTestHelper {
         List<User> allUsers = new ArrayList<>();
         testCase("Find All - Success")
                 .when(repository.findAll()).then().returnValue(allUsers)
-                .test(service).method("findAll", List.class)
+                .call(service).method("findAll", List.class)
                 .assertEqualTo(allUsers);
     }
 }

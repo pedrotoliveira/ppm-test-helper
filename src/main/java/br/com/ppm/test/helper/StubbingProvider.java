@@ -27,8 +27,8 @@ public class StubbingProvider<ReturnType> implements Stubbing<ReturnType> {
 
 	private final OngoingStubbing<ReturnType> stub;
 
-    public StubbingProvider(ReturnType methodCall) {
-        this.stub = Mockito.when(methodCall);
+    public StubbingProvider(ReturnType value) {
+        this.stub = Mockito.when(value);
     }
 
     @Override
@@ -74,8 +74,8 @@ public class StubbingProvider<ReturnType> implements Stubbing<ReturnType> {
     }
 
     @Override
-    public <T> Stubbing<T> when(T methodCall) {
-        return new StubbingProvider<>(methodCall);
+    public <T> Stubbing<T> when(T value) {
+        return new StubbingProvider<>(value);
     }
 
     @Override

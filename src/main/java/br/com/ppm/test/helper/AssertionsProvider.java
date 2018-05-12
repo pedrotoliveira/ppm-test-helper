@@ -14,20 +14,20 @@ import static org.hamcrest.CoreMatchers.equalTo;
  *
  * @author pedrotoliveira
  */
-public class AssertionsProvider<ReturnType> implements Assertions<ReturnType> {
+public class AssertionsProvider<Return> implements Assertions<Return> {
 
     private final AssertionsWrapper assertWrapper;
-    private final ReturnWrapper<ReturnType> objectWrapper;
+    private final ReturnWrapper<Return> objectWrapper;
     private final String description;
 
     @SuppressWarnings("unchecked")
     public AssertionsProvider(String description) {
         this.assertWrapper = new AssertionsWrapper();
-        this.objectWrapper = (ReturnWrapper<ReturnType>) new NullObjectWrapper(description);
+        this.objectWrapper = (ReturnWrapper<Return>) new NullObjectWrapper(description);
         this.description = description;
     }
 
-    public AssertionsProvider(ReturnWrapper<ReturnType> returnObjectWrapper, String description) {
+    public AssertionsProvider(ReturnWrapper<Return> returnObjectWrapper, String description) {
         this.assertWrapper = new AssertionsWrapper();
         this.objectWrapper = returnObjectWrapper;
         this.description = description;
@@ -38,13 +38,13 @@ public class AssertionsProvider<ReturnType> implements Assertions<ReturnType> {
     }
 
     @Override
-    public ReturnWrapper<ReturnType> assertEqualToReturnField(String field, Object expected) {
+    public ReturnWrapper<Return> assertEqualToReturnField(String field, Object expected) {
         return objectWrapper.assertEqualToReturnField(field, expected);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public ReturnWrapper<ReturnType> assertReturnFields(String fieldName, Matcher<?> matcher, Object... additionalKeyMatcherPairs) {
+    public ReturnWrapper<Return> assertReturnFields(String fieldName, Matcher<?> matcher, Object... additionalKeyMatcherPairs) {
         assertReturnField(fieldName, matcher);
         if (additionalKeyMatcherPairs.length >= 2) {
             String field = String.class.cast(additionalKeyMatcherPairs[0]);
@@ -61,7 +61,7 @@ public class AssertionsProvider<ReturnType> implements Assertions<ReturnType> {
     }
 
     @Override
-    public ReturnWrapper<ReturnType> assertEqualToReturnFields(Object... keyPairs) {
+    public ReturnWrapper<Return> assertEqualToReturnFields(Object... keyPairs) {
         if (keyPairs.length >= 2) {
             String field = String.class.cast(keyPairs[0]);
             Matcher<Object> matcher = equalTo(keyPairs[1]);
@@ -78,69 +78,69 @@ public class AssertionsProvider<ReturnType> implements Assertions<ReturnType> {
     }
 
     @Override
-    public ReturnWrapper<ReturnType> resultIsEqualTo(ReturnType expected) {
+    public ReturnWrapper<Return> resultIsEqualTo(Return expected) {
         return objectWrapper.resultIsEqualTo(expected);
     }
 
     @Override
-    public ReturnWrapper<ReturnType> assertReturn(Matcher<? super ReturnType> matcher) {
+    public ReturnWrapper<Return> assertReturn(Matcher<? super Return> matcher) {
         return objectWrapper.assertReturn(matcher);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public ReturnWrapper<ReturnType> assertReturnField(String field, Matcher<?> matcher) {
+    public ReturnWrapper<Return> assertReturnField(String field, Matcher<?> matcher) {
         Object valueToAssert = Reflections.getValueByNamespace(field, objectWrapper.getReturn()).get();
-        assertWrapper.assertThat(description, (ReturnType) valueToAssert, (Matcher<? super Object>) matcher);
+        assertWrapper.assertThat(description, (Return) valueToAssert, (Matcher<? super Object>) matcher);
         return objectWrapper;
     }
 
     @Override
-    public ReturnWrapper<ReturnType> assertEqualTo(ReturnType expected) {
+    public ReturnWrapper<Return> assertEqualTo(Return expected) {
         return objectWrapper.assertEqualTo(expected);
     }
 
     @Override
-    public Assertions<ReturnType> assertThat(ReturnType methodCall, Matcher<? super ReturnType> matcher) {
-        assertWrapper.assertThat(description, methodCall, matcher);
+    public Assertions<Return> assertThat(Return value, Matcher<? super Return> matcher) {
+        assertWrapper.assertThat(description, value, matcher);
         return this;
     }
 
     @Override
-    public Assertions<ReturnType> assertTrue(boolean methodCall) {
-        assertWrapper.assertTrue(description, methodCall);
+    public Assertions<Return> assertTrue(boolean value) {
+        assertWrapper.assertTrue(description, value);
         return this;
     }
 
     @Override
-    public Assertions<ReturnType> assertFalse(boolean methodCall) {
-        assertWrapper.assertFalse(description, methodCall);
+    public Assertions<Return> assertFalse(boolean value) {
+        assertWrapper.assertFalse(description, value);
         return this;
     }
 
     @Override
-    public Assertions<ReturnType> assertEqualTo(ReturnType methodCall, Object expected) {
-        assertWrapper.assertThat(description, methodCall, equalTo(expected));
+    public Assertions<Return> assertEqualTo(Return value, Object expected) {
+        assertWrapper.assertThat(description, value, equalTo(expected));
         return this;
     }
 
     @Override
-    public TestCaseMatcher<ReturnType> assertThat(ReturnType methodCall) {
+    public TestCaseMatcher<Return> assertThat(Return value) {
+        return new AssertionsMatcherProvider<>(value, description, this);
+    }
+
+    @Override
+    public TestCaseMatcher<Return> it(Return value) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public TestCaseMatcher<ReturnType> it(ReturnType methodCall) {
+    public TestCaseMatcher<Return> it(String assertDescription, Return value) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public TestCaseMatcher<ReturnType> it(String assertDescription, ReturnType methodCall) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public <E extends Throwable> TestCaseMatcher<ReturnType> shouldThrow(E exception, ReturnType methodCall) {
+    public <E extends Throwable> TestCaseMatcher<Return> shouldThrow(Return value, E exception) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -178,4 +178,10 @@ public class AssertionsProvider<ReturnType> implements Assertions<ReturnType> {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "AssertionsProvider[" + "assertWrapper=" + assertWrapper + ", objectWrapper=" + objectWrapper + ", description=" + description + ']';
+    }
+
 }

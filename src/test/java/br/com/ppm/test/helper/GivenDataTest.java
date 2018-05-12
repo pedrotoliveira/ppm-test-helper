@@ -45,7 +45,7 @@ public class GivenDataTest extends FixtureTestHelper {
     private String description;
 
     @Before
-    public void setUp() {
+    public void beforeEach() {
         this.description = "Test Given Data";
         this.user = new User("123", "test", "test@gmail.com");
         when(userRepository.save(user)).thenReturn(user);
@@ -54,9 +54,9 @@ public class GivenDataTest extends FixtureTestHelper {
     }
 
     @Test
-    public void testTest() {
-        MethodInvoker<User> expected = new MethodInvoker<>(registerService, givenData, description);
-        assertThat("Verify if is the same Ivoker", givenData.test(registerService), equalTo(expected));
+    public void testCall() {
+        MethodInvoker<RegisterService, User> expected = new MethodInvoker<>(description, registerService, givenData);
+        assertThat("Verify if is the same Ivoker", givenData.call(registerService), equalTo(expected));
     }
 
     @Test

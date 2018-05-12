@@ -111,4 +111,9 @@ public class AssertionsProviderTest extends FixtureTestHelper {
         ReturnWrapper<User> returnWrapper = assertProvider.assertEqualTo(user);
         assertThat("ReturnWrapper Should be Equal", returnWrapper, equalTo(objectWrapper));
     }
+
+    @Test
+    public void testAssertThatTestCaseMatecher() {
+        assertProvider.assertThat(user).isEqual(new User(user));
+    }
 }

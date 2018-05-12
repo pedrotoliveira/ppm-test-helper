@@ -28,18 +28,18 @@ public interface TestCaseAssertions<Return> {
     /**
      * Assert True.
      *
-     * @param methodCall the method call
+     * @param value the method call
      * @return TestCaseAssertions
      */
-    TestCaseAssertions<Return> assertTrue(boolean methodCall);
+    TestCaseAssertions<Return> assertTrue(boolean value);
 
     /**
      * Assert False.
      *
-     * @param methodCall
+     * @param value
      * @return Assertions
      */
-    TestCaseAssertions<Return> assertFalse(boolean methodCall);
+    TestCaseAssertions<Return> assertFalse(boolean value);
 
     /**
      * Assertions that <code>actual</code> satisfies the condition specified by <code>matcher</code>. If not, an
@@ -58,48 +58,56 @@ public interface TestCaseAssertions<Return> {
      * This method assumes that a matcher typed as <code>Matcher&lt;T&gt;</code> can be meaningfully applied only to
      * values that could be assigned to a variable of type <code>T</code>.
      *
-     * @param methodCall a method call that return a type of Return, defined in interface Type.
+     * @param value a method call that return a type of Return, defined in interface Type.
      * @param matcher a Matcher <code>org.hamcrest.Matcher</code>
      * @return a Assertions<Return> Implementation
      * @see org.hamcrest.CoreMatchers
      * @see org.hamcrest.MatcherAssert
      */
-    TestCaseAssertions<Return> assertThat(Return methodCall, Matcher<? super Return> matcher);
+    TestCaseAssertions<Return> assertThat(Return value, Matcher<? super Return> matcher);
 
     /**
      * Assert equal to expected object
      *
-     * @param methodCall the method call
+     * @param value the method call
      * @param expected the expected object
      * @return Assertions
      */
-    TestCaseAssertions<Return> assertEqualTo(Return methodCall, Object expected);
+    TestCaseAssertions<Return> assertEqualTo(Return value, Object expected);
 
     /**
      * Create a TestCaseMatcher to assert return of method call
      *
-     * @param methodCall the method call
+     * @param value the method call
      * @return TestCaseMatcherProvider
      */
-    TestCaseMatcher<Return> assertThat(Return methodCall);
+    TestCaseMatcher<Return> assertThat(Return value);
 
     /**
      * Create a TestCaseMatcher to assert return of method call
      *
-     * @param methodCall the method call
+     * @param value the method call
      * @return TestCaseMatcherProvider
      */
-    TestCaseMatcher<Return> it(Return methodCall);
+    TestCaseMatcher<Return> it(Return value);
 
     /**
      * Create a TestCaseMatcher with given description to assert return of method call
      *
-     * @param methodCall the method call
+     * @param value the method call
      * @return TestCaseMatcherProvider
      */
-    TestCaseMatcher<Return> it(String assertDescription, Return methodCall);
+    TestCaseMatcher<Return> it(String assertDescription, Return value);
 
-    <E extends Throwable> TestCaseMatcher<Return> shouldThrow(E exception, Return methodCall);
+    /**
+     * Create a TestCaseMatcher and to match the given exception
+     *
+     * @param <E> Exception
+     * @param value the value
+     * @param exception given Exception
+     * @return TestCaseMatcher
+     */
+    <E extends Throwable> TestCaseMatcher<Return> shouldThrow(Return value, E exception);
 
     /**
      * Match an exception

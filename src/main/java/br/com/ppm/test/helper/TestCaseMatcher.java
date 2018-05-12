@@ -23,6 +23,13 @@ package br.com.ppm.test.helper;
 public interface TestCaseMatcher<Return> {
 
     /**
+     * Is
+     *
+     * @return return the TestCaseMatcher instance
+     */
+    TestCaseMatcher<Return> is();
+
+    /**
      * Add a Description to this matcher
      *
      * @param description to be included

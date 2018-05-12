@@ -40,9 +40,7 @@ public class MethodInvokerTest extends FluentTestHelper {
 
     @Mock
     private UserRepository repository;
-
     private RegisterService service;
-    private MethodInvoker<User> invoker;
     private GivenData<User> givenData;
 
     @BeforeClass
@@ -51,11 +49,10 @@ public class MethodInvokerTest extends FluentTestHelper {
     }
 
     @Before
-    public void beforeTests() {
+    public void beforeEach() {
         User user = fixtureFrom(User.class).gimme(VALID);
         this.givenData = new GivenData<>(user, "User Data");
         this.service = new RegisterService(repository);
-        this.invoker = new MethodInvoker<>(service, givenData, "MethodInvokerTest");
     }
 
     @Test
@@ -63,16 +60,23 @@ public class MethodInvokerTest extends FluentTestHelper {
         User expected = givenData.getData();
         //We Expect a repository Call
         when(repository.save(givenData.getData())).thenReturn(expected);
-
-        User current = invoker.method("register", User.class).getResult();
-        assertThat(current).isEqualTo(expected);
-
+        MethodInvoker<RegisterService, User> invoker = new MethodInvoker<>("Test RegisterService", service, givenData);
+        invoker.method("register", User.class).assertEqualTo(expected);
+        //Mock Verification
         verify(repository).save(expected);
     }
 
     @Test
     public void testGivenDataNotChange() throws Exception {
-        assertThat(invoker.getGivenData()).isSameAs(givenData.getData());
+        MethodInvoker<RegisterService, User> invoker = new MethodInvoker<>("Check GivenData Not Change", service, givenData);
+        assertThat(invoker.getParameters().get()).isSameAs(givenData.getData());
+    }
+
+    @Test
+    public void testInvokeWithoutGivenData() throws Exception {
+        MethodInvoker<RegisterService, User> invoker = new MethodInvoker<>("Test RegisterService No Parameters", service);
+
+
     }
 
 }

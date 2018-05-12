@@ -25,15 +25,15 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
         this(null, stub);
     }
 
-    public GivenDataAndStubbing(GivenData<GivenDataType> givenData, ReturnType methodCall) {
-        this(givenData, new StubbingProvider<>(methodCall));
+    public GivenDataAndStubbing(GivenData<GivenDataType> givenData, ReturnType value) {
+        this(givenData, new StubbingProvider<>(value));
     }
 
-    protected GivenData<GivenDataType> getGivenData() {
+    public GivenData<GivenDataType> getGivenData() {
         return givenData;
     }
 
-    protected Stubbing<ReturnType> getStub() {
+    public Stubbing<ReturnType> getStub() {
         return stub;
     }
 
@@ -90,8 +90,8 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
     }
 
     @Override
-    public <T> Stubbing<T> when(T methodCall) {
-        return new GivenDataAndStubbing<>(givenData, methodCall);
+    public <T> Stubbing<T> when(T value) {
+        return new GivenDataAndStubbing<>(givenData, value);
     }
 
     @Override
@@ -104,6 +104,7 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
     }
 
     @Override
+    @SuppressWarnings("PMD.SimplifyBooleanReturns")
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -132,6 +133,6 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
         return "GivenDataAndStubbing["
                 + "givenData=" + givenData
                 + ", stub=" + stub
-                + ", values=" + values + ']';
+                + ", values=" + Arrays.toString(values) + ']';
     }
 }

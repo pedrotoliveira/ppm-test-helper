@@ -16,7 +16,10 @@
  */
 package br.com.ppm.test.helper;
 
+import java.util.Objects;
+
 /**
+ * TestCase Matcher
  *
  * @author pedrotoliveira
  */
@@ -24,12 +27,12 @@ public final class TestCaseMatcherProvider implements TestCaseMatcher<Object> {
 
     private final Object value;
     private final StringBuilder descriptionBuilder;
-    private final Assertions<Object> assertions;
+    private final TestCaseAssertions<Object> asserts;
 
-    public TestCaseMatcherProvider(Object value, String description, Assertions<Object> assertions) {
+    public TestCaseMatcherProvider(Object value, String description, TestCaseAssertions<Object> asserts) {
         this.value = value;
         this.descriptionBuilder = new StringBuilder(description);
-        this.assertions = assertions;
+        this.asserts = asserts;
     }
 
     public String getDescription() {
@@ -37,8 +40,13 @@ public final class TestCaseMatcherProvider implements TestCaseMatcher<Object> {
     }
 
     @Override
+    public TestCaseMatcher<Object> is() {
+        return this;
+    }
+
+    @Override
     public TestCaseMatcher<Object> as(String description) {
-        this.descriptionBuilder.append("|").append(description);
+        descriptionBuilder.append("|").append(description);
         return this;
     }
 
@@ -49,12 +57,13 @@ public final class TestCaseMatcherProvider implements TestCaseMatcher<Object> {
 
     @Override
     public TestCaseAssertions<Object> isEqual(Object expected) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        asserts.assertThat(value).isEqualTo(expected);
+        return asserts;
     }
 
     @Override
     public TestCaseAssertions<Object> isEqualTo(Object expected) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return isEqual(expected);
     }
 
     @Override
@@ -97,4 +106,37 @@ public final class TestCaseMatcherProvider implements TestCaseMatcher<Object> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.value);
+        hash = 23 * hash + Objects.hashCode(this.descriptionBuilder);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TestCaseMatcherProvider other = (TestCaseMatcherProvider) obj;
+        if (!Objects.equals(this.value, other.value)) {
+            return false;
+        }
+        if (!Objects.equals(this.descriptionBuilder, other.descriptionBuilder)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "TestCaseMatcherProvider[" + "value=" + value + ", descriptionBuilder=" + descriptionBuilder + ']';
+    }
 }
