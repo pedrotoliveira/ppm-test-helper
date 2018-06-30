@@ -1,9 +1,9 @@
 package br.com.ppm.test.helper;
 
+import org.mockito.stubbing.Answer;
+
 import java.util.Arrays;
 import java.util.Objects;
-
-import org.mockito.stubbing.Answer;
 
 /**
  * GivenData and Stubs.
@@ -21,8 +21,9 @@ public final class GivenDataAndStubbing<GivenDataType, ReturnType> implements St
         this.stub = stub;
     }
 
+    @SuppressWarnings("unchecked")
     public GivenDataAndStubbing(Stubbing<ReturnType> stub) {
-        this(null, stub);
+        this((GivenData<GivenDataType>) new GivenData<>(new NoData(), ""), stub);
     }
 
     public GivenDataAndStubbing(GivenData<GivenDataType> givenData, ReturnType value) {
