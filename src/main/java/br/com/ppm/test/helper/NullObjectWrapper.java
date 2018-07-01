@@ -26,6 +26,6 @@ import java.util.Optional;
 public final class NullObjectWrapper extends ReturnWrapper<Object> {
 
     public NullObjectWrapper(String description) {
-        super(Optional.empty(), description);
+        super(new NoData(), description);
     }
 }

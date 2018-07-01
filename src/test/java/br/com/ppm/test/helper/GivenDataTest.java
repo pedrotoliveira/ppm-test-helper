@@ -62,12 +62,12 @@ public class GivenDataTest extends FixtureTestHelper {
     @Test
     public void testWhen() throws Exception {
         Stubbing<User> when = givenData.when(registerService.register(user));
-        assertThat("GivenData should be equal to return value", givenData, equalTo(when.then().returnValue(user)));
+        assertThat("GivenData describe be equal to return value", givenData, equalTo(when.then().returnValue(user)));
     }
 
     @Test
     public void testWrapResult() {
         ReturnWrapper<User> expected = new ReturnWrapper<>(user, description);
-        assertThat("GivenData.wrapResult should be equal to expected", givenData.wrapResult(registerService.register(user)), equalTo(expected));
+        assertThat("GivenData.wrapResult describe be equal to expected", givenData.wrapResult(registerService.register(user)), equalTo(expected));
     }
 }

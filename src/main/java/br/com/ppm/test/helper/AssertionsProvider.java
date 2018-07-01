@@ -13,6 +13,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
  * Assertions Implementations
  *
  * @author pedrotoliveira
+ * @since 30/06/2018
  */
 public class AssertionsProvider<Return> implements Assertions<Return> {
 
@@ -38,8 +39,9 @@ public class AssertionsProvider<Return> implements Assertions<Return> {
     }
 
     @Override
-    public ReturnWrapper<Return> assertEqualToReturnField(String field, Object expected) {
-        return objectWrapper.assertEqualToReturnField(field, expected);
+    public ReturnWrapper<Return> assertEqualToReturnField(String fieldName, Object expected) {
+        assertReturnField(fieldName, equalTo(expected));
+        return objectWrapper;
     }
 
     @Override
@@ -130,13 +132,24 @@ public class AssertionsProvider<Return> implements Assertions<Return> {
     }
 
     @Override
-    public TestCaseMatcher<Return> it(Return value) {
+    public TestCaseMatcher<Return> itIs(Return value) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public TestCaseMatcher<Return> it(String assertDescription, Return value) {
+    public TestCaseMatcher<Return> itIs(String assertDescription, Return value) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public TestCaseMatcher<Return> it(TestCaseMatcher<Return> matcher) {
+        return matcher;
+    }
+
+    @Override
+    public TestCaseMatcher<Return> it(String assertDescription, TestCaseMatcher<Return> matcher) {
+        matcher.as(assertDescription);
+        return matcher;
     }
 
     @Override
@@ -173,10 +186,7 @@ public class AssertionsProvider<Return> implements Assertions<Return> {
             return false;
         }
         final AssertionsProvider<?> other = (AssertionsProvider<?>) obj;
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.description, other.description);
     }
 
     @Override

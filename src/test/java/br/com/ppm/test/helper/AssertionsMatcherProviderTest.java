@@ -32,7 +32,7 @@ public class AssertionsMatcherProviderTest {
     }
 
     /**
-     * Test of should method, of class AssertionsMatcherProvider.
+     * Test of describe method, of class AssertionsMatcherProvider.
      */
     @Test
     public void testShould() {

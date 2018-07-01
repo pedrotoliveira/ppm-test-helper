@@ -58,7 +58,7 @@ public interface TestCaseAssertions<Return> {
      * This method assumes that a matcher typed as <code>Matcher&lt;T&gt;</code> can be meaningfully applied only to
      * values that could be assigned to a variable of type <code>T</code>.
      *
-     * @param value a method call that return a type of Return, defined in interface Type.
+     * @param value   a method call that return a type of Return, defined in interface Type.
      * @param matcher a Matcher <code>org.hamcrest.Matcher</code>
      * @return a Assertions<Return> Implementation
      * @see org.hamcrest.CoreMatchers
@@ -69,7 +69,7 @@ public interface TestCaseAssertions<Return> {
     /**
      * Assert equal to expected object
      *
-     * @param value the method call
+     * @param value    the method call
      * @param expected the expected object
      * @return Assertions
      */
@@ -89,7 +89,7 @@ public interface TestCaseAssertions<Return> {
      * @param value the method call
      * @return TestCaseMatcherProvider
      */
-    TestCaseMatcher<Return> it(Return value);
+    TestCaseMatcher<Return> itIs(Return value);
 
     /**
      * Create a TestCaseMatcher with given description to assert return of method call
@@ -97,13 +97,31 @@ public interface TestCaseAssertions<Return> {
      * @param value the method call
      * @return TestCaseMatcherProvider
      */
-    TestCaseMatcher<Return> it(String assertDescription, Return value);
+    TestCaseMatcher<Return> itIs(String assertDescription, Return value);
+
+    /**
+     * Delegates to a matcher
+     *
+     * @param matcher a TestCaseMatcher
+     * @return TestCaseMatcherProvider
+     */
+    TestCaseMatcher<Return> it(TestCaseMatcher<Return> matcher);
+
+
+    /**
+     * Delegates to a matcher
+     *
+     * @param matcher a TestCaseMatcher
+     * @return TestCaseMatcherProvider
+     */
+    TestCaseMatcher<Return> it(String assertDescription, TestCaseMatcher<Return> matcher);
+
 
     /**
      * Create a TestCaseMatcher and to match the given exception
      *
-     * @param <E> Exception
-     * @param value the value
+     * @param <E>       Exception
+     * @param value     the value
      * @param exception given Exception
      * @return TestCaseMatcher
      */

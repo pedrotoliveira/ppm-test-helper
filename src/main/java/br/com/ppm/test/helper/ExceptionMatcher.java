@@ -21,5 +21,4 @@ package br.com.ppm.test.helper;
  * @author pedrotoliveira
  */
 public interface ExceptionMatcher<E extends Throwable> {
-
 }

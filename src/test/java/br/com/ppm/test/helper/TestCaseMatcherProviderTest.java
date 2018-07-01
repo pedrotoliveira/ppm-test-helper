@@ -17,7 +17,7 @@
 package br.com.ppm.test.helper;
 
 import br.com.ppm.test.model.User;
-
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -40,9 +40,10 @@ public class TestCaseMatcherProviderTest extends FixtureTestHelper {
         setUpFixtures("br.com.ppm.test.fixtures");
     }
 
+    @Before
     public void beforeEach() {
         this.user = fixtureFrom(User.class).gimme(VALID);
-        this.asserts = new AssertionsProvider<>("");
+        this.asserts = new AssertionsProvider<>(new ReturnWrapper<>(user, ""), "");
     }
 
     /**
@@ -56,12 +57,12 @@ public class TestCaseMatcherProviderTest extends FixtureTestHelper {
     }
 
     /**
-     * Test of should method, of class TestCaseMatcherProvider.
+     * Test of describe method, of class TestCaseMatcherProvider.
      */
     @Test
-    public void testShould() {
+    public void testDescribe() {
         TestCaseMatcherProvider matcher = new TestCaseMatcherProvider(user, "test", null);
-        matcher.as("Should be something");
+        matcher.describe("Should be something");
         assertThat(matcher.getDescription()).isEqualTo("test|Should be something");
     }
 
@@ -71,7 +72,9 @@ public class TestCaseMatcherProviderTest extends FixtureTestHelper {
     @Test
     public void testIsEqual() {
         TestCaseMatcherProvider matcher = new TestCaseMatcherProvider(user, "test", asserts);
-        assertThat(matcher.isEqual(new User(user))).isSameAs(matcher);
+        User expected = new User(user);
+        TestCaseAssertions<Object> equal = asserts.assertThat(user).isEqual(expected);
+        assertThat(matcher.isEqual(expected)).isSameAs(equal);
     }
 
     /**
@@ -80,7 +83,9 @@ public class TestCaseMatcherProviderTest extends FixtureTestHelper {
     @Test
     public void testIsEqualTo() {
         TestCaseMatcherProvider matcher = new TestCaseMatcherProvider(user, "test", asserts);
-        assertThat(matcher.isEqual(new User(user))).isSameAs(matcher);
+        User expected = new User(user);
+        TestCaseAssertions<Object> equalTo = asserts.assertThat(user).isEqualTo(expected);
+        assertThat(matcher.isEqualTo(expected)).isSameAs(equalTo);
     }
 
     /**

@@ -117,13 +117,24 @@ public class ReturnWrapper<Return> implements Assertions<Return>, Verifications 
     }
 
     @Override
-    public TestCaseMatcher<Return> it(Return value) {
+    public TestCaseMatcher<Return> itIs(Return value) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public TestCaseMatcher<Return> it(String assertDescription, Return value) {
+    public TestCaseMatcher<Return> itIs(String assertDescription, Return value) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public TestCaseMatcher<Return> it(TestCaseMatcher<Return> matcher) {
+        return matcher;
+    }
+
+    @Override
+    public TestCaseMatcher<Return> it(String assertDescription, TestCaseMatcher<Return> matcher) {
+        matcher.as(assertDescription);
+        return matcher;
     }
 
     @Override

@@ -19,9 +19,10 @@ package br.com.ppm.test.helper;
 import java.util.Objects;
 
 /**
- * TestCase Matcher
+ * Test Case Matcher Provider
  *
  * @author pedrotoliveira
+ * @since
  */
 public final class TestCaseMatcherProvider implements TestCaseMatcher<Object> {
 
@@ -51,38 +52,37 @@ public final class TestCaseMatcherProvider implements TestCaseMatcher<Object> {
     }
 
     @Override
-    public TestCaseMatcher<Object> should(String description) {
+    public TestCaseMatcher<Object> describe(String description) {
         return as(description);
     }
 
     @Override
     public TestCaseAssertions<Object> isEqual(Object expected) {
-        asserts.assertThat(value).isEqualTo(expected);
-        return asserts;
+        return asserts.assertThat(value).isEqual(expected);
     }
 
     @Override
     public TestCaseAssertions<Object> isEqualTo(Object expected) {
+        return asserts.assertThat(value).isEqualTo(expected);
+    }
+
+    @Override
+    public TestCaseAssertions<Object> shouldBeEqual(Object expected) {
+        return asserts.assertThat(value).isEqualTo(expected);
+    }
+
+    @Override
+    public TestCaseAssertions<Object> shouldBe(Integer expected) {
+        return asserts.itIs(value).shouldBe(expected);
+    }
+
+    @Override
+    public TestCaseAssertions<Object> shouldBe(Long expected) {
         return isEqual(expected);
     }
 
     @Override
-    public TestCaseAssertions<Object> shouldBeEqual(Object exected) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public TestCaseAssertions<Object> shouldBe(Integer exected) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public TestCaseAssertions<Object> shouldBe(Long exected) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public TestCaseAssertions<Object> shouldBe(Float exected) {
+    public TestCaseAssertions<Object> shouldBe(Float expected) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -129,10 +129,7 @@ public final class TestCaseMatcherProvider implements TestCaseMatcher<Object> {
         if (!Objects.equals(this.value, other.value)) {
             return false;
         }
-        if (!Objects.equals(this.descriptionBuilder, other.descriptionBuilder)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.descriptionBuilder, other.descriptionBuilder);
     }
 
     @Override

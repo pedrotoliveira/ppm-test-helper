@@ -72,7 +72,7 @@ public class AssertionsProviderTest extends FixtureTestHelper {
     @Test
     @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
     public void testGetDescription() {
-        assertThat("Description should be ".concat(description), assertProvider.getDescription(), equalTo(description));
+        assertThat("Description describe be ".concat(description), assertProvider.getDescription(), equalTo(description));
     }
 
     @Test

@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class NoData {
 	
-	private String value = "NoData";
+	private String value = "No Test Data";
 	
 	public String getValue() {
 		return value;

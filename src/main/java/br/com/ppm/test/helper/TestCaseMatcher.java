@@ -43,7 +43,7 @@ public interface TestCaseMatcher<Return> {
      * @param description to be included
      * @return TestCaseMatcher
      */
-    TestCaseMatcher<Return> should(String description);
+    TestCaseMatcher<Return> describe(String description);
 
     /**
      * <p>
@@ -54,7 +54,7 @@ public interface TestCaseMatcher<Return> {
      * It means that if an actual field is not null and the corresponding field in other is null, this field will be
      * ignored in comparison, but the opposite will make assertion fail (null field in actual, not null in other) as the
      * field is used in the performed comparison and the values differ. Note that comparison is not recursive, if one of
-     * the field is an Object, it will be compared to the other field using its equals method.
+     * the field is an Object, itIs will be compared to the other field using its equals method.
      * </p>
      *
      * @param expected expected Object
@@ -79,7 +79,7 @@ public interface TestCaseMatcher<Return> {
      * @return TestCaseAssertions
      * @see org.hamcrest.CoreMatchers#equalTo(java.lang.Object)
      */
-    TestCaseAssertions<Return> shouldBeEqual(Return exected);
+    TestCaseAssertions<Return> shouldBeEqual(Return expected);
 
     /**
      * Assert the expected Integer is equalTo
@@ -88,7 +88,7 @@ public interface TestCaseMatcher<Return> {
      * @return TestCaseAssertions
      * @see org.hamcrest.CoreMatchers#equalTo(java.lang.Object)
      */
-    TestCaseAssertions<Return> shouldBe(Integer exected);
+    TestCaseAssertions<Return> shouldBe(Integer expected);
 
     /**
      * Assert the expected Long is equalTo
@@ -97,7 +97,7 @@ public interface TestCaseMatcher<Return> {
      * @return TestCaseAssertions
      * @see org.hamcrest.CoreMatchers#equalTo(java.lang.Object)
      */
-    TestCaseAssertions<Return> shouldBe(Long exected);
+    TestCaseAssertions<Return> shouldBe(Long expected);
 
     /**
      * Assert the expected Float is equalTo
@@ -106,7 +106,7 @@ public interface TestCaseMatcher<Return> {
      * @return TestCaseAssertions
      * @see org.hamcrest.CoreMatchers#equalTo(java.lang.Object)
      */
-    TestCaseAssertions<Return> shouldBe(Float exected);
+    TestCaseAssertions<Return> shouldBe(Float expected);
 
     /**
      * Assert if the Collection contains the given elements with the same values

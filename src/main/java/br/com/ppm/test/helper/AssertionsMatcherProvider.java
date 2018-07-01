@@ -44,18 +44,18 @@ public final class AssertionsMatcherProvider<Return> implements TestCaseMatcher<
     }
 
     @Override
-    public TestCaseMatcher<Return> should(String description) {
+    public TestCaseMatcher<Return> describe(String description) {
         return as(description);
     }
 
     @Override
     public TestCaseAssertions<Return> isEqual(Return expected) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return isEqualTo(expected);
     }
 
     @Override
     public TestCaseAssertions<Return> isEqualTo(Return expected) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return assertions.assertEqualTo(expected);
     }
 
     @Override

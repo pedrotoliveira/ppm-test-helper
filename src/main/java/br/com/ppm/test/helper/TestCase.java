@@ -95,14 +95,24 @@ public final class TestCase implements Given<Object>, Expectations, TestCaseAsse
     }
 
     @Override
-    public TestCaseMatcher<Object> it(Object value) {
+    public TestCaseMatcher<Object> itIs(Object value) {
         return new TestCaseMatcherProvider(value, description, asserts);
     }
 
     @Override
-    public TestCaseMatcher<Object> it(String assertDescription, Object value) {
+    public TestCaseMatcher<Object> itIs(String assertDescription, Object value) {
         String builder = description + "|" + assertDescription;
         return new TestCaseMatcherProvider(value, builder, asserts);
+    }
+
+    @Override
+    public TestCaseMatcher<Object> it(TestCaseMatcher<Object> matcher) {
+        return null;
+    }
+
+    @Override
+    public TestCaseMatcher<Object> it(String assertDescription, TestCaseMatcher<Object> matcher) {
+        return null;
     }
 
     @Override

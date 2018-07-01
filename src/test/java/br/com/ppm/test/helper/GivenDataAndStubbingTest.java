@@ -72,28 +72,28 @@ public class GivenDataAndStubbingTest extends FixtureTestHelper {
     @Test
     public void testThenReturn() {
         GivenDataAndStubbing<User, User> givenDataAndStub = new GivenDataAndStubbing<>(givenData, userRepository.save(user));
-        assertThat("thenReturn should return a Instance of Stubbing",
+        assertThat("thenReturn describe return a Instance of Stubbing",
                 givenDataAndStub.thenReturn(user), instanceOf(Stubbing.class));
     }
 
     @Test
     public void testThenReturnMultipleTypes() {
         GivenDataAndStubbing<User, User> givenDataAndStub = new GivenDataAndStubbing<>(givenData, userRepository.save(user));
-        assertThat("thenReturn should return a Instance of Stubbing",
+        assertThat("thenReturn describe return a Instance of Stubbing",
                 givenDataAndStub.thenReturn(user, user), instanceOf(Stubbing.class));
     }
 
     @Test
     public void testThenThrow() {
         GivenDataAndStubbing<User, User> givenDataAndStub = new GivenDataAndStubbing<>(givenData, userRepository.save(user));
-        assertThat("thenThrow should return a Instance of Stubbing",
+        assertThat("thenThrow describe return a Instance of Stubbing",
                 givenDataAndStub.thenThrow(new RuntimeException("ERROR")), instanceOf(Stubbing.class));
     }
 
     @Test
     public void testThenThrowMultipleCalls() {
         GivenDataAndStubbing<User, User> givenDataAndStub = new GivenDataAndStubbing<>(givenData, userRepository.save(user));
-        assertThat("thenThrow with multiple exceptions should return a Instance of Stubbing",
+        assertThat("thenThrow with multiple exceptions describe return a Instance of Stubbing",
                 givenDataAndStub.thenThrow(new RuntimeException("ERROR1"), new RuntimeException("ERROR2")),
                 instanceOf(Stubbing.class));
     }
