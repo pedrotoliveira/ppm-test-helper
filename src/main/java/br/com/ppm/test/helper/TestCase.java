@@ -3,17 +3,17 @@ package br.com.ppm.test.helper;
 import org.hamcrest.Matcher;
 
 /**
- * The Class GivenTestData.
+ * The TestCase
  *
  * @author pedrotoliveira
  */
-public final class TestCase implements Given<Object>, Expectations, Assertions<Object> {
+public final class TestCase implements Given<Object>, Expectations, TestCaseAssertions<Object> {
 
     private final String description;
-    private final Assertions<Object> asserts;
+    private final TestCaseAssertions<Object> asserts;
 
     /**
-     * Instantiates a new test case.
+     * Instantiates a new call case.
      *
      * @param description the description
      */
@@ -43,84 +43,90 @@ public final class TestCase implements Given<Object>, Expectations, Assertions<O
         return new GivenData<>(data, description);
     }
 
-    @Override
-    public <T> StubbingWrapper<T> when(T methodCall) {
-        return new Stubbing<>(methodCall);
-    }
-
-    @Override
-    public <I> ReturnWrapper<I> wrapResult(I methodCall) {
-        return new ReturnWrapper<>(methodCall, description);
-    }
-
-    @Override
-    public MethodInvoker<Object> test(Object testInstance) {
-        return new MethodInvoker<>(testInstance, new NoDataGiven(), description);
-    }
-
     /**
-     * Call Test Instance
+     * Test an Instance
      *
      * @param <I> the generic type
-     * @param testInstance the test instance
+     * @param testInstance the call instance
      * @return the instance
      */
-    public <I> I call(I testInstance) {
+    public <I> I test(I testInstance) {
         return testInstance;
     }
 
     @Override
-    public Assertions<Object> assertTrue(boolean methodCall) {
-        return asserts.assertTrue(methodCall);
+    public <T> Stubbing<T> when(T value) {
+        return new StubbingProvider<>(value);
     }
 
     @Override
-    public ReturnWrapper<Object> assertEqualTo(Object expected) {
-        return asserts.assertEqualTo(expected);
+    public <I> ReturnWrapper<I> wrapResult(I value) {
+        return new ReturnWrapper<>(value, description);
     }
 
     @Override
-    public ReturnWrapper<Object> resultIsEqualTo(Object expected) {
-        return asserts.resultIsEqualTo(expected);
+    public <I> MethodInvoker<I, Object> call(I testInstance) {
+        return new MethodInvoker<>(description, testInstance);
     }
 
     @Override
-    public ReturnWrapper<Object> assertReturn(Matcher<? super Object> matcher) {
-        return asserts.assertReturn(matcher);
+    public TestCaseAssertions<Object> assertTrue(boolean value) {
+        return asserts.assertTrue(value);
     }
 
     @Override
-    public ReturnWrapper<Object> assertReturnField(String field, Matcher<?> matcher) {
-        return asserts.assertReturnField(field, matcher);
+    public TestCaseAssertions<Object> assertThat(Object value, Matcher<? super Object> matcher) {
+        return asserts.assertThat(value, matcher);
     }
 
     @Override
-    public ReturnWrapper<Object> assertEqualToReturnField(String field, Object expected) {
-        return asserts.assertEqualToReturnField(field, expected);
+    public TestCaseAssertions<Object> assertFalse(boolean value) {
+        return asserts.assertFalse(value);
     }
 
     @Override
-    public ReturnWrapper<Object> assertReturnFields(String field, Matcher<?> matcher, Object... additionalKeyMatcherPairs) {
-        return asserts.assertReturnFields(field, matcher, additionalKeyMatcherPairs);
+    public TestCaseAssertions<Object> assertEqualTo(Object value, Object expected) {
+        return asserts.assertEqualTo(value, expected);
     }
 
     @Override
-    public ReturnWrapper<Object> assertEqualToReturnFields(String field, Object expected, Object... additionalKeyMatcherPairs) {
-        return asserts.assertEqualToReturnFields(field, expected, additionalKeyMatcherPairs);
+    public TestCaseMatcher<Object> assertThat(Object value) {
+        return new TestCaseMatcherProvider(value, description, asserts);
     }
 
     @Override
-    public Assertions<Object> assertThat(Object methodCall, Matcher<? super Object> matcher) {
-        return asserts.assertThat(methodCall, matcher);
+    public TestCaseMatcher<Object> itIs(Object value) {
+        return new TestCaseMatcherProvider(value, description, asserts);
     }
 
     @Override
-    public Assertions<Object> assertFalse(boolean methodCall) {
-        return asserts.assertFalse(methodCall);
+    public TestCaseMatcher<Object> itIs(String assertDescription, Object value) {
+        String builder = description + "|" + assertDescription;
+        return new TestCaseMatcherProvider(value, builder, asserts);
     }
 
     @Override
-    public Assertions<Object> assertEqualTo(Object methodCall, Object expected) {
-        return asserts.assertEqualTo(methodCall, expected);
+    public TestCaseMatcher<Object> it(TestCaseMatcher<Object> matcher) {
+        return null;
+    }
+
+    @Override
+    public TestCaseMatcher<Object> it(String assertDescription, TestCaseMatcher<Object> matcher) {
+        return null;
+    }
+
+    @Override
+    public <E extends Throwable> TestCaseMatcher<Object> shouldThrow(Object value, E exception) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public <E extends Throwable> ExceptionMatcher<E> a(Class<E> exception) throws E {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public <E extends Throwable> ExceptionMatcher<E> itThrow(Class<E> exception) throws E {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -1,4 +1,4 @@
-package br.com.ppm.test.samples.model;
+package br.com.ppm.test.model;
 
 import java.util.List;
 
@@ -18,8 +18,12 @@ public class RegisterService {
     public User register(User user) {
         return userRepository.save(user);
     }
-    
+
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public void delete(User user) {
+        userRepository.delete(user);
     }
 }

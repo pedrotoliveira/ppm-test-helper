@@ -15,12 +15,15 @@
  */
 package br.com.ppm.test.helper;
 
+import java.util.Collections;
 import java.util.List;
 
-import br.com.ppm.test.samples.model.User;
+import br.com.ppm.test.model.RegisterService;
+import br.com.ppm.test.model.User;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static br.com.ppm.test.helper.CommonTemplateLabels.VALID;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,22 +37,22 @@ public class TestCaseTest extends FixtureTestHelper {
 
     @BeforeClass
     public static void beforeAll() {
-        FixtureTestHelper.setUpFixtures("br.com.ppm.test.fixtures");
+        setUpFixtures("br.com.ppm.test.fixtures");
     }
 
     @Test
     public void testGivenData() {
         User user = fixtureFrom(User.class).gimme(VALID);
-        TestCase test = new TestCase("test given data");
-        GivenData<User> data = test.given(user);
+        TestCase testCase = new TestCase("Test given data");
+        GivenData<User> data = testCase.given(user);
         assertThat(data.getData()).as("When call given we have to return the same User").isSameAs(user);
     }
 
     @Test
     public void testGivenDataArray() {
         List<User> users = fixtureFrom(User.class).gimme(10, VALID);
-        TestCase test = new TestCase("test given array data");
-        GivenData<Object[]> arrayData = test.given(users.toArray());
+        TestCase testCase = new TestCase("Test given array data");
+        GivenData<Object[]> arrayData = testCase.given(users.toArray());
         for (Object returned : arrayData.getData()) {
             assertThat(returned).as("Check if returned is in given Users").isIn(users);
         }
@@ -57,10 +60,24 @@ public class TestCaseTest extends FixtureTestHelper {
 
     @Test
     public void testWhen() throws Exception {
+        RegisterService mockedService = Mockito.mock(RegisterService.class);
+
+        TestCase testCase = new TestCase("Test method when");
+        Stubbing<List<User>> whenFindAll = testCase.when(mockedService.findAll());
+        assertThat(whenFindAll).as("Check if we create the stub")
+                .isNotNull()
+                .isInstanceOf(Stubbing.class);
+        //Finalize the Stub Declaration.
+        whenFindAll.then().returnValue(Collections.emptyList());
     }
 
     @Test
-    public void testTest() {
+    public void testCall() throws Exception {
+        User user = fixtureFrom(User.class).gimme(VALID);
+        TestCase testCase = new TestCase("Test method test");
+        testCase.call(user)
+                .method("getId", String.class)
+                .assertEqualTo(user.getId());
     }
 
     @Test

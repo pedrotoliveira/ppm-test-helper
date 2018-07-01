@@ -22,6 +22,21 @@ package br.com.ppm.test.helper;
  */
 interface Given<DataType> {
 
-    MethodInvoker<DataType> test(final Object testInstance);
+    /**
+     * Test an Instance and return the Method Invoker.
+     *
+     * @param testInstance instance object to be tested
+     * @return a MethodInvoker without parameters
+     */
+    <I> MethodInvoker<I, DataType> call(final I testInstance);
 
+    /**
+     * Test an Instance and return the Method Invoker.
+     *
+     * @param testInstance instance object to be tested
+     * @return a MethodInvoker without parameters
+     */
+    default <I> MethodInvoker<I, DataType> invoke(final I testInstance) {
+        return call(testInstance);
+    }
 }

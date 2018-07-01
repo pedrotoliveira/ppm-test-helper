@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.ppm</groupId>
     <artifactId>test-helper</artifactId>
-    <version>0.1.5-SNAPSHOT</version>
+    <version>0.1.6-SNAPSHOT</version>
     <packaging>jar</packaging>
 	
     <name>PPM Test Helper</name>
@@ -13,7 +13,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>		
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <dependency.version.ppm-commons>2.0.3</dependency.version.ppm-commons>
         <dependency.version.junit>4.12</dependency.version.junit>
         <dependency.version.fixture-factory>3.1.0</dependency.version.fixture-factory>
         <dependency.version.hamcrest-core>1.3</dependency.version.hamcrest-core>
@@ -21,10 +22,11 @@
         <dependency.version.mockito>1.10.19</dependency.version.mockito>
         <dependency.version.assertj>3.8.0</dependency.version.assertj>
         <dependency.version.jacoco>0.7.9</dependency.version.jacoco>
-        <sonar-jacoco-listeners.version>1.4</sonar-jacoco-listeners.version>
-        <jacoco.outputDir>${project.build.directory}</jacoco.outputDir>
-        <jacoco.out.ut.file>jacoco-ut.exec</jacoco.out.ut.file>
-        <sonar.jacoco.reportPath>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPath>
+        <sonar-jacoco-listeners.version>3.2</sonar-jacoco-listeners.version>
+        <jacoco.output.directory>${project.build.directory}/jacoco</jacoco.output.directory>
+        <jacoco.report.directory>${project.build.directory}/jacoco-reports</jacoco.report.directory>
+        <jacoco.out.file>jacoco.exec</jacoco.out.file>        
+        <sonar.jacoco.reportPath>${jacoco.output.directory}/${jacoco.out.file}</sonar.jacoco.reportPath>
     </properties>
     
     <scm>
@@ -62,6 +64,11 @@
     </distributionManagement>
     
     <dependencies>
+        <dependency>
+            <groupId>br.com.ppm</groupId>
+            <artifactId>ppm-commons</artifactId>
+            <version>${dependency.version.ppm-commons}</version>            
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -177,7 +184,7 @@
             </build>
         </profile>
         
-        <profile>            
+        <profile>
             <id>coverage</id>
             <build>
                 <plugins>
@@ -194,7 +201,6 @@
                                     <value>org.sonar.java.jacoco.JUnitListener</value>
                                 </property>
                             </properties>
-                            <!-- test failure ignore -->
                             <testFailureIgnore>true</testFailureIgnore>
                         </configuration>
                     </plugin>
@@ -210,8 +216,7 @@
                                     <name>listener</name>
                                     <value>org.sonar.java.jacoco.JUnitListener</value>
                                 </property>
-                            </properties>
-                            <!-- Let's put failsafe reports with surefire to have access to tests failures/success reports in sonar -->
+                            </properties>                            
                             <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                         </configuration>
                     </plugin>
@@ -219,6 +224,13 @@
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
                         <version>${dependency.version.jacoco}</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/*Test*.</exclude>
+                                <exclude>**/*br/com/ppm/test/fixtures/*</exclude>
+                                <exclude>**/*br/com/ppm/test/example/*</exclude>
+                            </excludes>
+                        </configuration>
                         <executions>
                             <!-- Prepares a variable, jacoco.agent.ut.arg, that contains the info to be passed to the JVM hosting the code being tested. -->
                             <execution>
@@ -231,6 +243,26 @@
                                     <destFile>${sonar.jacoco.reportPath}</destFile>
                                     <propertyName>jacoco.agent.ut.arg</propertyName>
                                     <append>true</append>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>post-unit-test</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- Sets the path to the file which contains the execution data. -->
+                                    <dataFile>${jacoco.output.directory}/${jacoco.out.file}</dataFile>
+                                    <!-- Sets the output directory for the code coverage report. -->
+                                    <outputDirectory>${jacoco.report.directory}</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>

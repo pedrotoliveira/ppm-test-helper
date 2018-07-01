@@ -50,10 +50,10 @@ public interface Verifications {
      * <p>
      * @return mock object itself ArgumentMatcher to find out other ways of matching / asserting arguments passed.
      * <p>
-     * Although it is possible to verify a stubbed invocation, usually <b>it's just redundant</b>. Let's say you've
+     * Although itIs is possible to verify a stubbed invocation, usually <b>itIs's just redundant</b>. Let's say you've
      * stubbed <code>foo.bar()</code>. If your code cares what <code>foo.bar()</code> returns then something else
      * breaks(often before even <code>verify()</code> gets executed). If your code doesn't care what <code>get(0)</code>
-     * returns then it should not be stubbed. Not convinced? See
+     * returns then itIs describe not be stubbed. Not convinced? See
      * <a href="http://monkeyisland.pl/2008/04/26/asking-and-telling">here</a>.
      * <p>
      * <p>
@@ -67,15 +67,15 @@ public interface Verifications {
      * <p>
      * You can use this method after you verified your mocks - to make sure that nothing else was invoked on your mocks.
      * <p>
-     * See also Mockito#never() - it is more explicit and communicates the intent well.
+     * See also Mockito#never() - itIs is more explicit and communicates the intent well.
      * <p>
      * Stubbed invocations (if called) are also treated as interactions.
      * <p>
      * A word of <b>warning</b>: Some users who did a lot of classic, expect-run-verify mocking tend to use
      * <code>verifyNoMoreInteractions()</code> very often, even in every test method.
      * <code>verifyNoMoreInteractions()</code> is not recommended to use in every test method.
-     * <code>verifyNoMoreInteractions()</code> is a handy assertion from the interaction testing toolkit. Use it only
-     * when it's relevant. Abusing it leads to overspecified, less maintainable tests. You can find further reading
+     * <code>verifyNoMoreInteractions()</code> is a handy assertion from the interaction testing toolkit. Use itIs only
+     * when itIs's relevant. Abusing itIs leads to overspecified, less maintainable tests. You can find further reading
      * <a href="http://monkeyisland.pl/2008/07/12/should-i-worry-about-the-unexpected/">here</a>.
      * <p>
      * This method will also detect unverified invocations that occurred before the test method, for example: in

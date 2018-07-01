@@ -24,13 +24,7 @@ import java.util.Objects;
  */
 public class GivenData<DataType> implements Given<DataType>, Expectations {
 
-    /**
-     * The Test description.
-     */
     private final String description;
-    /**
-     * The given data.
-     */
     private final DataType data;
 
     /**
@@ -45,18 +39,18 @@ public class GivenData<DataType> implements Given<DataType>, Expectations {
     }
 
     @Override
-    public MethodInvoker<DataType> test(final Object testInstance) {
-        return new MethodInvoker<>(testInstance, this, description);
+    public <I> MethodInvoker<I, DataType> call(final I testInstance) {
+        return new MethodInvoker<>(description, testInstance, this);
     }
 
     @Override
-    public <ReturnType> StubbingWrapper<ReturnType> when(final ReturnType methodCall) {
-        return new GivenDataAndStubbing<>(this, methodCall);
+    public <ReturnType> Stubbing<ReturnType> when(final ReturnType value) {
+        return new GivenDataAndStubbing<>(this, value);
     }
 
     @Override
-    public <ReturnType> ReturnWrapper<ReturnType> wrapResult(final ReturnType methodCall) {
-        return new ReturnWrapper<>(methodCall, description);
+    public <ReturnType> ReturnWrapper<ReturnType> wrapResult(final ReturnType value) {
+        return new ReturnWrapper<>(value, description);
     }
 
     public String getDescription() {
@@ -98,6 +92,6 @@ public class GivenData<DataType> implements Given<DataType>, Expectations {
 
     @Override
     public String toString() {
-        return "GivenData [" + "description=" + description + ", data=" + data + ']';
+        return "GivenData[" + "description=" + description + ", data=" + data + ']';
     }
 }

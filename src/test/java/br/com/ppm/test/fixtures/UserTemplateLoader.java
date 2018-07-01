@@ -17,8 +17,8 @@
 package br.com.ppm.test.fixtures;
 
 import br.com.ppm.test.helper.FixtureTemplateLoader;
-import br.com.ppm.test.samples.model.Address;
-import br.com.ppm.test.samples.model.User;
+import br.com.ppm.test.model.Address;
+import br.com.ppm.test.model.User;
 
 /**
  * User Template Loader

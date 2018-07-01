@@ -11,17 +11,17 @@ import org.mockito.Mockito;
 public abstract class FluentTestHelper extends FixtureTestHelper implements FluentTest {
 
     @Override
-    public TestCase testCase() {
-        return new TestCase(this.getClass().getSimpleName());
-    }
-
-    @Override
     public TestCase testCase(String description) {
         return new TestCase(description);
     }
 
+    @Override
+    public TestCase describe(String description) {
+        return testCase(description);
+    }
+
     /**
-     * Delegates to Mockito.inOrder.
+     * Delegates to Mockito#inOrder.
      *
      * @param mocks
      * @return InOrder

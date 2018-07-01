@@ -15,22 +15,19 @@
  */
 package br.com.ppm.test.helper;
 
-import br.com.ppm.test.samples.model.RegisterService;
-import br.com.ppm.test.samples.model.User;
-import br.com.ppm.test.samples.model.UserRepository;
+import br.com.ppm.test.model.User;
+import br.com.ppm.test.model.UserRepository;
 
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.stubbing.OngoingStubbing;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static br.com.ppm.test.helper.CommonTemplateLabels.VALID;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
 
 /**
  *
@@ -38,91 +35,85 @@ import static org.mockito.Mockito.when;
  */
 @SuppressWarnings("PMD.TooManyStaticImports")
 @RunWith(MockitoJUnitRunner.class)
-public class GivenDataAndStubbingTest {
+public class GivenDataAndStubbingTest extends FixtureTestHelper {
 
     @Mock
     private UserRepository userRepository;
-
-    private RegisterService registerService;
     private User user;
     private GivenData<User> givenData;
     private String description;
 
-    private GivenDataAndStubbing<User, User> givenDataAndStubbing;
+    @BeforeClass
+    public static void beforeAll() {
+        setUpFixtures("br.com.ppm.test.fixtures");
+    }
 
     @Before
-    public void setUp() {
-        this.description = "Test Given  And Stubbing";
-        this.user = new User("123", "test", "test@gmail.com");
+    public void beforeEach() {
+        this.description = "Test Given And Stubbing";
+        this.user = fixtureFrom(User.class).gimme(VALID);
         this.givenData = new GivenData<>(user, description);
-        when(userRepository.save(user)).thenReturn(user);
-        this.registerService = new RegisterService(userRepository);
-        this.givenDataAndStubbing = new GivenDataAndStubbing(givenData, registerService.register(user));
     }
 
     @Test
     public void testReturnValue() {
-        assertThat(givenDataAndStubbing.returnValue(user), equalTo(givenData));
+        GivenDataAndStubbing<User, User> givenDataAndStub = new GivenDataAndStubbing<>(givenData, userRepository.save(user));
+        assertThat("Should be equal to given data",
+                givenDataAndStub.returnValue(user), equalTo(givenData));
     }
 
     @Test
     public void testWillReturn() {
-        assertThat(givenDataAndStubbing.willReturn(user), equalTo(givenData));
+        GivenDataAndStubbing<User, User> givenDataAndStub = new GivenDataAndStubbing<>(givenData, userRepository.save(user));
+        assertThat("Should be equal to given data",
+                givenDataAndStub.willReturn(user), equalTo(givenData));
     }
 
     @Test
-    public void testThenReturnGenericType() {
-        assertThat(givenDataAndStubbing.thenReturn(user), new IsInstanceOf(OngoingStubbing.class));
+    public void testThenReturn() {
+        GivenDataAndStubbing<User, User> givenDataAndStub = new GivenDataAndStubbing<>(givenData, userRepository.save(user));
+        assertThat("thenReturn describe return a Instance of Stubbing",
+                givenDataAndStub.thenReturn(user), instanceOf(Stubbing.class));
     }
 
     @Test
-    public void testThenReturnMultipleGenericTypes() {
-        assertThat(givenDataAndStubbing.thenReturn(user, user), new IsInstanceOf(OngoingStubbing.class));
+    public void testThenReturnMultipleTypes() {
+        GivenDataAndStubbing<User, User> givenDataAndStub = new GivenDataAndStubbing<>(givenData, userRepository.save(user));
+        assertThat("thenReturn describe return a Instance of Stubbing",
+                givenDataAndStub.thenReturn(user, user), instanceOf(Stubbing.class));
     }
 
     @Test
     public void testThenThrow() {
-        assertThat(givenDataAndStubbing.thenThrow(new RuntimeException("ERROR")), new IsInstanceOf(OngoingStubbing.class));
+        GivenDataAndStubbing<User, User> givenDataAndStub = new GivenDataAndStubbing<>(givenData, userRepository.save(user));
+        assertThat("thenThrow describe return a Instance of Stubbing",
+                givenDataAndStub.thenThrow(new RuntimeException("ERROR")), instanceOf(Stubbing.class));
     }
 
     @Test
-    @Ignore("To Fix")
-    public void testThenThrowClasses() {
-        assertThat(givenDataAndStubbing.thenThrow(RuntimeException.class), new IsInstanceOf(OngoingStubbing.class));
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
-    @Ignore("To Fix")
-    public void testThenCallRealMethod() {
-        givenDataAndStubbing.thenCallRealMethod();
+    public void testThenThrowMultipleCalls() {
+        GivenDataAndStubbing<User, User> givenDataAndStub = new GivenDataAndStubbing<>(givenData, userRepository.save(user));
+        assertThat("thenThrow with multiple exceptions describe return a Instance of Stubbing",
+                givenDataAndStub.thenThrow(new RuntimeException("ERROR1"), new RuntimeException("ERROR2")),
+                instanceOf(Stubbing.class));
     }
 
     @Test
     public void testThenAnswer() {
-        OngoingStubbing<User> stubbing = givenDataAndStubbing.thenAnswer((answer) -> {
+        GivenDataAndStubbing<User, User> givenDataAndStub = new GivenDataAndStubbing<>(givenData, userRepository.save(user));
+        Stubbing<User> stubbing = givenDataAndStub.thenAnswer((answer) -> {
             return this.user;
         });
-        assertNotNull(stubbing);
+        assertNotNull("Expect a Stubbing Instance", stubbing);
     }
 
     @Test
-    @Ignore("To Fix")
-    public void testGetMock() {
-        assertThat(givenDataAndStubbing.getMock(), new IsInstanceOf(user.getClass()));
-    }
-
-    @Test
-    @Ignore("To Fix")
-    public void testThen_0args() {
-        System.out.println("then");
-        //fail("The test case is a prototype.");
-    }
-
-    @Test
-    @Ignore("To Fix")
     public void testWhen() {
-        System.out.println("when");
-        //fail("The test case is a prototype.");
+        Stubbing<User> stubbing = new GivenDataAndStubbing<>(givenData, userRepository.save(user))
+                .thenReturn(user)
+                .when(userRepository.save(user))
+                .thenReturn(user);
+        assertNotNull("Expect a Stubbing Instance", stubbing);
     }
 
 }

@@ -1,4 +1,4 @@
-package br.com.ppm.test.samples.model;
+package br.com.ppm.test.model;
 
 import java.util.Objects;
 
@@ -25,7 +25,11 @@ public class User {
 		this.name = name;
 		this.email = email;
 		this.address = address;
-	}
+    }
+
+    public User(final User user) {
+        this(user.getId(), user.getName(), user.getEmail(), user.getAddress());
+    }
 
     public String getId() {
         return id;

@@ -61,7 +61,7 @@ public class AssertionsWrapper {
     }
 
     /**
-     * Asserts that a condition is true. If it isn't it throws an {@link AssertionError} with the given message.
+     * Asserts that a condition is true. If itIs isn't itIs throws an {@link AssertionError} with the given message.
      *
      * @param message the identifying message for the {@link AssertionError} (<code>null</code> okay)
      * @param condition condition to be checked
@@ -71,7 +71,7 @@ public class AssertionsWrapper {
     }
 
     /**
-     * Asserts that a condition is false. If it isn't it throws an {@link AssertionError} with the given message.
+     * Asserts that a condition is false. If itIs isn't itIs throws an {@link AssertionError} with the given message.
      *
      * @param message the identifying message for the {@link AssertionError} (<code>null</code> okay)
      * @param condition condition to be checked

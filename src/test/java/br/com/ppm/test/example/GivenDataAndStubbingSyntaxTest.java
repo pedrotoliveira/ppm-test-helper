@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package br.com.ppm.test.samples;
+package br.com.ppm.test.example;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.ppm.test.helper.FluentTestHelper;
-import br.com.ppm.test.samples.model.RegisterService;
-import br.com.ppm.test.samples.model.User;
-import br.com.ppm.test.samples.model.UserRepository;
+import br.com.ppm.test.helper.*;
+import br.com.ppm.test.model.RegisterService;
+import br.com.ppm.test.model.User;
+import br.com.ppm.test.model.UserRepository;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
@@ -35,7 +36,7 @@ import org.mockito.runners.MockitoJUnitRunner;
  * @author pedrotoliveira
  */
 @RunWith(MockitoJUnitRunner.class)
-public class GivenDataAndStubbingSyntax extends FluentTestHelper {
+public class GivenDataAndStubbingSyntaxTest extends FluentTestHelper {
 
     @Mock
     private UserRepository repository;
@@ -55,7 +56,7 @@ public class GivenDataAndStubbingSyntax extends FluentTestHelper {
         testCase("Register - Success")
                 .given(userToRegister)
                 .when(repository.save(userToRegister)).then().returnValue(registeredUser)
-                .test(service).method("register", User.class)
+                .call(service).method("register", User.class)
                 .assertEqualTo(registeredUser)
                 .verify(repository).save(userToRegister);
     }
@@ -63,9 +64,10 @@ public class GivenDataAndStubbingSyntax extends FluentTestHelper {
     @Test
     public void testSyntaxNoData() throws Exception {
         List<User> allUsers = new ArrayList<>();
+        allUsers.add(new User("1", "pedro", "pedro@test.com"));
         testCase("Find All - Success")
                 .when(repository.findAll()).then().returnValue(allUsers)
-                .test(service).method("findAll", List.class)
+                .call(service).method("findAll", List.class)
                 .assertEqualTo(allUsers);
     }
 }
