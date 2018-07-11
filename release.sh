@@ -1,6 +1,6 @@
 #!/bin/bash
 ## Delete all local tags and get the list of remote tags:
 git tag -l | xargs git tag -d
-git fetch
+git fetch --prune
 ## Release Project
 ./mvnw release:prepare release:perform deploy -Prelease
